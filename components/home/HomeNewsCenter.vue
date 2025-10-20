@@ -1,75 +1,68 @@
 <template>
   <section class="home-news">
     <div class="home-news__container">
-      <header class="home-news__header">
-        <div>
-          <h2 class="home-news__title">新闻中心</h2>
-          <p class="home-news__subtitle">NEWS CENTER</p>
-        </div>
-        <NuxtLink to="/news" class="home-news__more">更多</NuxtLink>
-      </header>
-
-      <nav class="home-news__tabs" role="tablist">
-        <button
-          v-for="category in categories"
-          :key="category.key"
-          class="home-news__tab"
-          :class="{ 'is-active': category.key === activeKey }"
-          role="tab"
-          type="button"
-          :aria-selected="category.key === activeKey"
-          @click="activeKey = category.key"
-        >
-          {{ category.label }}
-        </button>
-      </nav>
 
       <div class="home-news__content" v-if="activeCategory">
         <div class="home-news__highlight">
+
+          <header class="home-news__header">
+            <div class="home-news__heading">
+              <h2 class="home-news__title">新闻中心</h2>
+              <span class="home-news__subtitle">NEWS CENTER</span>
+            </div>
+          </header>
           <ElCarousel
             :interval="5000"
             arrow="never"
-            height="380px"
-            indicator-position="outside"
+            height="433px"
             autoplay
           >
             <ElCarouselItem
               v-for="highlight in activeCategory.highlights"
               :key="highlight.image"
             >
-              <a
-                class="home-news__highlight-slide"
-                :href="highlight.link"
-                target="_blank"
-                rel="noopener"
-              >
+              <div class="home-news__highlight-image">
                 <img :src="highlight.image" :alt="highlight.title" />
-                <span class="home-news__highlight-caption">{{
-                  highlight.title
-                }}</span>
-              </a>
+              </div>
             </ElCarouselItem>
           </ElCarousel>
         </div>
 
-        <ul class="home-news__list">
-          <li
-            v-for="item in activeCategory.items"
-            :key="item.title"
-            class="home-news__list-item"
-          >
-            <a :href="item.link" target="_blank" rel="noopener">
-              <div class="home-news__date">
-                <span class="home-news__day">{{ item.day }}</span>
-                <span class="home-news__year-month">{{ item.yearMonth }}</span>
-              </div>
-              <div class="home-news__info">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.summary }}</p>
-              </div>
-            </a>
-          </li>
-        </ul>
+        <div class="home-news__articles">
+          <nav class="home-news__tabs" role="tablist">
+            <button
+              v-for="category in categories"
+              :key="category.key"
+              class="home-news__tab"
+              :class="{ 'is-active': category.key === activeKey }"
+              role="tab"
+              type="button"
+              :aria-selected="category.key === activeKey"
+              @click="activeKey = category.key"
+            >
+              {{ category.label }}
+            </button>
+          </nav>
+
+          <ul class="home-news__list">
+            <li
+              v-for="item in activeCategory.items"
+              :key="item.title"
+              class="home-news__list-item"
+            >
+              <a :href="item.link" target="_blank" rel="noopener">
+                <div class="home-news__date">
+                  <span class="home-news__day">{{ item.day }}</span>
+                  <span class="home-news__year-month">{{ item.yearMonth }}</span>
+                </div>
+                <div class="home-news__info">
+                  <div class="title">{{ item.title }}</div>
+                  <p>{{ item.summary }}</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -97,26 +90,27 @@ interface NewsCategory {
   items: NewsItem[]
 }
 
+import highlight1 from '~/assets/images/home/2_160935322406.png'
+import highlight2 from '~/assets/images/home/2_201438518443.png'
+import highlight3 from '~/assets/images/home/2_201437221155.jpg'
+
 const categories: NewsCategory[] = [
   {
     key: 'company',
     label: '公司要闻',
     highlights: [
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_160935322406.png',
+        image: highlight1,
         title: '公司重要活动现场',
         link: 'https://www.spicib.com/html/view_160.html',
       },
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_201438518443.png',
+        image: highlight2,
         title: '党建活动与专题培训',
         link: 'https://www.spicib.com/html/view_152.html',
       },
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_201437221155.jpg',
+        image: highlight3,
         title: '合作伙伴签约仪式',
         link: 'https://www.spicib.com/html/view_159.html',
       },
@@ -161,20 +155,17 @@ const categories: NewsCategory[] = [
     label: '行业资讯',
     highlights: [
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_201436168516.jpg',
+        image: highlight1,
         title: '能源行业专题论坛',
         link: 'https://www.spicib.com/html/view_47.html',
       },
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_201438518443.png',
+        image: highlight2,
         title: '双碳政策研讨',
         link: 'https://www.spicib.com/html/view_39.html',
       },
       {
-        image:
-          'https://www.spicib.com/uploads/image/202112/1_160935322406.png',
+        image: highlight3,
         title: '科技创新成果展示',
         link: 'https://www.spicib.com/html/view_38.html',
       },
@@ -221,228 +212,278 @@ const activeKey = ref<NewsCategory['key']>(categories[0].key)
 const activeCategory = computed(() =>
   categories.find((category) => category.key === activeKey.value),
 )
+
+// no additional logic required
 </script>
 
 <style scoped lang="scss">
 .home-news {
   background-color: #fff;
-  padding: 64px 0;
+  padding: 56px 0 72px;
 
   &__container {
-    width: min(1200px, 100%);
+    width: min(1180px, 100%);
     margin: 0 auto;
     padding: 0 16px;
   }
 
-  &__header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 16px;
-    margin-bottom: 24px;
-  }
-
-  &__title {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 700;
-    color: #333;
-    letter-spacing: 0.08em;
-  }
-
-  &__subtitle {
-    margin: 4px 0 0;
-    font-size: 18px;
-    color: #c4c4c4;
-    letter-spacing: 0.3em;
-  }
-
-  &__more {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 40px;
-    border-radius: 999px;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-    background-color: #c60c1a;
-    color: #fff;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: #b00a16;
-    }
-  }
-
-  &__tabs {
-    display: inline-flex;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  &__tab {
-    padding: 8px 18px;
-    border: 1px solid #d9d9d9;
-    border-radius: 999px;
-    background-color: #f7f7f7;
-    color: #666;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &.is-active {
-      background-color: #c60c1a;
-      border-color: #c60c1a;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    &:hover:not(.is-active) {
-      background-color: #ececec;
-    }
-  }
-
   &__content {
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 32px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+    align-items: stretch;
   }
 
   &__highlight {
-    .el-carousel__container {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    // background-color: #fff;
+    // box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+    // min-height: 420px;
+    display: flex;
+    flex-direction: column;
+
+    .home-news__header {
+      margin-bottom: 30px;
+    }
+
+    .home-news__heading {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .home-news__title {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #1a1a1a;
+    }
+
+    .home-news__subtitle {
+      margin: 0;
+      font-size: 16px;
+      color: #c7c7c7;
+      letter-spacing: 0.28em;
+    }
+
+    :deep(.el-carousel__indicators--horizontal) {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    :deep(.el-carousel__container) {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    :deep(.el-carousel__indicator) {
+      margin: 0;
+
+      &.is-active button {
+        background-color: #c60c1a;
+        opacity: 1;
+      }
+    }
+
+    :deep(.el-carousel__indicator button) {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background-color: rgba(0, 0, 0, 0.2);
+      opacity: 0.6;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        opacity: 0.85;
+      }
     }
   }
 
-  &__highlight-slide {
-    position: relative;
-    display: block;
+  &__highlight-image {
     width: 100%;
     height: 100%;
 
     img {
-      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
 
-  &__highlight-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 16px 24px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
-    color: #fff;
+  &__articles {
+    display: flex;
+    flex-direction: column;
+    // gap: 22px;
+    min-height: 420px;
+  }
+
+  &__tabs {
+    display: inline-flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  &__tab {
+    min-width: 140px;
+    padding: 10px 28px;
+    border: 1px solid #e6e6e6;
+    border-radius: 999px;
+    background-color: #fafafa;
+    color: #999;
     font-size: 18px;
-    font-weight: 600;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &.is-active {
+      border-color: #e41b1b;
+      background-color: #e41b1b;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(198, 12, 26, 0.28);
+    }
+
+    &:hover:not(.is-active) {
+      background-color: #ededed;
+    }
   }
 
   &__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    // border-top: 1px solid #f1f1f1;
   }
 
   &__list-item {
-    border-bottom: 1px solid #ededed;
-    padding-bottom: 18px;
-
-    &:last-child {
-      border-bottom: none;
-    }
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s ease;
 
     a {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 20px;
-      align-items: start;
+      grid-template-columns: 92px 1fr;
+      gap: 26px;
+      align-items: center;
       text-decoration: none;
       color: inherit;
+      // padding: 14px 0;
+    }
+
+    &:hover {
+      background-color: rgba(198, 12, 26, 0.06);
     }
   }
 
   &__date {
-    border-right: 1px solid #ebebeb;
-    padding-right: 12px;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    // padding: 16px 0;
+    // border-radius: 4px;
+    background-color: #e41b1b;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-align: center;
   }
 
   &__day {
-    display: block;
-    font-size: 28px;
-    font-weight: 700;
-    color: #c60c1a;
+    font-size: 30px;
+    line-height: 1;
   }
 
   &__year-month {
-    font-size: 14px;
-    color: #999;
+    font-size: 13px;
+    opacity: 0.85;
   }
 
   &__info {
-    h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+    .title {
+      margin: 0 0 6px;
+      font-size: 16px;
       color: #333;
       line-height: 1.4;
+      padding-top: 8px;
     }
 
     p {
-      margin: 0;
-      font-size: 15px;
+      font-size: 16px;
       color: #666;
       line-height: 1.6;
+      // min-height: calc(1.6em * 2);
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
   }
 }
 
-@media (max-width: 1024px) {
-  .home-news {
-    padding: 48px 0;
+// @media (max-width: 1024px) {
+//   .home-news {
+//     padding: 48px 0;
 
-    &__content {
-      grid-template-columns: 1fr;
-    }
+//     &__content {
+//       grid-template-columns: 1fr;
+//       gap: 36px;
+//     }
 
-    &__highlight {
-      order: -1;
-    }
+//     &__tabs {
+//       justify-content: center;
+//     }
 
-    &__list-item a {
-      grid-template-columns: 70px 1fr;
-    }
-  }
-}
+//     &__tab {
+//       flex: 1;
+//       text-align: center;
+//     }
+//   }
+// }
 
-@media (max-width: 640px) {
-  .home-news__tabs {
-    width: 100%;
-    justify-content: space-between;
-  }
+// @media (max-width: 640px) {
+//   .home-news {
+//     &__heading {
+//       flex-direction: column;
+//       gap: 4px;
+//     }
 
-  .home-news__list-item a {
-    grid-template-columns: 1fr;
-  }
+//     &__content {
+//       gap: 28px;
+//     }
 
-  .home-news__date {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    border-right: none;
-    padding-right: 0;
-    margin-bottom: 8px;
-    text-align: left;
-  }
-}
+//     &__tabs {
+//       flex-wrap: wrap;
+//       justify-content: center;
+//       gap: 10px;
+//     }
+
+//     &__tab {
+//       min-width: auto;
+//       padding: 10px 18px;
+//       font-size: 16px;
+//       letter-spacing: 0.12em;
+//     }
+
+//     &__list-item a {
+//       grid-template-columns: 80px 1fr;
+//       gap: 16px;
+//       padding: 16px 0;
+//     }
+
+//     &__date {
+//       padding: 12px 0;
+//     }
+//   }
+// }
 </style>
