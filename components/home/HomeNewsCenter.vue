@@ -422,7 +422,7 @@ const activeCategory = computed(() =>
       font-size: 16px;
       color: #666;
       line-height: 1.6;
-      // min-height: calc(1.6em * 2);
+      height: 3.2em;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
