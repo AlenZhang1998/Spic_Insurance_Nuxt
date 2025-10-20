@@ -1,25 +1,7 @@
 <template>
-  <div class="_layout">
-    <!-- <NuxtRouteAnnouncer />
-    <NuxtWelcome /> -->
-    <!-- <v-progress-circular
-      :size="50"
-      color="primary"
-      indeterminate
-    ></v-progress-circular>
-    <van-button type="primary" @click="showToast('toast')">button</van-button>
-
-    <div class="my-component">
-      <h1>Hello SCSS!</h1>
-      <p>{{ $t('a.title') }}</p>
-    </div> -->
-    <div>国家电投集团保险经纪有限公司</div>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-
-    <div>底部</div>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <script setup>
@@ -54,13 +36,9 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
-.my-component {
-  h1 {
-    font-size: 24px;
-    color: var(--pink-color); // 使用 SCSS 变量
-  }
-  p {
-    font-size: 16px;
-  }
+:global(body) {
+  margin: 0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background-color: #f5f5f5;
 }
 </style>
