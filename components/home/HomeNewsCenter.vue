@@ -369,7 +369,7 @@ const activeCategory = computed(() =>
 
     a {
       display: grid;
-      grid-template-columns: 92px 1fr;
+      grid-template-columns: 92px 1fr; 
       gap: 26px;
       align-items: center;
       text-decoration: none;
