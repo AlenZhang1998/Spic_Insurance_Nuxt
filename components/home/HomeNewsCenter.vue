@@ -263,10 +263,18 @@ const activeCategory = computed(() =>
     }
 
     .home-news__subtitle {
-      margin: 0;
-      font-size: 16px;
-      color: #c7c7c7;
-      letter-spacing: 0.28em;
+      // margin: 0;
+      // font-size: 16px;
+      // color: #c7c7c7;
+      // letter-spacing: 0.28em;
+      display: block;
+      color: #cacaca;
+      font-size: 20px;
+      float: right;
+      height: 40px;
+      line-height: 50px;
+      // margin-left: 10px;
+      font-weight: bold;
     }
 
     :deep(.el-carousel__indicators--horizontal) {

@@ -2,41 +2,38 @@
   <section class="home-business">
     <div class="home-business__container">
       <header class="home-business__header">
-        <div>
+        <div class="home-business__heading">
           <h2 class="home-business__title">主营业务</h2>
-          <p class="home-business__subtitle">FINANCIAL SERVICE</p>
+          <span class="home-business__subtitle">FINANCIAL SERVICE</span>
         </div>
         <NuxtLink to="/business-overview" class="home-business__more">
           更多
         </NuxtLink>
       </header>
 
-      <div class="home-business__content">
+      <div class="home-business__grid">
         <NuxtLink
-          v-if="featuredBusiness"
-          :to="featuredBusiness.href"
-          class="home-business__lead"
+          v-if="leadCard"
+          :to="leadCard.href"
+          class="home-business__card home-business__card--lead"
         >
-          <img :src="featuredBusiness.image" :alt="featuredBusiness.title" />
-          <div class="home-business__overlay">
-            <p class="home-business__category">综合解决方案</p>
-            <h3>{{ featuredBusiness.title }}</h3>
-            <p>{{ featuredBusiness.description }}</p>
-          </div>
+          <img :src="leadCard.image" :alt="leadCard.title" />
+          <!-- <div class="home-business__card-overlay">
+            <h3>{{ leadCard.title }}</h3>
+          </div> -->
         </NuxtLink>
 
-        <div class="home-business__grid">
+        <div class="home-business__aside">
           <NuxtLink
-            v-for="item in secondaryBusinesses"
-            :key="item.title"
-            :to="item.href"
-            class="home-business__card"
+            v-for="card in secondaryCards"
+            :key="card.title"
+            :to="card.href"
+            class="home-business__card home-business__card--secondary"
           >
-            <img :src="item.image" :alt="item.title" />
-            <div class="home-business__card-overlay">
-              <h4>{{ item.title }}</h4>
-              <p>{{ item.description }}</p>
-            </div>
+            <img :src="card.image" :alt="card.title" />
+            <!-- <div class="home-business__card-overlay">
+              <h4>{{ card.title }}</h4>
+            </div> -->
           </NuxtLink>
         </div>
       </div>
@@ -45,59 +42,55 @@
 </template>
 
 <script setup lang="ts">
-interface BusinessItem {
+import { computed } from 'vue'
+import businessImage1 from '~/assets/images/home/4_yewu01.jpg'
+import businessImage2 from '~/assets/images/home/4_yewu02.jpg'
+import businessImage3 from '~/assets/images/home/4_yewu03.jpg'
+import businessImage4 from '~/assets/images/home/4_yewu04.jpg'
+import businessImage5 from '~/assets/images/home/4_yewu05.jpg'
+
+interface BusinessCard {
   title: string
-  description: string
-  image: string
   href: string
+  image: string
 }
 
-const businesses: BusinessItem[] = [
+const businessCards: BusinessCard[] = [
   {
-    title: '集团综合保险经纪服务',
-    description:
-      '聚焦电力能源主业，构建统一承保、统筹理赔的集团化风险管理体系。',
-    image: 'https://www.spicib.com/skin/images/yewu01.jpg',
+    title: '集团公司统保业务',
     href: '/business-overview',
+    image: businessImage1,
   },
   {
-    title: '工程与项目保险解决方案',
-    description:
-      '覆盖大型能源工程项目从建设到投运的全生命周期保险服务。',
-    image: 'https://www.spicib.com/skin/images/yewu02.jpg',
+    title: '重大专项及境外资产保险',
     href: '/business-overview/projects',
+    image: businessImage2,
   },
   {
-    title: '企业员工福利与健康保障',
-    description:
-      '量身定制员工福利计划，提升员工满意度与组织保障能力。',
-    image: 'https://www.spicib.com/skin/images/yewu03.jpg',
+    title: '创新业务',
     href: '/business-overview/employees',
+    image: businessImage3,
   },
   {
-    title: '贸易与海外业务风险管理',
-    description:
-      '提供进出口贸易、海外投资的合规咨询与保险安排服务。',
-    image: 'https://www.spicib.com/skin/images/yewu04.jpg',
+    title: '产权经纪业务',
     href: '/business-overview/global',
+    image: businessImage4,
   },
   {
-    title: '科技创新与数字平台赋能',
-    description:
-      '以融和e保平台为核心，打造在线风险预警、投保与运维服务。',
-    image: 'https://www.spicib.com/skin/images/yewu05.jpg',
+    title: '综合金融解决方案',
     href: '/integrated-services',
+    image: businessImage5,
   },
 ]
 
-const featuredBusiness = computed(() => businesses[0])
-const secondaryBusinesses = computed(() => businesses.slice(1))
+const leadCard = computed(() => businessCards[0])
+const secondaryCards = computed(() => businessCards.slice(1))
 </script>
 
 <style scoped lang="scss">
 .home-business {
-  background-color: #fafafa;
-  padding: 64px 0;
+  background-color: #fff;
+  padding: 72px 0;
 
   &__container {
     width: min(1200px, 100%);
@@ -109,125 +102,122 @@ const secondaryBusinesses = computed(() => businesses.slice(1))
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
+  }
+
+  &__heading {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
   }
 
   &__title {
     margin: 0;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
     color: #333;
     letter-spacing: 0.08em;
   }
 
   &__subtitle {
+    display: inline-block;
     margin: 4px 0 0;
     font-size: 18px;
+    letter-spacing: 0.28em;
     color: #c4c4c4;
-    letter-spacing: 0.3em;
+    font-weight: 600;
   }
 
   &__more {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 90px;
-    height: 40px;
-    border-radius: 999px;
+    width: 80px;
+    height: 36px;
+    border-radius: 10px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
-    background-color: #4f4c4c;
+    background-color: #a7a5a4;
     color: #fff;
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #383535;
+      background-color: #5f5d5c;
     }
-  }
-
-  &__content {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 28px;
-  }
-
-  &__lead {
-    position: relative;
-    display: block;
-    border-radius: 24px;
-    overflow: hidden;
-    height: 100%;
-    min-height: 280px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-    text-decoration: none;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    &:hover img {
-      transform: scale(1.05);
-    }
-  }
-
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 32px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 100%);
-    color: #fff;
-
-    h3 {
-      margin: 8px 0 12px;
-      font-size: 26px;
-    }
-
-    p {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
-    }
-  }
-
-  &__category {
-    margin: 0;
-    font-size: 14px;
-    letter-spacing: 0.32em;
-    color: rgba(255, 255, 255, 0.7);
   }
 
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    display: flex;
+    gap: 32px;
+    align-items: stretch;
   }
 
   &__card {
     position: relative;
     display: block;
-    min-height: 180px;
-    border-radius: 18px;
     overflow: hidden;
-    text-decoration: none;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    // background-color: #fff;
+    // text-decoration: none;
+    // box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+    // transition: transform 0.35s ease, box-shadow 0.35s ease;
 
+    // img {
+    //   display: block;
+    //   max-width: 93%;
+    //   // width: 100%;
+    //   // height: 100%;
+    //   // object-fit: cover;
+    //   transition: transform 0.45s ease;
+    // }
+
+    // &:hover {
+    //   transform: translateY(-6px);
+    //   box-shadow: 0 26px 48px rgba(0, 0, 0, 0.16);
+    // }
+
+    // &:hover img {
+    //   transform: scale(1.04);
+    // }
+  }
+
+  &__card--lead {
+    // flex: 0 0 58%;
+    // max-width: 93%;
+    // min-height: 420px;
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
+      display: block;
+      max-width: 93%;
+      // width: 100%;
+      // height: 100%;
+      // object-fit: cover;
+      transition: transform 0.45s ease;
     }
+  }
 
-    &:hover img {
-      transform: scale(1.05);
+  &__aside {
+    flex: 1 1 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    gap: 10px 30px;
+  }
+
+  &__card--secondary {
+    // flex: 0 0 calc(50% - 10px);
+    // max-width: calc(50% - 10px);
+    // height: calc(50% - 11px);
+    position: relative;
+    img {
+      display: block;
+      max-width: 88%;
+      // width: 100%;
+      // height: 100%;
+      // object-fit: cover;
+      // transition: transform 0.45s ease;
+      // position: absolute;
+      // right: 0;
     }
   }
 
@@ -235,43 +225,100 @@ const secondaryBusinesses = computed(() => businesses.slice(1))
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 24px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.75) 100%);
-    color: #fff;
+    align-items: flex-start;
+    padding: 26px 28px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.82) 40%,
+      rgba(255, 255, 255, 0.3) 72%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+
+    h3,
+    h4 {
+      margin: 0;
+      color: #242424;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.7);
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 1.2;
+    }
 
     h4 {
-      margin: 0 0 10px;
       font-size: 18px;
+      line-height: 1.2;
     }
+  }
+}
 
-    p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.85);
-    }
+@media (max-width: 1200px) {
+  .home-business__grid {
+    gap: 28px;
+  }
+
+  .home-business__card--lead {
+    min-height: 380px;
   }
 }
 
 @media (max-width: 1024px) {
   .home-business {
-    padding: 48px 0;
+    padding: 52px 0;
 
-    &__content {
-      grid-template-columns: 1fr;
+    &__grid {
+      flex-direction: column;
+      gap: 28px;
     }
 
-    &__lead {
-      min-height: 260px;
+    &__card--lead {
+      min-height: 320px;
+      max-width: none;
+      flex: none;
+    }
+
+    &__aside {
+      gap: 18px;
+      align-content: flex-start;
+    }
+
+    &__card--secondary {
+      flex: 1 1 calc(50% - 9px);
+      max-width: none;
+      height: auto;
     }
   }
 }
 
 @media (max-width: 768px) {
-  .home-business__grid {
-    grid-template-columns: 1fr;
+  .home-business__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .home-business__more {
+    align-self: flex-start;
+  }
+
+  .home-business__card {
+    min-height: 200px;
+  }
+
+  .home-business__aside {
+    flex-direction: column;
+    align-content: stretch;
+  }
+
+  .home-business__card--secondary {
+    flex: 1 1 auto;
+    height: auto;
   }
 }
 </style>
