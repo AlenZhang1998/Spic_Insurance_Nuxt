@@ -120,12 +120,13 @@ const secondaryCards = computed(() => businessCards.slice(1))
   }
 
   &__subtitle {
-    display: inline-block;
-    margin: 4px 0 0;
-    font-size: 18px;
-    letter-spacing: 0.28em;
-    color: #c4c4c4;
-    font-weight: 600;
+    display: block;
+      color: #cacaca;
+      font-size: 20px;
+      float: right;
+      height: 40px;
+      line-height: 50px;
+      font-weight: bold;
   }
 
   &__more {
