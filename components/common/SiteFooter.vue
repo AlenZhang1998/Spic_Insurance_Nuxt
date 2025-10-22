@@ -33,11 +33,13 @@
             </a>
           </p>
           <p class="site-footer__links">
-            <NuxtLink to="/legal">版权保护</NuxtLink>
             <span>|</span>
-            <NuxtLink to="/privacy">隐私与安全</NuxtLink>
+            <span to="/legal" class="label">版权保护</span>
             <span>|</span>
-            <NuxtLink to="/sitemap">网站导航</NuxtLink>
+            <span to="/privacy" class="label">隐私与安全</span>
+            <span>|</span>
+            <span to="/sitemap" class="label">网站导航</span>
+            <span>|</span>
           </p>
         </div>
     </div>
@@ -94,15 +96,15 @@ import footerQr from '~/assets/images/home/6_footwx.png'
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 26px;
+    gap: 10px;
     text-align: center;
   }
 
   .site-footer__address {
-    margin: 0;
-    font-size: 16px;
-    letter-spacing: 0.05em;
-    line-height: 1.8;
+    color: #ffffff;
+    font-size: 18px;
+    height: 25px;
+    line-height: 25px;
   }
 
   .site-footer__divider {
@@ -113,9 +115,13 @@ import footerQr from '~/assets/images/home/6_footwx.png'
   }
 
   .site-footer__copyright {
-    margin: 0;
-    font-size: 15px;
-    letter-spacing: 0.04em;
+    width: 100%;
+    // height: 45px;
+    // line-height: 45px;
+    font-size: 18px;
+    text-align: center;
+    color: #ffffff;
+    // padding-top: 20px;
 
     a {
       color: inherit;
@@ -128,15 +134,16 @@ import footerQr from '~/assets/images/home/6_footwx.png'
   }
 
   .site-footer__links {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    font-size: 14px;
 
-    span {
-      opacity: 0.75;
+    margin-top: -10px;
+    width: 100%;
+    // height: 25px;
+    // line-height: 25px;
+    font-size: 18px;
+    text-align: center;
+    color: #ffffff;
+    .label{
+      padding: 0 10px;
     }
   }
 }
