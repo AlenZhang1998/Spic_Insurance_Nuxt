@@ -21,6 +21,6 @@ import riskBannerImage from '~/assets/images/home/3_bj1.jpg'
 .home-risk-banner__image {
   display: block;
   width: 100%;
-  height: auto;
+  max-height: 400px;
 }
 </style>
