@@ -34,15 +34,18 @@
 
       <nav class="menu-bar">
         <div class="container menu-bar__inner">
-          <NuxtLink
-            v-for="item in navItems"
-            :key="item.to"
-            :to="item.to"
-            class="menu-bar__item"
-            :class="{ 'is-active': isActive(item.to) }"
-          >
-            {{ item.label }}
-          </NuxtLink>
+          <span v-if="navPending" class="menu-bar__loading">菜单加载中…</span>
+          <template v-else>
+            <NuxtLink
+              v-for="item in navItems"
+              :key="item.to"
+              :to="item.to"
+              class="menu-bar__item"
+              :class="{ 'is-active': isActive(item.to) }"
+            >
+              {{ item.label }}
+            </NuxtLink>
+          </template>
         </div>
       </nav>
     </header>
@@ -55,29 +58,23 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import logoAsset from '~/assets/images/image.png'
 import SiteFooter from '~/components/common/SiteFooter.vue'
 
 const route = useRoute()
 const router = useRouter()
 
-const navItems = [
-  { label: '首页', to: '/' },
-  { label: '关于我们', to: '/about' },
-  { label: '新闻中心', to: '/news' },
-  { label: '党的建设', to: '/party-building' },
-  { label: '业务概览', to: '/business-overview' },
-  { label: '信息披露', to: '/disclosure' },
-  { label: '融和e保', to: '/integrated-services' },
-  { label: '公示公告', to: '/announcements' },
-  { label: '联系我们', to: '/contact' },
-]
+const { data: navData, pending: navPending } = await useAsyncData('navigation', () =>
+  $fetch('/api/navigation'),
+)
+
+const navItems = computed(() => navData.value ?? [])
 
 const logoSrc = logoAsset
 const searchQuery = ref('')
 
-const isActive = (path: string) => {
+const isActive = (path) => {
   if (path === '/') {
     return route.path === '/'
   }
@@ -235,6 +232,12 @@ const onSearch = () => {
   display: flex;
   justify-content: center;
   gap: 0;
+}
+
+.menu-bar__loading {
+  color: #ffe5e5;
+  font-size: 16px;
+  letter-spacing: 0.08em;
 }
 
 .menu-bar__item {

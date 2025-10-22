@@ -1,5 +1,11 @@
 <template>
-  <div class="page-shell">
-    党的建设页面内容占位
-  </div>
+  <DynamicPage slug="party-building" />
 </template>
+
+<script setup>
+import DynamicPage from '~/components/common/DynamicPage.vue'
+
+useHead({
+  title: '党的建设 - 国家电投集团保险经纪有限公司',
+})
+</script>

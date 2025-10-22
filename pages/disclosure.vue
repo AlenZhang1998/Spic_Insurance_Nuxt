@@ -1,5 +1,11 @@
 <template>
-  <div class="page-shell">
-    信息披露页面内容占位
-  </div>
+  <DynamicPage slug="disclosure" />
 </template>
+
+<script setup>
+import DynamicPage from '~/components/common/DynamicPage.vue'
+
+useHead({
+  title: '信息披露 - 国家电投集团保险经纪有限公司',
+})
+</script>
