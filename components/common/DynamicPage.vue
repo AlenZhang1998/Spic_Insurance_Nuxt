@@ -149,17 +149,13 @@ const isActive = (target) => {
   }
 
   .content-page__banner {
-    width: 100%;
+    // width: 100%;
     // max-height: 280px;
-    overflow: hidden;
+    // overflow: hidden;
 
     img {
-      // width: 100%;
-      max-width: 100%;
-      // max-height: 359px;
-      // height: auto;
-      // display: block;
-      // object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
   }
 
