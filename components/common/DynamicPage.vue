@@ -5,8 +5,8 @@
       页面加载失败，请稍后重试。
     </div>
     <template v-else-if="page">
-      <section v-if="page.bannerImage" class="content-page__banner">
-        <img :src="page.bannerImage" :alt="page.bannerAlt || page.content?.title || ''" />
+      <section v-if="bannerSrc" class="content-page__banner">
+        <img :src="bannerSrc" :alt="page.bannerAlt || page.content?.title || ''" />
       </section>
 
       <nav v-if="page.breadcrumb && page.breadcrumb.length" class="content-page__breadcrumb">
@@ -59,7 +59,7 @@
               />
 
               <figure v-else-if="block.type === 'image'" class="content-page__image-block">
-                <img :src="block.src" :alt="block.alt || ''" />
+                <img :src="resolveAsset(block.src)" :alt="block.alt || ''" />
                 <figcaption v-if="block.caption">{{ block.caption }}</figcaption>
               </figure>
 
@@ -97,6 +97,31 @@ const { data, pending, error } = await useAsyncData(
 
 const page = computed(() => data.value || null)
 
+const assetModules = import.meta.glob('@/assets/**/*', {
+  eager: true,
+  import: 'default',
+})
+
+const assetMap = {}
+Object.entries(assetModules).forEach(([key, value]) => {
+  const normalized = key
+    .replace(/^.*[\\/]assets[\\/]/, '')
+    .replace(/\\/g, '/')
+  assetMap[normalized] = value
+})
+
+const resolveAsset = (path) => {
+  if (!path) {
+    return ''
+  }
+  if (path.startsWith('http') || path.startsWith('/')) {
+    return path
+  }
+  return assetMap[path] || ''
+}
+
+const bannerSrc = computed(() => resolveAsset(page.value?.bannerImage))
+
 const isActive = (target) => {
   if (!target) {
     return false
@@ -125,14 +150,16 @@ const isActive = (target) => {
 
   .content-page__banner {
     width: 100%;
-    max-height: 280px;
+    // max-height: 280px;
     overflow: hidden;
 
     img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
+      // width: 100%;
+      max-width: 100%;
+      // max-height: 359px;
+      // height: auto;
+      // display: block;
+      // object-fit: cover;
     }
   }
 

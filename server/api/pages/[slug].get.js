@@ -12,7 +12,7 @@ const contactInfo = {
 const pages = {
   about: {
     slug: 'about',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '关于我们', to: '/about' },
@@ -38,7 +38,7 @@ const pages = {
         },
         {
           type: 'image',
-          src: '/images/about/overview.jpg',
+          src: 'images/about/overview.jpg',
           alt: '公司园区形象',
         },
         {
@@ -54,7 +54,7 @@ const pages = {
   },
   news: {
     slug: 'news',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '新闻中心', to: '/news' },
@@ -82,7 +82,7 @@ const pages = {
   },
   'party-building': {
     slug: 'party-building',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '党的建设', to: '/party-building' },
@@ -110,7 +110,7 @@ const pages = {
   },
   'business-overview': {
     slug: 'business-overview',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '业务概览', to: '/business-overview' },
@@ -139,7 +139,7 @@ const pages = {
   },
   disclosure: {
     slug: 'disclosure',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '信息披露', to: '/disclosure' },
@@ -167,7 +167,7 @@ const pages = {
   },
   'integrated-services': {
     slug: 'integrated-services',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '融和e保', to: '/integrated-services' },
@@ -195,7 +195,7 @@ const pages = {
   },
   announcements: {
     slug: 'announcements',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '公示公告', to: '/announcements' },
@@ -223,7 +223,7 @@ const pages = {
   },
   contact: {
     slug: 'contact',
-    bannerImage: '/images/about/banner.jpg',
+    bannerImage: 'images/about/banner.jpg',
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '联系我们', to: '/contact' },
