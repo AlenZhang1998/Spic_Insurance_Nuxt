@@ -50,9 +50,9 @@
           </aside>
 
           <section class="content-page__main">
-            <header v-if="page.content?.title" class="content-page__header">
-              <h1>{{ page.content.title }}</h1>
-            </header>
+            <div v-if="page.content?.title" class="content-page__header">
+              <h3 class="content-page__title">{{ page.content.title }}</h3>
+            </div>
 
             <div class="content-page__blocks">
               <template v-for="(block, index) in page.content?.blocks || []" :key="index">
@@ -208,7 +208,7 @@ const isActive = (target) => {
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
-      gap: 36px;
+      gap: 63px;
       padding: 20px 0 56px;
       background-color: #fff;
       .content-page__sidebar {
@@ -357,35 +357,38 @@ const isActive = (target) => {
         display: flex;
         flex-direction: column;
 
-        .content-page__main-card {
-          background-color: #fff;
-          border: 1px solid #f0f2f5;
-          border-radius: 6px;
-          padding: 36px 46px 40px;
+        .content-page__header {
+          // position: relative;
+          // margin-bottom: 28px;
+          // padding-bottom: 18px;
+          // text-align: left;
 
-          .content-page__header {
+          .content-page__title{
+            height: 44px;
+            line-height: 44px;
+            font-size: 20px;
+            color: #545454;
+            border-bottom: 1px solid #ebebeb;
+            font-weight: normal;
             position: relative;
-            margin-bottom: 28px;
-            padding-bottom: 18px;
-            text-align: left;
-
-            h1 {
-              margin: 0;
-              font-size: 24px;
-              letter-spacing: 0.04em;
-              color: #222;
+            margin: 0;
+            &::after {
+              content: '';
+              width: 80px;
+              height: 1px;
+              background: #f79646;
+              position: absolute;
+              left: 0;
+              bottom: -1px;
             }
           }
+        }
 
-          .content-page__header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 72px;
-            height: 2px;
-            background-color: #f08a2d;
-          }
+        .content-page__main-card {
+          // background-color: #fff;
+          // border: 1px solid #f0f2f5;
+          // border-radius: 6px;
+          // padding: 36px 46px 40px;
 
           .content-page__blocks {
             display: flex;
