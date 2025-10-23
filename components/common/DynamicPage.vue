@@ -40,7 +40,7 @@
 
             <div v-if="page.sidebar.contact" class="content-page__contact">
               <h4 class="content-page__contact-title">{{ page.sidebar.contact.title }}</h4>
-              <ul>
+              <ul class="content-page__ul">
                 <li v-for="info in page.sidebar.contact.items" :key="info.label">
                   <span class="content-page__contact-label">{{ info.label }}：</span>
                   <span class="content-page__contact-value">{{ info.value }}</span>
@@ -160,42 +160,6 @@ const isActive = (target) => {
     }
   }
 
-  // .content-page__breadcrumb {
-  //   width: min(1200px, 100%);
-  //   margin: 0 auto;
-  //   height: 40px;
-  //   line-height: 40px;
-  //   background: #f3f3f3;
-  //   font-size: 12px;
-  //   // padding: 0 28px;
-  //   color: #2f2f2f;
-
-  //   .content-page__crumb {
-  //     position: relative;
-  //     padding-right: 20px;
-  //     color: inherit;
-  //     text-decoration: none;
-  //   }
-
-  //   .content-page__crumb::after {
-  //     content: '>';
-  //     position: absolute;
-  //     right: 6px;
-  //     top: 50%;
-  //     transform: translateY(-50%);
-  //     color: inherit;
-  //   }
-
-  //   .content-page__crumb.is-last {
-  //     font-weight: 600;
-  //     color: #333;
-  //   }
-
-  //   .content-page__crumb.is-last::after {
-  //     display: none;
-  //   }
-  // }
-
   .content-page__breadcrumb {
     // width: min(1200px, 100%);
     // // width: 100%;
@@ -204,7 +168,7 @@ const isActive = (target) => {
     max-width: 1200px;
     margin: 0 auto;
     font-size: 12px;
-    height: 40px;
+    height: 38px;
     line-height: 40px;
     background: #f3f3f3;
     color: #2f2f2f;
@@ -245,113 +209,147 @@ const isActive = (target) => {
       margin: 0 auto;
       display: flex;
       gap: 36px;
-      padding: 36px 32px 44px;
+      padding: 20px 0 56px;
       background-color: #fff;
       .content-page__sidebar {
-      width: 260px;
-      padding: 24px 22px 28px;
-      border: 1px solid #e4e7ed;
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-      
+        width: 338px;
+        // padding: 24px 22px 28px;
+        // border: 1px solid #e4e7ed;
+        // border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        // gap: 28px;
+        
 
-      .content-page__sidebar-title {
-        margin: 0;
-        font-size: 18px;
-        font-weight: 600;
-        color: #333;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #f3f3f3;
-        position: relative;
-      }
-
-      .content-page__sidebar-title::before {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 46px;
-        height: 2px;
-        background-color: #f18c2f;
-      }
-
-      .content-page__menu {
-        border: 1px solid #f2f2f2;
-        border-radius: 6px;
-        overflow: hidden;
-
-        .content-page__menu-item {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 14px 18px;
-          font-size: 15px;
-          color: #555;
-          text-decoration: none;
-          background-color: #fff;
-          border-bottom: 1px solid #f2f2f2;
-          transition: color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .content-page__menu-item::after {
-          content: '';
-          width: 8px;
-          height: 8px;
-          border-right: 2px solid currentColor;
-          border-top: 2px solid currentColor;
-          transform: rotate(45deg);
-          margin-left: 12px;
-        }
-
-        .content-page__menu-item:last-child {
-          border-bottom: none;
-        }
-
-        .content-page__menu-item.is-active,
-        .content-page__menu-item:hover {
-          color: #f08a2d;
-          background-color: rgba(240, 138, 45, 0.08);
-        }
-      }
-
-      .content-page__contact {
-        border: 1px solid #f0f0f0;
-        border-radius: 6px;
-        padding: 22px 20px;
-        background-color: #fff;
-
-        .content-page__contact-title {
-          margin: 0 0 12px;
-          font-size: 18px;
-          font-weight: 600;
-          color: #333;
-          border-left: 4px solid #f18c2f;
-          padding-left: 10px;
-        }
-
-        ul {
-          list-style: none;
+        .content-page__sidebar-title {
+          height: 44px;
+          line-height: 44px;
+          font-size: 20px;
+          color: #545454;
+          border-bottom: 1px solid #ebebeb;
+          font-weight: normal;
+          position: relative;
           margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          font-size: 15px;
-          color: #444;
         }
 
-        .content-page__contact-label {
-          display: inline-block;
-          width: 68px;
-          color: #8a8a8a;
+        .content-page__sidebar-title::after {
+          content: '';
+          width: 80px;
+          height: 1px;
+          background: #f79646;
+          position: absolute;
+          left: 0;
+          bottom: -1px;
         }
 
-        .content-page__contact-value {
-          color: #333;
+        .content-page__menu {
+          // border: 1px solid #f2f2f2;
+          // border-radius: 6px;
+          // overflow: hidden;
+          width: 100%;
+          padding-top: 12px;
+          // margin-bottom: 20px;
+
+          .content-page__menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            // padding: 14px 18px;
+            // font-size: 15px;
+            // color: #555;
+            text-decoration: none;
+            // background-color: #fff;
+            // border-bottom: 1px solid #f2f2f2;
+            // transition: color 0.2s ease, background-color 0.2s ease;
+            line-height: 44px;
+            // text-indent: 20px;
+            background-size: auto 10px;
+            border-bottom: 1px solid #f2f2f2;
+            width: 100%;
+            float: left;
+            color: #666;
+            font-size: 16px;
+            text-indent: 0;
+            padding-left: 5px;
+          }
+
+          .content-page__menu-item::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            margin-right: 15px;
+            border-right: 2px solid currentColor;
+            border-top: 2px solid currentColor;
+            transform: rotate(45deg);
+            margin-left: 12px;
+            color: #f08a2d;
+          }
+
+          // .content-page__menu-item:last-child {
+          //   border-bottom: none;
+          // }
+
+          .content-page__menu-item.is-active,
+          .content-page__menu-item:hover {
+            // color: #f08a2d;
+            // background-color: rgba(240, 138, 45, 0.08);
+          }
         }
-      }
+
+        .content-page__contact {
+          margin-top: 150px;
+          // padding: 22px 20px;
+          background-color: #fff;
+
+          .content-page__contact-title {
+            height: 44px;
+            line-height: 44px;
+            font-size: 20px;
+            color: #545454;
+            border-bottom: 1px solid #ebebeb;
+            font-weight: normal;
+            position: relative;
+            margin: 0;
+            &::after {
+              content: '';
+              width: 80px;
+              height: 1px;
+              background: #f79646;
+              position: absolute;
+              left: 0;
+              bottom: -1px;
+            }
+          }
+
+          .content-page__ul {
+            list-style: none;
+            margin: 0;
+            padding: 13px 0;
+            // display: flex;
+            // flex-direction: column;
+            // gap: 10px;
+            // font-size: 15px;
+            // color: #444;
+            li {
+              display: inline-table;
+              // float: left;
+              width: 100%;
+              height: 34px;
+              line-height: 34px;
+              font-size: 16px;
+            }
+          }
+
+          .content-page__contact-label {
+            float: left;
+            width: 20%;
+          }
+
+          .content-page__contact-value {
+            width: 80%;
+            overflow: hidden;
+          }
+        }
       }
 
       .content-page__main {

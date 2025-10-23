@@ -1,7 +1,7 @@
 import { defineEventHandler } from 'h3'
 
 const navigation = [
-  { label: '首页', to: '/' },
+  { label: '首   页', to: '/' },
   { label: '关于我们', to: '/about' },
   { label: '新闻中心', to: '/news' },
   { label: '党的建设', to: '/party-building' },

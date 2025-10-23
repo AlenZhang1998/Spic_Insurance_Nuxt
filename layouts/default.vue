@@ -9,6 +9,8 @@
               :src="logoSrc"
               alt="SPIC Insurance Brokers"
               class="brand__logo"
+              width="389"
+              height="124"
             />
           </NuxtLink>
 
@@ -123,8 +125,9 @@ const onSearch = () => {
 
 .header-primary {
   background-color: #fff;
-  padding: 24px 0 20px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  padding-bottom: 4px;
+  // padding: 24px 0 20px;
+  // box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
 }
 
 .header-main {
@@ -145,8 +148,8 @@ const onSearch = () => {
   margin: 0;
 
   &__logo {
-    width: 350px;
-    height: auto;
+    // width: 350px;
+    // height: auto;
     max-width: 100%;
     object-fit: contain;
   }
@@ -225,7 +228,7 @@ const onSearch = () => {
 
 .menu-bar {
   background-color: #c60c1a;
-  padding: 30px 0;
+  padding: 28px 0 32px;
 }
 
 .menu-bar__inner {
@@ -254,9 +257,9 @@ const onSearch = () => {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 1px;
-    height: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
+    width: 2px;
+    height: 20px;
+    background-color: #e5e5e5;
   }
 
   &:last-child::after {
@@ -264,7 +267,7 @@ const onSearch = () => {
   }
 
   &.is-active {
-    font-weight: 700;
+    // font-weight: 700;
   }
 
   &:hover {
