@@ -5,10 +5,12 @@
       页面加载失败，请稍后重试。
     </div>
     <template v-else-if="page">
+      <!-- 图片部分 -->
       <section v-if="bannerSrc" class="content-page__banner">
         <img :src="bannerSrc" :alt="page.bannerAlt || page.content?.title || ''" />
       </section>
 
+      <!-- 面包屑部分 -->
       <nav v-if="page.breadcrumb && page.breadcrumb.length" class="content-page__breadcrumb">
         <NuxtLink
           v-for="(crumb, index) in page.breadcrumb"
@@ -19,62 +21,64 @@
         </NuxtLink>
       </nav>
 
+      <!-- 下部内容部分 -->
       <div class="content-page__body">
-        <aside v-if="page.sidebar" class="content-page__sidebar">
-          <h3 class="content-page__sidebar-title">{{ page.sidebar.title }}</h3>
-          <div v-if="page.sidebar.menu && page.sidebar.menu.length" class="content-page__menu">
-            <NuxtLink
-              v-for="item in page.sidebar.menu"
-              :key="item.to"
-              :to="item.to"
-              class="content-page__menu-item"
-              :class="{ 'is-active': isActive(item.to) }"
-            >
-              {{ item.label }}
-            </NuxtLink>
-          </div>
-
-          <div v-if="page.sidebar.contact" class="content-page__contact">
-            <h4 class="content-page__contact-title">{{ page.sidebar.contact.title }}</h4>
-            <ul>
-              <li v-for="info in page.sidebar.contact.items" :key="info.label">
-                <span class="content-page__contact-label">{{ info.label }}：</span>
-                <span class="content-page__contact-value">{{ info.value }}</span>
-              </li>
-            </ul>
-          </div>
-        </aside>
-
-        <section class="content-page__main">
-          <header v-if="page.content?.title" class="content-page__header">
-            <h1>{{ page.content.title }}</h1>
-          </header>
-
-          <div class="content-page__blocks">
-            <template v-for="(block, index) in page.content?.blocks || []" :key="index">
-              <div
-                v-if="block.type === 'rich-text'"
-                class="content-page__rich-text"
-                v-html="block.html"
-              />
-
-              <figure v-else-if="block.type === 'image'" class="content-page__image-block">
-                <img :src="resolveAsset(block.src)" :alt="block.alt || ''" />
-                <figcaption v-if="block.caption">{{ block.caption }}</figcaption>
-              </figure>
-
-              <div
-                v-else-if="block.type === 'list'"
-                class="content-page__list-block"
+        <div class="row">
+          <aside v-if="page.sidebar" class="content-page__sidebar">
+            <h3 class="content-page__sidebar-title">{{ page.sidebar.title }}</h3>
+            <div v-if="page.sidebar.menu && page.sidebar.menu.length" class="content-page__menu">
+              <NuxtLink
+                v-for="item in page.sidebar.menu"
+                :key="item.to"
+                :to="item.to"
+                class="content-page__menu-item"
+                :class="{ 'is-active': isActive(item.to) }"
               >
-                <h3 v-if="block.title">{{ block.title }}</h3>
-                <ul>
-                  <li v-for="item in block.items" :key="item">{{ item }}</li>
-                </ul>
-              </div>
-            </template>
-          </div>
-        </section>
+                {{ item.label }}
+              </NuxtLink>
+            </div>
+
+            <div v-if="page.sidebar.contact" class="content-page__contact">
+              <h4 class="content-page__contact-title">{{ page.sidebar.contact.title }}</h4>
+              <ul>
+                <li v-for="info in page.sidebar.contact.items" :key="info.label">
+                  <span class="content-page__contact-label">{{ info.label }}：</span>
+                  <span class="content-page__contact-value">{{ info.value }}</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
+
+          <section class="content-page__main">
+            <header v-if="page.content?.title" class="content-page__header">
+              <h1>{{ page.content.title }}</h1>
+            </header>
+
+            <div class="content-page__blocks">
+              <template v-for="(block, index) in page.content?.blocks || []" :key="index">
+                <div
+                  v-if="block.type === 'rich-text'"
+                  class="content-page__rich-text"
+                />
+
+                <figure v-else-if="block.type === 'image'" class="content-page__image-block">
+                  <!-- <img :src="resolveAsset(block.src)" :alt="block.alt || ''" /> -->
+                  <figcaption v-if="block.caption">{{ block.caption }}</figcaption>
+                </figure>
+
+                <div
+                  v-else-if="block.type === 'list'"
+                  class="content-page__list-block"
+                >
+                  <h3 v-if="block.title">{{ block.title }}</h3>
+                  <ul>
+                    <li v-for="item in block.items" :key="item">{{ item }}</li>
+                  </ul>
+                </div>
+              </template>
+            </div>
+          </section>
+        </div>
       </div>
     </template>
   </div>
@@ -134,8 +138,9 @@ const isActive = (target) => {
 .content-page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding-bottom: 64px;
+  // gap: 24px;
+  // padding: 0 0 80px;
+  // background-color: #fff;
 
   .content-page__state {
     text-align: center;
@@ -149,25 +154,63 @@ const isActive = (target) => {
   }
 
   .content-page__banner {
-    // width: 100%;
-    // max-height: 280px;
-    // overflow: hidden;
-
     img {
       width: 100%;
       height: 100%;
     }
   }
 
+  // .content-page__breadcrumb {
+  //   width: min(1200px, 100%);
+  //   margin: 0 auto;
+  //   height: 40px;
+  //   line-height: 40px;
+  //   background: #f3f3f3;
+  //   font-size: 12px;
+  //   // padding: 0 28px;
+  //   color: #2f2f2f;
+
+  //   .content-page__crumb {
+  //     position: relative;
+  //     padding-right: 20px;
+  //     color: inherit;
+  //     text-decoration: none;
+  //   }
+
+  //   .content-page__crumb::after {
+  //     content: '>';
+  //     position: absolute;
+  //     right: 6px;
+  //     top: 50%;
+  //     transform: translateY(-50%);
+  //     color: inherit;
+  //   }
+
+  //   .content-page__crumb.is-last {
+  //     font-weight: 600;
+  //     color: #333;
+  //   }
+
+  //   .content-page__crumb.is-last::after {
+  //     display: none;
+  //   }
+  // }
+
   .content-page__breadcrumb {
-    width: min(1200px, 100%);
+    // width: min(1200px, 100%);
+    // // width: 100%;
+    // margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 12px 24px;
-    font-size: 14px;
-    color: #666;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    background: #f3f3f3;
+    color: #2f2f2f;
 
     a {
-      color: #666;
+      // color: #666;
       text-decoration: none;
       position: relative;
       padding-right: 20px;
@@ -179,12 +222,12 @@ const isActive = (target) => {
       right: 6px;
       top: 50%;
       transform: translateY(-50%);
-      color: #aaa;
+      // color: #aaa;
     }
 
     a:last-child {
-      color: #c60c1a;
-      font-weight: 600;
+      // color: #c60c1a;
+      // font-weight: 600;
     }
 
     a:last-child::after {
@@ -193,201 +236,258 @@ const isActive = (target) => {
   }
 
   .content-page__body {
-    width: min(1200px, 100%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 48px;
-    padding: 0 24px;
-  }
-
-  .content-page__sidebar {
-    background-color: #f5f5f5;
-    padding: 32px 28px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .content-page__sidebar-title {
-    margin: 0;
-    font-size: 22px;
-    letter-spacing: 0.08em;
-    color: #111;
-    position: relative;
-    padding-left: 12px;
-  }
-
-  .content-page__sidebar-title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 4px;
-    height: 18px;
-    background-color: #c60c1a;
-    border-radius: 2px;
-  }
-
-  .content-page__menu {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .content-page__menu-item {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 8px;
     background-color: #fff;
-    color: #444;
-    text-decoration: none;
-    font-size: 16px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    border: 1px solid transparent;
-  }
-
-  .content-page__menu-item:hover {
-    border-color: rgba(198, 12, 26, 0.4);
-    color: #c60c1a;
-  }
-
-  .content-page__menu-item.is-active {
-    border-color: #c60c1a;
-    color: #c60c1a;
-    font-weight: 600;
-  }
-
-  .content-page__contact {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px 18px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    // max-width: 1200px;
+    //   margin: 0 auto;
+    .row{
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 36px;
+      padding: 36px 32px 44px;
+      background-color: #fff;
+      .content-page__sidebar {
+      width: 260px;
+      padding: 24px 22px 28px;
+      border: 1px solid #e4e7ed;
+      border-radius: 6px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      font-size: 15px;
-      color: #333;
-    }
-  }
+      gap: 28px;
+      
 
-  .content-page__contact-title {
-    margin: 0 0 16px;
-    font-size: 18px;
-    letter-spacing: 0.08em;
-  }
+      .content-page__sidebar-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f3f3f3;
+        position: relative;
+      }
 
-  .content-page__contact-label {
-    display: inline-block;
-    width: 64px;
-    color: #666;
-  }
+      .content-page__sidebar-title::before {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 46px;
+        height: 2px;
+        background-color: #f18c2f;
+      }
 
-  .content-page__contact-value {
-    color: #111;
-  }
+      .content-page__menu {
+        border: 1px solid #f2f2f2;
+        border-radius: 6px;
+        overflow: hidden;
 
-  .content-page__main {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
+        .content-page__menu-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 18px;
+          font-size: 15px;
+          color: #555;
+          text-decoration: none;
+          background-color: #fff;
+          border-bottom: 1px solid #f2f2f2;
+          transition: color 0.2s ease, background-color 0.2s ease;
+        }
 
-  .content-page__header h1 {
-    margin: 0;
-    font-size: 30px;
-    letter-spacing: 0.08em;
-    color: #111;
-  }
+        .content-page__menu-item::after {
+          content: '';
+          width: 8px;
+          height: 8px;
+          border-right: 2px solid currentColor;
+          border-top: 2px solid currentColor;
+          transform: rotate(45deg);
+          margin-left: 12px;
+        }
 
-  .content-page__blocks {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    font-size: 16px;
-    line-height: 1.9;
-    color: #444;
-  }
+        .content-page__menu-item:last-child {
+          border-bottom: none;
+        }
 
-  .content-page__rich-text {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+        .content-page__menu-item.is-active,
+        .content-page__menu-item:hover {
+          color: #f08a2d;
+          background-color: rgba(240, 138, 45, 0.08);
+        }
+      }
 
-    :deep(h2) {
-      margin: 0;
-      font-size: 28px;
-      text-align: center;
-      color: #111;
-      letter-spacing: 0.08em;
-    }
+      .content-page__contact {
+        border: 1px solid #f0f0f0;
+        border-radius: 6px;
+        padding: 22px 20px;
+        background-color: #fff;
 
-    :deep(p) {
-      margin: 0;
-      text-indent: 2em;
-    }
+        .content-page__contact-title {
+          margin: 0 0 12px;
+          font-size: 18px;
+          font-weight: 600;
+          color: #333;
+          border-left: 4px solid #f18c2f;
+          padding-left: 10px;
+        }
 
-    :deep(p.align-center) {
-      text-align: center;
-      text-indent: 0;
-    }
-  }
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          font-size: 15px;
+          color: #444;
+        }
 
-  .content-page__image-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+        .content-page__contact-label {
+          display: inline-block;
+          width: 68px;
+          color: #8a8a8a;
+        }
 
-    img {
-      width: min(640px, 100%);
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-    }
+        .content-page__contact-value {
+          color: #333;
+        }
+      }
+      }
 
-    figcaption {
-      font-size: 14px;
-      color: #666;
-    }
-  }
+      .content-page__main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
 
-  .content-page__list-block {
-    background-color: #f7f7f7;
-    border-radius: 12px;
-    padding: 24px;
+        .content-page__main-card {
+          background-color: #fff;
+          border: 1px solid #f0f2f5;
+          border-radius: 6px;
+          padding: 36px 46px 40px;
 
-    h3 {
-      margin: 0 0 12px;
-      font-size: 20px;
-      color: #c60c1a;
-    }
+          .content-page__header {
+            position: relative;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            text-align: left;
 
-    ul {
-      list-style: disc;
-      margin: 0;
-      padding-left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+            h1 {
+              margin: 0;
+              font-size: 24px;
+              letter-spacing: 0.04em;
+              color: #222;
+            }
+          }
+
+          .content-page__header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 72px;
+            height: 2px;
+            background-color: #f08a2d;
+          }
+
+          .content-page__blocks {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            font-size: 16px;
+            line-height: 2;
+            color: #444;
+
+            .content-page__rich-text {
+              display: flex;
+              flex-direction: column;
+              gap: 18px;
+
+              :deep(h2) {
+                margin: 0;
+                font-size: 24px;
+                text-align: center;
+                color: #111;
+                letter-spacing: 0.04em;
+              }
+
+              :deep(p) {
+                margin: 0;
+                text-indent: 2em;
+              }
+
+              :deep(p.align-center) {
+                text-align: center;
+                text-indent: 0;
+              }
+            }
+
+            .content-page__image-block {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 16px;
+
+              // img {
+              //   max-width: 100%;
+              //   border-radius: 4px;
+              //   // box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+              // }
+
+              // figcaption {
+              //   font-size: 14px;
+              //   color: #888;
+              // }
+            }
+
+            .content-page__list-block {
+              background-color: #f9f9f9;
+              border-radius: 6px;
+              padding: 20px 24px;
+
+              h3 {
+                margin: 0 0 12px;
+                font-size: 18px;
+                color: #f18c2f;
+              }
+
+              ul {
+                list-style: disc;
+                padding-left: 20px;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
 
-@media (max-width: 960px) {
-  .content-page {
-    .content-page__body {
-      grid-template-columns: 1fr;
-    }
+// @media (max-width: 960px) {
+//   .content-page {
+//     padding: 0 16px 48px;
 
-    .content-page__sidebar {
-      order: 2;
-    }
-  }
-}
+//     .content-page__body {
+//       flex-direction: column;
+//       padding: 28px 20px 32px;
+//       gap: 24px;
+
+//       .content-page__sidebar {
+//         order: 2;
+//         width: 100%;
+//       }
+
+//       .content-page__main {
+//         .content-page__main-card {
+//           padding: 28px 22px;
+//         }
+//       }
+//     }
+//   }
+// }
 </style>
+
+

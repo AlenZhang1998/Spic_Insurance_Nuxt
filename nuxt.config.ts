@@ -4,17 +4,22 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
+
   //...
   build: {
     // transpile: ['vuetify'],
   },
+
   ssr: false,
+
   modules: [
     '@pinia/nuxt',
   ],
+
   css: [
     'element-plus/dist/index.css', // Element Plus 全局样式
   ],
+
   vite: {
     vue: {
       template: {
@@ -31,4 +36,6 @@ export default defineNuxtConfig({
       }),
     ],
   },
+
+  compatibilityDate: '2025-10-22',
 })

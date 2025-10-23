@@ -285,7 +285,7 @@ const onSearch = () => {
 
 .page-content {
   flex: 1;
-  padding: 0 0 48px;
+  // padding: 0 0 48px;
 }
 
 @media (max-width: 1024px) {
