@@ -249,7 +249,8 @@ const onSearch = () => {
   font-size: 18px;
   text-decoration: none;
   padding: 0 24px;
-  letter-spacing: 0.08em;
+  white-space: pre;
+  // letter-spacing: 0.08em;
 
   &::after {
     content: '';
@@ -271,7 +272,7 @@ const onSearch = () => {
   }
 
   &:hover {
-    color: #ffe5e5;
+    // color: #ffe5e5;
   }
 }
 
