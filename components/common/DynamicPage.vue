@@ -62,7 +62,7 @@
                 />
 
                 <figure v-else-if="block.type === 'image'" class="content-page__image-block">
-                  <!-- <img :src="resolveAsset(block.src)" :alt="block.alt || ''" /> -->
+                  <img :src="resolveAsset(block.src)" :alt="block.alt || ''" />
                   <figcaption v-if="block.caption">{{ block.caption }}</figcaption>
                 </figure>
 
@@ -358,11 +358,6 @@ const isActive = (target) => {
         flex-direction: column;
 
         .content-page__header {
-          // position: relative;
-          // margin-bottom: 28px;
-          // padding-bottom: 18px;
-          // text-align: left;
-
           .content-page__title{
             height: 44px;
             line-height: 44px;
@@ -384,81 +379,74 @@ const isActive = (target) => {
           }
         }
 
-        .content-page__main-card {
-          // background-color: #fff;
-          // border: 1px solid #f0f2f5;
-          // border-radius: 6px;
-          // padding: 36px 46px 40px;
+        .content-page__blocks {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          font-size: 16px;
+          line-height: 2;
+          color: #444;
 
-          .content-page__blocks {
+          .content-page__rich-text {
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            font-size: 16px;
-            line-height: 2;
-            color: #444;
+            gap: 18px;
 
-            .content-page__rich-text {
-              display: flex;
-              flex-direction: column;
-              gap: 18px;
-
-              :deep(h2) {
-                margin: 0;
-                font-size: 24px;
-                text-align: center;
-                color: #111;
-                letter-spacing: 0.04em;
-              }
-
-              :deep(p) {
-                margin: 0;
-                text-indent: 2em;
-              }
-
-              :deep(p.align-center) {
-                text-align: center;
-                text-indent: 0;
-              }
+            :deep(h2) {
+              margin: 0;
+              font-size: 24px;
+              text-align: center;
+              color: #111;
+              letter-spacing: 0.04em;
             }
 
-            .content-page__image-block {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 16px;
-
-              // img {
-              //   max-width: 100%;
-              //   border-radius: 4px;
-              //   // box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
-              // }
-
-              // figcaption {
-              //   font-size: 14px;
-              //   color: #888;
-              // }
+            :deep(p) {
+              margin: 0;
+              text-indent: 2em;
             }
 
-            .content-page__list-block {
-              background-color: #f9f9f9;
-              border-radius: 6px;
-              padding: 20px 24px;
+            :deep(p.align-center) {
+              text-align: center;
+              text-indent: 0;
+            }
+          }
 
-              h3 {
-                margin: 0 0 12px;
-                font-size: 18px;
-                color: #f18c2f;
-              }
+          .content-page__image-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
 
-              ul {
-                list-style: disc;
-                padding-left: 20px;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-              }
+            img {
+              max-width: 100%;
+              border-radius: 4px;
+              // box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+            }
+
+            figcaption {
+              font-size: 14px;
+              color: #888;
+            }
+          }
+
+          .content-page__list-block {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 20px 24px;
+
+            h3 {
+              margin: 0 0 12px;
+              font-size: 18px;
+              color: #f18c2f;
+            }
+
+            ul {
+              list-style: disc;
+              padding-left: 20px;
+              margin: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
             }
           }
         }
