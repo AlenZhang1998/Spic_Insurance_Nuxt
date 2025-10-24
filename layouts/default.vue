@@ -134,7 +134,7 @@ const onSearch = () => {
 
 .header-primary {
   background-color: #fff;
-  padding-bottom: 4px;
+  padding-bottom: 3px;
   // padding: 24px 0 20px;
   // box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
 }
