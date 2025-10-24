@@ -5,14 +5,21 @@ export const contactInfo = {
     { label: '邮编', value: '100033' },
     { label: '电话', value: '010-86625600' },
   ],
-}
+};
 
-const sharedBanner = 'images/about/banner.jpg'
+const aboutBanner = 'images/about/banner.jpg';
+const newsBanner = 'images/news/banner.jpg';
+const partyBanner = 'images/party/banner.jpg';
+const businessBanner = 'images/business/banner.jpg';
+const disclosureBanner = 'images/disclosure/banner.jpg';
+const eBanner = 'images/integratedServices/banner.jpg';
+const announcementBanner = 'images/announcement/banner.jpg';
+const contactdBanner = 'images/contact/banner.jpg';
 
 export const contentPageLayouts = {
   about: {
     title: '关于我们',
-    bannerImage: sharedBanner,
+    bannerImage: aboutBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '关于我们', to: '/about' },
@@ -29,7 +36,7 @@ export const contentPageLayouts = {
   },
   news: {
     title: '新闻中心',
-    bannerImage: sharedBanner,
+    bannerImage: newsBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '新闻中心', to: '/news' },
@@ -46,7 +53,7 @@ export const contentPageLayouts = {
   },
   partyBuilding: {
     title: '党的建设',
-    bannerImage: sharedBanner,
+    bannerImage: partyBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '党的建设', to: '/party-building' },
@@ -63,7 +70,7 @@ export const contentPageLayouts = {
   },
   businessOverview: {
     title: '业务概览',
-    bannerImage: sharedBanner,
+    bannerImage: businessBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '业务概览', to: '/business-overview' },
@@ -81,7 +88,7 @@ export const contentPageLayouts = {
   },
   disclosure: {
     title: '信息披露',
-    bannerImage: sharedBanner,
+    bannerImage: disclosureBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '信息披露', to: '/disclosure' },
@@ -89,16 +96,16 @@ export const contentPageLayouts = {
     sidebar: {
       title: '信息披露',
       menu: [
-        { label: '公告公示', to: '/disclosure/notices' },
-        { label: '制度文件', to: '/disclosure/policies' },
-        { label: '纪检监督', to: '/disclosure/supervision' },
+        // { label: '公告公示', to: '/disclosure/notices' },
+        // { label: '制度文件', to: '/disclosure/policies' },
+        // { label: '纪检监督', to: '/disclosure/supervision' },
       ],
       contact: contactInfo,
     },
   },
   integratedServices: {
     title: '融和e保',
-    bannerImage: sharedBanner,
+    bannerImage: eBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '融和e保', to: '/integrated-services' },
@@ -106,16 +113,16 @@ export const contentPageLayouts = {
     sidebar: {
       title: '融和e保',
       menu: [
-        { label: '系统简介', to: '/integrated-services/overview' },
-        { label: '功能亮点', to: '/integrated-services/features' },
-        { label: '案例实践', to: '/integrated-services/cases' },
+        // { label: '系统简介', to: '/integrated-services/overview' },
+        // { label: '功能亮点', to: '/integrated-services/features' },
+        // { label: '案例实践', to: '/integrated-services/cases' },
       ],
       contact: contactInfo,
     },
   },
   announcements: {
     title: '公示公告',
-    bannerImage: sharedBanner,
+    bannerImage: announcementBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '公示公告', to: '/announcements' },
@@ -123,16 +130,16 @@ export const contentPageLayouts = {
     sidebar: {
       title: '公示公告',
       menu: [
-        { label: '采购招标', to: '/announcements/procurement' },
-        { label: '人事任免', to: '/announcements/hr' },
-        { label: '其它公告', to: '/announcements/others' },
+        // { label: '采购招标', to: '/announcements/procurement' },
+        // { label: '人事任免', to: '/announcements/hr' },
+        // { label: '其它公告', to: '/announcements/others' },
       ],
       contact: contactInfo,
     },
   },
   contact: {
     title: '联系我们',
-    bannerImage: sharedBanner,
+    bannerImage: contactdBanner,
     breadcrumb: [
       { label: '首页', to: '/' },
       { label: '联系我们', to: '/contact' },
@@ -140,11 +147,10 @@ export const contentPageLayouts = {
     sidebar: {
       title: '联系我们',
       menu: [
-        { label: '联系方式', to: '/contact' },
-        { label: '在线留言', to: '/contact/message' },
+        // { label: '联系方式', to: '/contact' },
+        // { label: '在线留言', to: '/contact/message' },
       ],
       contact: contactInfo,
     },
   },
-}
-
+};

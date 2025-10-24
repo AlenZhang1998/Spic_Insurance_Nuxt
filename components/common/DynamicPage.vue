@@ -167,6 +167,8 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
   }
 
   .content-page__banner {
+    background-color: #fff;
+    // margin-top: -1px;
     img {
       width: 100%;
       height: 100%;
@@ -182,18 +184,18 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
     box-sizing: border-box;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: -1px auto;
     font-size: 12px;
-    height: 38px;
+    height: 41px;
     line-height: 40px;
     color: #2f2f2f;
+    display: flex;
+    align-items: center;
 
     a {
-      // color: #666;
       text-decoration: none;
       position: relative;
-      padding-right: 15px;
-      // padding: 0 8px;
+      padding: 0 16px 0 0px;
       color: inherit;
       cursor: pointer;
       outline: none;
