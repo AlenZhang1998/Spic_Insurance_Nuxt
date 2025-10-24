@@ -112,7 +112,7 @@ const onSearch = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .layout-default {
   display: flex;
   min-height: 100vh;
@@ -362,6 +362,21 @@ const onSearch = () => {
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
+  }
+}
+.el-dropdown-menu {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .el-dropdown-menu__item{
+    color: #000;
+    &:hover{
+      background-color: #fff;
+      color: #000;
+      font-weight: bold;
+    }
   }
 }
 </style>
