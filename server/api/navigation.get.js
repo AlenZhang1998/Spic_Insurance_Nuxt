@@ -2,14 +2,31 @@ import { defineEventHandler } from 'h3'
 
 const navigation = [
   { label: '首    页', to: '/' },
-  { label: '关于我们', to: '/about' },
-  { label: '新闻中心', to: '/news' },
-  { label: '党的建设', to: '/party-building' },
-  { label: '业务概览', to: '/business-overview' },
-  { label: '信息披露', to: '/disclosure' },
+  { label: '关于我们', to: '/about', subMenu: [
+    { label: '企业概况', to: '/about/companyProfile' },
+    { label: '组织结构', to: '/about/organizationalStructure' },
+    { label: '领导致辞', to: '/about/leaderSpeech' },
+  ] },
+  { label: '新闻中心', to: '/news', subMenu: [
+    { label: '公司要闻', to: '/news/company' },
+    { label: '党建园地', to: '/news/party' },
+    { label: '行业观察', to: '/news/industry' },
+  ] },
+  { label: '党的建设', to: '/party-building', subMenu: [
+    { label: '党建动态', to: '/party-building/trends' },
+    { label: '学习园地', to: '/party-building/study' },
+    { label: '党员风采', to: '/party-building/members' },
+  ]  },
+  { label: '业务概览', to: '/business-overview', subMenu: [
+    { label: '集团统保', to: '/business-overview/group' },
+    { label: '重大专项', to: '/business-overview/projects' },
+    { label: '创新业务', to: '/business-overview/innovation' },
+    { label: '综合金融', to: '/business-overview/finance' },
+  ]  },
+  { label: '信息披露', to: '/disclosure'  },
   { label: '融和e保', to: '/integrated-services' },
-  { label: '公示公告', to: '/announcements' },
-  { label: '联系我们', to: '/contact' },
+  { label: '公示公告', to: '/announcements'  },
+  { label: '联系我们', to: '/contact'  },
 ]
 
 export default defineEventHandler(() => navigation)

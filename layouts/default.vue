@@ -37,6 +37,7 @@
       <nav class="menu-bar">
         <div class="container menu-bar__inner">
           <span v-if="navPending" class="menu-bar__loading">菜单加载中…</span>
+          
           <template v-else>
             <NuxtLink
               v-for="item in navItems"
@@ -45,7 +46,15 @@
               class="menu-bar__item"
               :class="{ 'is-active': isActive(item.to) }"
             >
-              {{ item.label }}
+              <p v-if="!item.subMenu" class="label">{{ item.label }}</p>
+              <el-dropdown placement="bottom" v-else="item.subMenu">
+                <p class="label2">{{ item.label }}</p>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-for="(subItem, index) in item.subMenu" :key="index" @click="router.push(subItem.to)">{{ subItem.label }}</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </NuxtLink>
           </template>
         </div>
@@ -228,7 +237,10 @@ const onSearch = () => {
 
 .menu-bar {
   background-color: #c60c1a;
-  padding: 28px 0 32px;
+  // padding: 13px 0  18px;
+  height: 85px;
+  display: flex;
+  align-items: center;
 }
 
 .menu-bar__inner {
@@ -248,9 +260,21 @@ const onSearch = () => {
   color: #fff;
   font-size: 18px;
   text-decoration: none;
-  padding: 0 24px;
+  padding: 0 25px;
   white-space: pre;
   // letter-spacing: 0.08em;
+  .label {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 13px;
+  }
+  .label2 {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 16.5px;
+  }
 
   &::after {
     content: '';
@@ -261,6 +285,7 @@ const onSearch = () => {
     width: 2px;
     height: 20px;
     background-color: #e5e5e5;
+    margin-top: -2.5px;
   }
 
   &:last-child::after {
@@ -290,6 +315,13 @@ const onSearch = () => {
 .page-content {
   flex: 1;
   // padding: 0 0 48px;
+}
+
+.nav-item :deep(.el-dropdown),
+.nav-item :deep(.el-dropdown .el-tooltip__trigger) {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
 }
 
 @media (max-width: 1024px) {
