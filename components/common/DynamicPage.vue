@@ -55,7 +55,6 @@
               <h3 v-if="headerTitle" class="content-page__title">{{ headerTitle }}</h3>
             </slot>
           </div>
-
           <slot />
         </section>
       </div>
@@ -64,7 +63,7 @@
 </template>
 
 <script setup>
-import { resolveAssetPath } from '~/utils/assets'
+import { resolveAssetPath } from '~/utils/assets';
 
 const props = defineProps({
   title: {
@@ -87,51 +86,50 @@ const props = defineProps({
     type: String,
     default: '',
   },
-})
+});
 
-const route = useRoute()
+const route = useRoute();
 
-const bannerSrc = computed(() => resolveAssetPath(props.bannerImage))
-const baseBreadcrumb = computed(() => props.breadcrumb || [])
-const sidebar = computed(() => props.sidebar)
-const sidebarMenu = computed(() => sidebar.value?.menu || [])
-const sidebarContact = computed(() => sidebar.value?.contact || null)
-const baseTitle = computed(() => props.title)
+const bannerSrc = computed(() => resolveAssetPath(props.bannerImage));
+const baseBreadcrumb = computed(() => props.breadcrumb || []);
+const sidebar = computed(() => props.sidebar);
+const sidebarMenu = computed(() => sidebar.value?.menu || []);
+const sidebarContact = computed(() => sidebar.value?.contact || null);
+const baseTitle = computed(() => props.title);
 
 const isActive = (target) => {
   if (!target) {
-    return false
+    return false;
   }
-  return route.path === target || route.path.startsWith(`${target}/`)
-}
+  return route.path === target || route.path.startsWith(`${target}/`);
+};
 
 const activeMenuItem = computed(() => {
   if (!sidebarMenu.value?.length) {
-    return null
+    return null;
   }
-  return sidebarMenu.value.find((item) => isActive(item.to)) || null
-})
+  return sidebarMenu.value.find((item) => isActive(item.to)) || null;
+});
 
 const computedBreadcrumb = computed(() => {
-  const crumbs = baseBreadcrumb.value || []
+  const crumbs = baseBreadcrumb.value || [];
   if (!activeMenuItem.value || !activeMenuItem.value.to) {
-    return crumbs
+    return crumbs;
   }
 
   const exists = crumbs.some(
-    (crumb) =>
-      crumb.to === activeMenuItem.value.to || crumb.label === activeMenuItem.value.label,
-  )
+    (crumb) => crumb.to === activeMenuItem.value.to || crumb.label === activeMenuItem.value.label,
+  );
 
   if (exists) {
-    return crumbs
+    return crumbs;
   }
 
-  return [...crumbs, { label: activeMenuItem.value.label, to: activeMenuItem.value.to }]
-})
+  return [...crumbs, { label: activeMenuItem.value.label, to: activeMenuItem.value.to }];
+});
 
-const headerTitle = computed(() => activeMenuItem.value?.label || baseTitle.value)
-const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
+const headerTitle = computed(() => activeMenuItem.value?.label || baseTitle.value);
+const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
 </script>
 
 <style scoped lang="scss">
@@ -224,7 +222,7 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
     background-color: #fff;
     // max-width: 1200px;
     //   margin: 0 auto;
-    .row{
+    .row {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
@@ -240,7 +238,6 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
         display: flex;
         flex-direction: column;
         // gap: 28px;
-        
 
         .content-page__sidebar-title {
           height: 44px;
@@ -378,7 +375,7 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
         flex-direction: column;
 
         .content-page__header {
-          .content-page__title{
+          .content-page__title {
             height: 44px;
             line-height: 44px;
             font-size: 20px;
@@ -398,7 +395,6 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
             }
           }
         }
-
       }
     }
   }

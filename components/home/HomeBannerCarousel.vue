@@ -27,18 +27,18 @@
 </template>
 
 <script setup lang="ts">
-import type { CarouselInstance } from 'element-plus'
+import type { CarouselInstance } from 'element-plus';
 
 interface BannerSlide {
-  id: number
-  image: string
-  alt: string
+  id: number;
+  image: string;
+  alt: string;
 }
 
-import banner1 from '~/assets/images/home/1_231649145177.jpg'
-import banner2 from '~/assets/images/home/1_231656319170.jpg'
-import banner3 from '~/assets/images/home/1_231657107473.jpg'
-import banner4 from '~/assets/images/home/1_291518577390.jpg'
+import banner1 from '~/assets/images/home/1_231649145177.jpg';
+import banner2 from '~/assets/images/home/1_231656319170.jpg';
+import banner3 from '~/assets/images/home/1_231657107473.jpg';
+import banner4 from '~/assets/images/home/1_291518577390.jpg';
 
 const slides: BannerSlide[] = [
   {
@@ -61,107 +61,107 @@ const slides: BannerSlide[] = [
     image: banner4,
     alt: '绿色低碳未来宣传图',
   },
-]
+];
 
-const carouselRef = ref<CarouselInstance>()
-const isDragging = ref(false)
-const dragStartX = ref(0)
-const dragDeltaX = ref(0)
-const DRAG_THRESHOLD = 60
-const touchMoveListenerOptions: AddEventListenerOptions = { passive: false }
+const carouselRef = ref<CarouselInstance>();
+const isDragging = ref(false);
+const dragStartX = ref(0);
+const dragDeltaX = ref(0);
+const DRAG_THRESHOLD = 60;
+const touchMoveListenerOptions: AddEventListenerOptions = { passive: false };
 
 const addPointerListeners = () => {
   if (typeof window === 'undefined') {
-    return
+    return;
   }
-  window.addEventListener('mousemove', onMouseMove)
-  window.addEventListener('mouseup', onDragEnd)
-  window.addEventListener('touchmove', onTouchMove, touchMoveListenerOptions)
-  window.addEventListener('touchend', onDragEnd)
-  window.addEventListener('touchcancel', onDragEnd)
-}
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onDragEnd);
+  window.addEventListener('touchmove', onTouchMove, touchMoveListenerOptions);
+  window.addEventListener('touchend', onDragEnd);
+  window.addEventListener('touchcancel', onDragEnd);
+};
 
 const removePointerListeners = () => {
   if (typeof window === 'undefined') {
-    return
+    return;
   }
-  window.removeEventListener('mousemove', onMouseMove)
-  window.removeEventListener('mouseup', onDragEnd)
-  window.removeEventListener('touchmove', onTouchMove, touchMoveListenerOptions)
-  window.removeEventListener('touchend', onDragEnd)
-  window.removeEventListener('touchcancel', onDragEnd)
-}
+  window.removeEventListener('mousemove', onMouseMove);
+  window.removeEventListener('mouseup', onDragEnd);
+  window.removeEventListener('touchmove', onTouchMove, touchMoveListenerOptions);
+  window.removeEventListener('touchend', onDragEnd);
+  window.removeEventListener('touchcancel', onDragEnd);
+};
 
 const startDrag = (startX: number) => {
-  isDragging.value = true
-  dragStartX.value = startX
-  dragDeltaX.value = 0
-  addPointerListeners()
-}
+  isDragging.value = true;
+  dragStartX.value = startX;
+  dragDeltaX.value = 0;
+  addPointerListeners();
+};
 
 const onDragStart = (event: MouseEvent) => {
   if (event.button !== 0) {
-    return
+    return;
   }
-  const target = event.target as HTMLElement | null
+  const target = event.target as HTMLElement | null;
   if (target?.closest('.el-carousel__arrow')) {
-    return
+    return;
   }
-  event.preventDefault()
-  startDrag(event.clientX)
-}
+  event.preventDefault();
+  startDrag(event.clientX);
+};
 
 const onTouchStart = (event: TouchEvent) => {
   if (event.touches.length !== 1) {
-    return
+    return;
   }
-  const target = event.target as HTMLElement | null
+  const target = event.target as HTMLElement | null;
   if (target?.closest('.el-carousel__arrow')) {
-    return
+    return;
   }
-  startDrag(event.touches[0].clientX)
-}
+  startDrag(event.touches[0].clientX);
+};
 
 const onMouseMove = (event: MouseEvent) => {
   if (!isDragging.value) {
-    return
+    return;
   }
-  event.preventDefault()
-  dragDeltaX.value = event.clientX - dragStartX.value
-}
+  event.preventDefault();
+  dragDeltaX.value = event.clientX - dragStartX.value;
+};
 
 const onTouchMove = (event: TouchEvent) => {
   if (!isDragging.value || event.touches.length !== 1) {
-    return
+    return;
   }
-  event.preventDefault()
-  dragDeltaX.value = event.touches[0].clientX - dragStartX.value
-}
+  event.preventDefault();
+  dragDeltaX.value = event.touches[0].clientX - dragStartX.value;
+};
 
 const onDragEnd = () => {
   if (!isDragging.value) {
-    return
+    return;
   }
   if (dragDeltaX.value > DRAG_THRESHOLD) {
-    carouselRef.value?.prev()
+    carouselRef.value?.prev();
   } else if (dragDeltaX.value < -DRAG_THRESHOLD) {
-    carouselRef.value?.next()
+    carouselRef.value?.next();
   }
-  isDragging.value = false
-  dragDeltaX.value = 0
-  removePointerListeners()
-}
+  isDragging.value = false;
+  dragDeltaX.value = 0;
+  removePointerListeners();
+};
 
 const onDragLeave = () => {
   if (!isDragging.value) {
-    return
+    return;
   }
-  onDragEnd()
-}
+  onDragEnd();
+};
 
 onBeforeUnmount(() => {
-  removePointerListeners()
-})
+  removePointerListeners();
+});
 </script>
 
 <style scoped lang="scss">

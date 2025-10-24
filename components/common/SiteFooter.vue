@@ -22,33 +22,33 @@
       </div>
 
       <div class="site-footer__info">
-          <p class="site-footer__address">
-            地址：北京市西城区金融大街28号院3楼5层　邮编：100033　电话：010-86625600
-          </p>
-          <div class="site-footer__divider" />
-          <p class="site-footer__copyright">
-            Copyright © 国家电投集团保险经纪有限公司
-            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">
-              京ICP备18064007号
-            </a>
-          </p>
-          <p class="site-footer__links">
-            <span>|</span>
-            <span to="/legal" class="label">版权保护</span>
-            <span>|</span>
-            <span to="/privacy" class="label">隐私与安全</span>
-            <span>|</span>
-            <span to="/sitemap" class="label">网站导航</span>
-            <span>|</span>
-          </p>
-        </div>
+        <p class="site-footer__address">
+          地址：北京市西城区金融大街28号院3楼5层　邮编：100033　电话：010-86625600
+        </p>
+        <div class="site-footer__divider" />
+        <p class="site-footer__copyright">
+          Copyright © 国家电投集团保险经纪有限公司
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">
+            京ICP备18064007号
+          </a>
+        </p>
+        <p class="site-footer__links">
+          <span>|</span>
+          <span to="/legal" class="label">版权保护</span>
+          <span>|</span>
+          <span to="/privacy" class="label">隐私与安全</span>
+          <span>|</span>
+          <span to="/sitemap" class="label">网站导航</span>
+          <span>|</span>
+        </p>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import footerLogo from '~/assets/images/home/6_footlogo.jpg'
-import footerQr from '~/assets/images/home/6_footwx.png'
+import footerLogo from '~/assets/images/home/6_footlogo.jpg';
+import footerQr from '~/assets/images/home/6_footwx.png';
 </script>
 
 <style scoped lang="scss">

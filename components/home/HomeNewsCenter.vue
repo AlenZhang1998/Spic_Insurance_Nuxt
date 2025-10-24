@@ -1,26 +1,16 @@
 <template>
   <section class="home-news">
     <div class="home-news__container">
-
       <div class="home-news__content" v-if="activeCategory">
         <div class="home-news__highlight">
-
           <header class="home-news__header">
             <div class="home-news__heading">
               <h2 class="home-news__title">新闻中心</h2>
               <span class="home-news__subtitle">NEWS CENTER</span>
             </div>
           </header>
-          <ElCarousel
-            :interval="5000"
-            arrow="never"
-            height="433px"
-            autoplay
-          >
-            <ElCarouselItem
-              v-for="highlight in activeCategory.highlights"
-              :key="highlight.image"
-            >
+          <ElCarousel :interval="5000" arrow="never" height="433px" autoplay>
+            <ElCarouselItem v-for="highlight in activeCategory.highlights" :key="highlight.image">
               <div class="home-news__highlight-image">
                 <img :src="highlight.image" :alt="highlight.title" />
               </div>
@@ -45,11 +35,7 @@
           </nav>
 
           <ul class="home-news__list">
-            <li
-              v-for="item in activeCategory.items"
-              :key="item.title"
-              class="home-news__list-item"
-            >
+            <li v-for="item in activeCategory.items" :key="item.title" class="home-news__list-item">
               <a :href="item.link" target="_blank" rel="noopener">
                 <div class="home-news__date">
                   <span class="home-news__day">{{ item.day }}</span>
@@ -70,29 +56,29 @@
 
 <script setup lang="ts">
 interface NewsHighlight {
-  image: string
-  title: string
-  link: string
+  image: string;
+  title: string;
+  link: string;
 }
 
 interface NewsItem {
-  day: string
-  yearMonth: string
-  title: string
-  summary: string
-  link: string
+  day: string;
+  yearMonth: string;
+  title: string;
+  summary: string;
+  link: string;
 }
 
 interface NewsCategory {
-  key: string
-  label: string
-  highlights: NewsHighlight[]
-  items: NewsItem[]
+  key: string;
+  label: string;
+  highlights: NewsHighlight[];
+  items: NewsItem[];
 }
 
-import highlight1 from '~/assets/images/home/2_160935322406.png'
-import highlight2 from '~/assets/images/home/2_201438518443.png'
-import highlight3 from '~/assets/images/home/2_201437221155.jpg'
+import highlight1 from '~/assets/images/home/2_160935322406.png';
+import highlight2 from '~/assets/images/home/2_201438518443.png';
+import highlight3 from '~/assets/images/home/2_201437221155.jpg';
 
 const categories: NewsCategory[] = [
   {
@@ -128,24 +114,21 @@ const categories: NewsCategory[] = [
         day: '09',
         yearMonth: '2022-03',
         title: '保险经纪举办“健康向上”主题“三八”妇女节活动',
-        summary:
-          '公司工会组织开展健康关怀与主题沙龙活动，营造向上向善的企业文化氛围。',
+        summary: '公司工会组织开展健康关怀与主题沙龙活动，营造向上向善的企业文化氛围。',
         link: 'https://www.spicib.com/html/view_152.html',
       },
       {
         day: '24',
         yearMonth: '2022-02',
         title: '保险经纪召开2022年工作会议',
-        summary:
-          '会议总结2021年重点成果，部署风险管理、业务拓展、党建与信息化建设等年度任务。',
+        summary: '会议总结2021年重点成果，部署风险管理、业务拓展、党建与信息化建设等年度任务。',
         link: 'https://www.spicib.com/html/view_159.html',
       },
       {
         day: '18',
         yearMonth: '2022-02',
         title: '张伟冬、田志国会见明喆集团高管一行',
-        summary:
-          '双方就保险业务协同开展深入交流，推进能源与城市服务领域的战略合作。',
+        summary: '双方就保险业务协同开展深入交流，推进能源与城市服务领域的战略合作。',
         link: 'https://www.spicib.com/html/view_155.html',
       },
     ],
@@ -175,43 +158,39 @@ const categories: NewsCategory[] = [
         day: '03',
         yearMonth: '2021-11',
         title: '今年10月疆电外送电量突破千亿大关',
-        summary:
-          '1-10月疆电外送电量达到1024亿千瓦时，同比增长23%，能源配置持续优化。',
+        summary: '1-10月疆电外送电量达到1024亿千瓦时，同比增长23%，能源配置持续优化。',
         link: 'https://www.spicib.com/html/view_47.html',
       },
       {
         day: '01',
         yearMonth: '2021-11',
         title: '“能跌能涨”市场化电价机制初步形成',
-        summary:
-          '河南省完成电力直接交易合同改签，全国电力市场化改革迈出坚实步伐。',
+        summary: '河南省完成电力直接交易合同改签，全国电力市场化改革迈出坚实步伐。',
         link: 'https://www.spicib.com/html/view_39.html',
       },
       {
         day: '27',
         yearMonth: '2021-10',
         title: '实现碳达峰、碳中和目标不能立刻弃煤',
-        summary:
-          '专家指出实现双碳目标需循序渐进，坚持安全可控与系统协同。',
+        summary: '专家指出实现双碳目标需循序渐进，坚持安全可控与系统协同。',
         link: 'https://www.spicib.com/html/view_38.html',
       },
       {
         day: '25',
         yearMonth: '2021-10',
         title: '国内在建纬度最高抽水蓄能电站进入蓄水阶段',
-        summary:
-          '黑龙江荒沟抽水蓄能电站投入运行前蓄水，标志着项目即将实现发电目标。',
+        summary: '黑龙江荒沟抽水蓄能电站投入运行前蓄水，标志着项目即将实现发电目标。',
         link: 'https://www.spicib.com/html/view_37.html',
       },
     ],
   },
-]
+];
 
-const activeKey = ref<NewsCategory['key']>(categories[0].key)
+const activeKey = ref<NewsCategory['key']>(categories[0].key);
 
 const activeCategory = computed(() =>
   categories.find((category) => category.key === activeKey.value),
-)
+);
 
 // no additional logic required
 </script>
@@ -377,7 +356,7 @@ const activeCategory = computed(() =>
 
     a {
       display: grid;
-      grid-template-columns: 92px 1fr; 
+      grid-template-columns: 92px 1fr;
       gap: 26px;
       align-items: center;
       text-decoration: none;

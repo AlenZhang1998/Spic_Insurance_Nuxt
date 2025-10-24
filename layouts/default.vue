@@ -37,7 +37,7 @@
       <nav class="menu-bar">
         <div class="container menu-bar__inner">
           <span v-if="navPending" class="menu-bar__loading">菜单加载中…</span>
-          
+
           <template v-else>
             <NuxtLink
               v-for="item in navItems"
@@ -51,7 +51,12 @@
                 <p class="label2">{{ item.label }}</p>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item v-for="(subItem, index) in item.subMenu" :key="index" @click="router.push(subItem.to)">{{ subItem.label }}</el-dropdown-item>
+                    <el-dropdown-item
+                      v-for="(subItem, index) in item.subMenu"
+                      :key="index"
+                      @click="router.push(subItem.to)"
+                      >{{ subItem.label }}</el-dropdown-item
+                    >
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -70,46 +75,46 @@
 </template>
 
 <script setup>
-import logoAsset from '~/assets/images/logo.png'
-import SiteFooter from '~/components/common/SiteFooter.vue'
+import logoAsset from '~/assets/images/logo.png';
+import SiteFooter from '~/components/common/SiteFooter.vue';
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 const { data: navData, pending: navPending } = await useAsyncData('navigation', () =>
   $fetch('/api/navigation'),
-)
+);
 
-const navItems = computed(() => navData.value ?? [])
+const navItems = computed(() => navData.value ?? []);
 
-const logoSrc = logoAsset
-const searchQuery = ref('')
+const logoSrc = logoAsset;
+const searchQuery = ref('');
 
 const isActive = (path) => {
   if (path === '/') {
-    return route.path === '/'
+    return route.path === '/';
   }
-  return route.path === path || route.path.startsWith(`${path}/`)
-}
+  return route.path === path || route.path.startsWith(`${path}/`);
+};
 
 const formattedDate = computed(() => {
-  const now = new Date()
-  const year = now.getFullYear()
-  const month = String(now.getMonth() + 1).padStart(2, '0')
-  const day = String(now.getDate()).padStart(2, '0')
-  const weekday = now.toLocaleDateString('zh-CN', { weekday: 'long' })
-  return `${year}年${month}月${day}日 ${weekday}`
-})
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const weekday = now.toLocaleDateString('zh-CN', { weekday: 'long' });
+  return `${year}年${month}月${day}日 ${weekday}`;
+});
 
 const onSearch = () => {
   if (!searchQuery.value.trim()) {
-    return
+    return;
   }
   router.push({
     path: '/search',
     query: { q: searchQuery.value.trim() },
-  })
-}
+  });
+};
 </script>
 
 <style lang="scss">
@@ -370,9 +375,9 @@ const onSearch = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .el-dropdown-menu__item{
+  .el-dropdown-menu__item {
     color: #000;
-    &:hover{
+    &:hover {
       background-color: #fff;
       color: #000;
       font-weight: bold;

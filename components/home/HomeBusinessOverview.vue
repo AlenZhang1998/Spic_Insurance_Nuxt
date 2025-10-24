@@ -6,9 +6,7 @@
           <h2 class="home-business__title">主营业务</h2>
           <span class="home-business__subtitle">FINANCIAL SERVICE</span>
         </div>
-        <NuxtLink to="/business-overview" class="home-business__more">
-          更多
-        </NuxtLink>
+        <NuxtLink to="/business-overview" class="home-business__more"> 更多 </NuxtLink>
       </header>
 
       <div class="home-business__grid">
@@ -42,17 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import businessImage1 from '~/assets/images/home/4_yewu01.jpg'
-import businessImage2 from '~/assets/images/home/4_yewu02.jpg'
-import businessImage3 from '~/assets/images/home/4_yewu03.jpg'
-import businessImage4 from '~/assets/images/home/4_yewu04.jpg'
-import businessImage5 from '~/assets/images/home/4_yewu05.jpg'
+import { computed } from 'vue';
+import businessImage1 from '~/assets/images/home/4_yewu01.jpg';
+import businessImage2 from '~/assets/images/home/4_yewu02.jpg';
+import businessImage3 from '~/assets/images/home/4_yewu03.jpg';
+import businessImage4 from '~/assets/images/home/4_yewu04.jpg';
+import businessImage5 from '~/assets/images/home/4_yewu05.jpg';
 
 interface BusinessCard {
-  title: string
-  href: string
-  image: string
+  title: string;
+  href: string;
+  image: string;
 }
 
 const businessCards: BusinessCard[] = [
@@ -81,10 +79,10 @@ const businessCards: BusinessCard[] = [
     href: '/integrated-services',
     image: businessImage5,
   },
-]
+];
 
-const leadCard = computed(() => businessCards[0])
-const secondaryCards = computed(() => businessCards.slice(1))
+const leadCard = computed(() => businessCards[0]);
+const secondaryCards = computed(() => businessCards.slice(1));
 </script>
 
 <style scoped lang="scss">
@@ -121,12 +119,12 @@ const secondaryCards = computed(() => businessCards.slice(1))
 
   &__subtitle {
     display: block;
-      color: #cacaca;
-      font-size: 20px;
-      float: right;
-      height: 40px;
-      line-height: 50px;
-      font-weight: bold;
+    color: #cacaca;
+    font-size: 20px;
+    float: right;
+    height: 40px;
+    line-height: 50px;
+    font-weight: bold;
   }
 
   &__more {
