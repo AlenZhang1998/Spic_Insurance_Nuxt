@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import logoAsset from '~/assets/images/image.png'
+import logoAsset from '~/assets/images/logo.png'
 import SiteFooter from '~/components/common/SiteFooter.vue'
 
 const route = useRoute()

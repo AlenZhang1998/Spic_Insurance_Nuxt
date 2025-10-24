@@ -1,130 +1,102 @@
 <template>
   <div class="content-page">
-    <div v-if="pending" class="content-page__state">页面加载中...</div>
-    <div v-else-if="error" class="content-page__state content-page__state--error">
-      页面加载失败，请稍后重试。
-    </div>
-    <template v-else-if="page">
-      <!-- 图片部分 -->
-      <section v-if="bannerSrc" class="content-page__banner">
-        <img :src="bannerSrc" :alt="page.bannerAlt || page.content?.title || ''" />
-      </section>
+    <!-- 顶部横幅 -->
+    <section v-if="bannerSrc" class="content-page__banner">
+      <img :src="bannerSrc" :alt="bannerAlt" />
+    </section>
 
-      <!-- 面包屑部分 -->
-      <nav v-if="page.breadcrumb && page.breadcrumb.length" class="content-page__breadcrumb">
-        <NuxtLink
-          v-for="(crumb, index) in page.breadcrumb"
-          :key="`${crumb.to}-${index}`"
-          :to="crumb.to"
-        >
-          {{ crumb.label }}
-        </NuxtLink>
-      </nav>
+    <!-- 面包屑 -->
+    <nav v-if="computedBreadcrumb.length" class="content-page__breadcrumb">
+      <NuxtLink
+        v-for="(crumb, index) in computedBreadcrumb"
+        :key="`${crumb.to}-${index}`"
+        :to="crumb.to"
+      >
+        {{ crumb.label }}
+      </NuxtLink>
+    </nav>
 
-      <!-- 下部内容部分 -->
-      <div class="content-page__body">
-        <div class="row">
-          <aside v-if="page.sidebar" class="content-page__sidebar">
-            <h3 class="content-page__sidebar-title">{{ page.sidebar.title }}</h3>
-            <div v-if="page.sidebar.menu && page.sidebar.menu.length" class="content-page__menu">
-              <NuxtLink
-                v-for="item in page.sidebar.menu"
-                :key="item.to"
-                :to="item.to"
-                class="content-page__menu-item"
-                :class="{ 'is-active': isActive(item.to) }"
-              >
-                {{ item.label }}
-              </NuxtLink>
-            </div>
+    <!-- 主体 -->
+    <div class="content-page__body">
+      <div class="row">
+        <aside v-if="sidebar" class="content-page__sidebar">
+          <h3 v-if="sidebar.title" class="content-page__sidebar-title">
+            {{ sidebar.title }}
+          </h3>
 
-            <div v-if="page.sidebar.contact" class="content-page__contact">
-              <h4 class="content-page__contact-title">{{ page.sidebar.contact.title }}</h4>
-              <ul class="content-page__ul">
-                <li v-for="info in page.sidebar.contact.items" :key="info.label">
-                  <span class="content-page__contact-label">{{ info.label }}：</span>
-                  <span class="content-page__contact-value">{{ info.value }}</span>
-                </li>
-              </ul>
-            </div>
-          </aside>
+          <div v-if="sidebarMenu.length" class="content-page__menu">
+            <NuxtLink
+              v-for="item in sidebarMenu"
+              :key="item.to || item.label"
+              :to="item.to"
+              class="content-page__menu-item"
+              :class="{ 'is-active': isActive(item.to) }"
+            >
+              {{ item.label }}
+            </NuxtLink>
+          </div>
 
-          <section class="content-page__main">
-            <div v-if="page.content?.title" class="content-page__header">
-              <h3 class="content-page__title">{{ page.content.title }}</h3>
-            </div>
+          <div v-if="sidebarContact" class="content-page__contact">
+            <h4 v-if="sidebarContact.title" class="content-page__contact-title">
+              {{ sidebarContact.title }}
+            </h4>
+            <ul class="content-page__ul">
+              <li v-for="info in sidebarContact.items" :key="info.label">
+                <span class="content-page__contact-label">{{ info.label }}：</span>
+                <span class="content-page__contact-value">{{ info.value }}</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
 
-            <div class="content-page__blocks">
-              <template v-for="(block, index) in page.content?.blocks || []" :key="index">
-                <div
-                  v-if="block.type === 'rich-text'"
-                  class="content-page__rich-text"
-                />
+        <section class="content-page__main">
+          <div v-if="headerTitle || $slots.header" class="content-page__header">
+            <slot name="header">
+              <h3 v-if="headerTitle" class="content-page__title">{{ headerTitle }}</h3>
+            </slot>
+          </div>
 
-                <figure v-else-if="block.type === 'image'" class="content-page__image-block">
-                  <img :src="resolveAsset(block.src)" :alt="block.alt || ''" />
-                  <figcaption v-if="block.caption">{{ block.caption }}</figcaption>
-                </figure>
-
-                <div
-                  v-else-if="block.type === 'list'"
-                  class="content-page__list-block"
-                >
-                  <h3 v-if="block.title">{{ block.title }}</h3>
-                  <ul>
-                    <li v-for="item in block.items" :key="item">{{ item }}</li>
-                  </ul>
-                </div>
-              </template>
-            </div>
-          </section>
-        </div>
+          <slot />
+        </section>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { resolveAssetPath } from '~/utils/assets'
+
 const props = defineProps({
-  slug: {
+  title: {
     type: String,
-    required: true,
+    default: '',
+  },
+  breadcrumb: {
+    type: Array,
+    default: () => [],
+  },
+  sidebar: {
+    type: Object,
+    default: null,
+  },
+  bannerImage: {
+    type: String,
+    default: '',
+  },
+  bannerAlt: {
+    type: String,
+    default: '',
   },
 })
 
 const route = useRoute()
 
-const { data, pending, error } = await useAsyncData(
-  `page-config-${props.slug}`,
-  () => $fetch(`/api/pages/${props.slug}`),
-)
-
-const page = computed(() => data.value || null)
-
-const assetModules = import.meta.glob('@/assets/**/*', {
-  eager: true,
-  import: 'default',
-})
-
-const assetMap = {}
-Object.entries(assetModules).forEach(([key, value]) => {
-  const normalized = key
-    .replace(/^.*[\\/]assets[\\/]/, '')
-    .replace(/\\/g, '/')
-  assetMap[normalized] = value
-})
-
-const resolveAsset = (path) => {
-  if (!path) {
-    return ''
-  }
-  if (path.startsWith('http') || path.startsWith('/')) {
-    return path
-  }
-  return assetMap[path] || ''
-}
-
-const bannerSrc = computed(() => resolveAsset(page.value?.bannerImage))
+const bannerSrc = computed(() => resolveAssetPath(props.bannerImage))
+const baseBreadcrumb = computed(() => props.breadcrumb || [])
+const sidebar = computed(() => props.sidebar)
+const sidebarMenu = computed(() => sidebar.value?.menu || [])
+const sidebarContact = computed(() => sidebar.value?.contact || null)
+const baseTitle = computed(() => props.title)
 
 const isActive = (target) => {
   if (!target) {
@@ -132,9 +104,52 @@ const isActive = (target) => {
   }
   return route.path === target || route.path.startsWith(`${target}/`)
 }
+
+const activeMenuItem = computed(() => {
+  if (!sidebarMenu.value?.length) {
+    return null
+  }
+  return sidebarMenu.value.find((item) => isActive(item.to)) || null
+})
+
+const computedBreadcrumb = computed(() => {
+  const crumbs = baseBreadcrumb.value || []
+  if (!activeMenuItem.value || !activeMenuItem.value.to) {
+    return crumbs
+  }
+
+  const exists = crumbs.some(
+    (crumb) =>
+      crumb.to === activeMenuItem.value.to || crumb.label === activeMenuItem.value.label,
+  )
+
+  if (exists) {
+    return crumbs
+  }
+
+  return [...crumbs, { label: activeMenuItem.value.label, to: activeMenuItem.value.to }]
+})
+
+const headerTitle = computed(() => activeMenuItem.value?.label || baseTitle.value)
+const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '')
 </script>
 
 <style scoped lang="scss">
+// Remove default anchor tag styling
+// a {
+//   text-decoration: none;
+//   color: inherit;
+//   cursor: pointer;
+//   outline: none;
+
+//   &:hover,
+//   &:focus,
+//   &:active {
+//     text-decoration: none;
+//     color: inherit;
+//     outline: none;
+//   }
+// }
 .content-page {
   display: flex;
   flex-direction: column;
@@ -164,26 +179,32 @@ const isActive = (target) => {
     // width: min(1200px, 100%);
     // // width: 100%;
     // margin: 0 auto;
+    background: #f3f3f3 url(@/assets/images/about/small_home.png) left center no-repeat;
+    padding-left: 20px;
+    box-sizing: border-box;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     font-size: 12px;
     height: 38px;
     line-height: 40px;
-    background: #f3f3f3;
     color: #2f2f2f;
 
     a {
       // color: #666;
       text-decoration: none;
       position: relative;
-      padding-right: 20px;
+      padding-right: 15px;
+      // padding: 0 8px;
+      color: inherit;
+      cursor: pointer;
+      outline: none;
     }
 
     a::after {
       content: '>';
       position: absolute;
-      right: 6px;
+      right: 4px;
       top: 50%;
       transform: translateY(-50%);
       // color: #aaa;
@@ -275,9 +296,10 @@ const isActive = (target) => {
 
           .content-page__menu-item::after {
             content: '';
-            width: 6px;
-            height: 6px;
-            margin-right: 15px;
+            width: 5px;
+            height: 5px;
+            opacity: 50%;
+            margin-right: 20px;
             border-right: 2px solid currentColor;
             border-top: 2px solid currentColor;
             transform: rotate(45deg);
@@ -289,10 +311,8 @@ const isActive = (target) => {
           //   border-bottom: none;
           // }
 
-          .content-page__menu-item.is-active,
-          .content-page__menu-item:hover {
-            // color: #f08a2d;
-            // background-color: rgba(240, 138, 45, 0.08);
+          .content-page__menu-item.is-active {
+            font-weight: bold;
           }
         }
 
@@ -379,77 +399,6 @@ const isActive = (target) => {
           }
         }
 
-        .content-page__blocks {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-          font-size: 16px;
-          line-height: 2;
-          color: #444;
-
-          .content-page__rich-text {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-
-            :deep(h2) {
-              margin: 0;
-              font-size: 24px;
-              text-align: center;
-              color: #111;
-              letter-spacing: 0.04em;
-            }
-
-            :deep(p) {
-              margin: 0;
-              text-indent: 2em;
-            }
-
-            :deep(p.align-center) {
-              text-align: center;
-              text-indent: 0;
-            }
-          }
-
-          .content-page__image-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-
-            img {
-              max-width: 100%;
-              border-radius: 4px;
-              // box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
-            }
-
-            figcaption {
-              font-size: 14px;
-              color: #888;
-            }
-          }
-
-          .content-page__list-block {
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            padding: 20px 24px;
-
-            h3 {
-              margin: 0 0 12px;
-              font-size: 18px;
-              color: #f18c2f;
-            }
-
-            ul {
-              list-style: disc;
-              padding-left: 20px;
-              margin: 0;
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-            }
-          }
-        }
       }
     }
   }
@@ -478,5 +427,3 @@ const isActive = (target) => {
 //   }
 // }
 </style>
-
-
