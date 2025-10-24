@@ -3,7 +3,7 @@
     <ElCarousel
       ref="carouselRef"
       class="home-banner__carousel"
-      :interval="6000"
+      :interval="5000"
       indicator-position="none"
       arrow="always"
       height="420px"
@@ -166,7 +166,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .home-banner {
-  background-color: #000;
+  background-color: #fff;
   color: #fff;
   position: relative;
 
@@ -188,7 +188,7 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    height: 420px;
+    height: 400px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
