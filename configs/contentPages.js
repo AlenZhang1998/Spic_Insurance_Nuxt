@@ -150,7 +150,7 @@ export const contentPageLayouts = {
         // { label: '联系方式', to: '/contact' },
         // { label: '在线留言', to: '/contact/message' },
       ],
-      contact: contactInfo,
+      // contact: contactInfo,
     },
   },
 };
