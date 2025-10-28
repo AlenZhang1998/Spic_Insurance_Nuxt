@@ -158,9 +158,9 @@ watch(
     if (!value) {
       return;
     }
-    const normalized = Math.max(1, Math.min(totalPages.value, value));
-    if (normalized !== currentPage.value) {
-      currentPage.value = normalized;
+    const limited = Math.min(totalPages.value, Math.max(1, value));
+    if (limited !== currentPage.value) {
+      currentPage.value = limited;
     }
   },
 );

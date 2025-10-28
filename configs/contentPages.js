@@ -61,9 +61,9 @@ export const contentPageLayouts = {
     sidebar: {
       title: '党的建设',
       menu: [
-        { label: '党建动态', to: '/party-building/trends' },
-        { label: '学习园地', to: '/party-building/study' },
-        { label: '党员风采', to: '/party-building/members' },
+        { label: '党的建设', to: '/party-building/partybuilding' },
+        { label: '党风廉政', to: '/party-building/cleanGovernance' },
+        { label: '企业影像', to: '/party-building/enterpriseImage' },
       ],
       contact: contactInfo,
     },

@@ -73,7 +73,7 @@ const handlePageChange = (page) => {
 };
 
 useHead({
-  title: '党的建设 - 国家电投集团保险经纪有限公司',
+  title: '党的建设_国家电投集团保险经纪有限公司',
 });
 </script>
 
