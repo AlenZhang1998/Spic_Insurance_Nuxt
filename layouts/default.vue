@@ -267,18 +267,21 @@ const onSearch = () => {
   text-decoration: none;
   padding: 0 25px;
   white-space: pre;
+  outline: none !important;
   // letter-spacing: 0.08em;
   .label {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
     margin-top: 12px;
+    outline: none;
   }
   .label2 {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
     margin-top: 15px;
+    outline: none;
   }
 
   &::after {
@@ -299,6 +302,11 @@ const onSearch = () => {
 
   &.is-active {
     // font-weight: 700;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none !important;
   }
 
   &:hover {
