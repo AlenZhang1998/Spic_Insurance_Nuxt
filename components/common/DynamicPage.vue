@@ -316,7 +316,7 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
         }
 
         .content-page__contact {
-          margin-top: 150px;
+          margin-top: 160px;
           // padding: 22px 20px;
           background-color: #fff;
 
