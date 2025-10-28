@@ -90,7 +90,11 @@ const props = defineProps({
 
 const route = useRoute();
 
-const bannerSrc = computed(() => resolveAssetPath(props.bannerImage));
+const bannerSrc = computed(() => {
+  const override = activeMenuItem.value?.bannerImage;
+  const source = override || props.bannerImage;
+  return resolveAssetPath(source);
+});
 const baseBreadcrumb = computed(() => props.breadcrumb || []);
 const sidebar = computed(() => props.sidebar);
 const sidebarMenu = computed(() => sidebar.value?.menu || []);

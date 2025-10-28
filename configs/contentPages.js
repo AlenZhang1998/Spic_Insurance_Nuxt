@@ -63,7 +63,7 @@ export const contentPageLayouts = {
       menu: [
         { label: '党的建设', to: '/party-building/partybuilding' },
         { label: '党风廉政', to: '/party-building/cleanGovernance' },
-        { label: '企业影像', to: '/party-building/enterpriseImage' },
+        { label: '企业影像', to: '/party-building/enterpriseImage', bannerImage: contactdBanner },
       ],
       contact: contactInfo,
     },
