@@ -39,7 +39,7 @@ const businessHighlights = [
 ];
 
 useHead({
-  title: '业务概览 - 国家电投集团保险经纪有限公司',
+  title: '业务概览_国家电投集团保险经纪有限公司',
 });
 </script>
 
