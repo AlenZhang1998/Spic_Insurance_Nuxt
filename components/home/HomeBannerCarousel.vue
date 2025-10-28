@@ -35,10 +35,10 @@ interface BannerSlide {
   alt: string;
 }
 
-import banner1 from '~/assets/images/home/1_231649145177.jpg';
-import banner2 from '~/assets/images/home/1_231656319170.jpg';
-import banner3 from '~/assets/images/home/1_231657107473.jpg';
-import banner4 from '~/assets/images/home/1_291518577390.jpg';
+import banner1 from '@/assets/images/home/1_231649145177.jpg';
+import banner2 from '@/assets/images/home/1_231656319170.jpg';
+import banner3 from '@/assets/images/home/1_231657107473.jpg';
+import banner4 from '@/assets/images/home/1_291518577390.jpg';
 
 const slides: BannerSlide[] = [
   {

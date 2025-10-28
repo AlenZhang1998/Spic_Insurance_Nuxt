@@ -47,8 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import footerLogo from '~/assets/images/home/6_footlogo.jpg';
-import footerQr from '~/assets/images/home/6_footwx.png';
+import footerLogo from '@/assets/images/home/6_footlogo.jpg';
+import footerQr from '@/assets/images/home/6_footwx.png';
 </script>
 
 <style scoped lang="scss">

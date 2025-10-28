@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { resolveAssetPath } from '~/utils/assets';
+import { resolveAssetPath } from '@/utils/assets';
 
 const props = defineProps({
   title: {

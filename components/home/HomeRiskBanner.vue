@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import riskBannerImage from '~/assets/images/home/3_bj1.jpg';
+import riskBannerImage from '@/assets/images/home/3_bj1.jpg';
 </script>
 
 <style scoped lang="scss">

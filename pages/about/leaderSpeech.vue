@@ -66,9 +66,9 @@
 </template>
 
 <script setup>
-import DynamicPage from '~/components/common/DynamicPage.vue'
-import { contentPageLayouts } from '~/configs/contentPages'
-// import { resolveAssetPath } from '~/utils/assets'
+import DynamicPage from '@/components/common/DynamicPage.vue'
+import { contentPageLayouts } from '@/configs/contentPages'
+// import { resolveAssetPath } from '@/utils/assets'
 
 const layout = contentPageLayouts.about
 const leader1 = resolveAssetPath('images/about/leader1.jpg')

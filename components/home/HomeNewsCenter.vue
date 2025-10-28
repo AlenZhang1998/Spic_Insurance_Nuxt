@@ -76,9 +76,9 @@ interface NewsCategory {
   items: NewsItem[];
 }
 
-import highlight1 from '~/assets/images/home/2_160935322406.png';
-import highlight2 from '~/assets/images/home/2_201438518443.png';
-import highlight3 from '~/assets/images/home/2_201437221155.jpg';
+import highlight1 from '@/assets/images/home/2_160935322406.png';
+import highlight2 from '@/assets/images/home/2_201438518443.png';
+import highlight3 from '@/assets/images/home/2_201437221155.jpg';
 
 const categories: NewsCategory[] = [
   {

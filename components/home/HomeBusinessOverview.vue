@@ -41,11 +41,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import businessImage1 from '~/assets/images/home/4_yewu01.jpg';
-import businessImage2 from '~/assets/images/home/4_yewu02.jpg';
-import businessImage3 from '~/assets/images/home/4_yewu03.jpg';
-import businessImage4 from '~/assets/images/home/4_yewu04.jpg';
-import businessImage5 from '~/assets/images/home/4_yewu05.jpg';
+import businessImage1 from '@/assets/images/home/4_yewu01.jpg';
+import businessImage2 from '@/assets/images/home/4_yewu02.jpg';
+import businessImage3 from '@/assets/images/home/4_yewu03.jpg';
+import businessImage4 from '@/assets/images/home/4_yewu04.jpg';
+import businessImage5 from '@/assets/images/home/4_yewu05.jpg';
 
 interface BusinessCard {
   title: string;

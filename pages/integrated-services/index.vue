@@ -53,9 +53,9 @@
 </template>
 
 <script setup>
-import DynamicPage from '~/components/common/DynamicPage.vue';
-import { contentPageLayouts } from '~/configs/contentPages';
-import { resolveAssetPath } from '~/utils/assets';
+import DynamicPage from '@/components/common/DynamicPage.vue';
+import { contentPageLayouts } from '@/configs/contentPages';
+import { resolveAssetPath } from '@/utils/assets';
 
 const fileModules = import.meta.glob('@/assets/files/*', { eager: true, import: 'default' });
 const guideDoc =

@@ -13,9 +13,9 @@
 
 <script setup>
 import { ref } from 'vue';
-import DynamicPage from '~/components/common/DynamicPage.vue';
-import ArticleList from '~/components/common/ArticleList.vue';
-import { contentPageLayouts } from '~/configs/contentPages';
+import DynamicPage from '@/components/common/DynamicPage.vue';
+import ArticleList from '@/components/common/ArticleList.vue';
+import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.announcements;
 const pageSize = 10;
