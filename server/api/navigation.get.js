@@ -15,9 +15,9 @@ const navigation = [
     label: '新闻中心',
     to: '/news',
     subMenu: [
-      { label: '公司要闻', to: '/news/company' },
-      { label: '党建园地', to: '/news/party' },
-      { label: '行业观察', to: '/news/industry' },
+      { label: '公司要闻', to: '/news/companyNews' },
+      { label: '行业资讯', to: '/news/industryNews' },
+      { label: '年度新闻', to: '/news/annualNews' },
     ],
   },
   {

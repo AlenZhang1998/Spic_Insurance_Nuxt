@@ -1,0 +1,100 @@
+<template>
+  <DynamicPage v-bind="layout">
+    <div class="announcement-page">
+      <ArticleList
+        :items="industryNewsItems"
+        :page-size="pageSize"
+        :initial-page="currentPage"
+        @page-change="handlePageChange"
+      />
+    </div>
+  </DynamicPage>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import DynamicPage from '@/components/common/DynamicPage.vue';
+import ArticleList from '@/components/common/ArticleList.vue';
+import { contentPageLayouts } from '@/configs/contentPages';
+
+const layout = contentPageLayouts.news;
+const pageSize = 5;
+
+const industryNewsEntries = [
+  {
+    id: '20211103',
+    title: '今年10月疆电外送电量突破千亿大关',
+    summary:
+      '今年1—10月，新疆外送电量突破千亿大关，达到1024亿千瓦时，同比增长23%。疆电外送持续保持高位运行，为全国能源保供作出积极贡献。',
+    date: '2021-11-03',
+  },
+  {
+    id: '20211101',
+    title: '“能贮能溢”市场化电价机制初步形成',
+    summary:
+      '10月29日，河南省在全国首批完成电力直接交易合同的改签工作，共有53家发电侧市场主体、86家用电市场主体参与，标志着“能贮能溢”市场化电价机制初步形成。',
+    date: '2021-11-01',
+  },
+  {
+    id: '20211027',
+    title: '实现碳达峰、碳中和目标不能立刻弃煤',
+    summary:
+      '在实现碳达峰、碳中和的过程中，依然需要保障能源安全稳定供应。业内专家表示，科学有序推进能源转型，统筹煤炭清洁高效利用与新能源发展，是实现双碳目标的关键。',
+    date: '2021-10-27',
+  },
+  {
+    id: '20211025',
+    title: '国内在建纬度最高抽水蓄能电站全面进入蓄水阶段',
+    summary:
+      '黑龙江牡丹江荒沟抽水蓄能电站上水库工程投入运行，标志着这一国内在建纬度最高的抽水蓄能电站全面进入蓄水阶段，为后续发电调试奠定基础。',
+    date: '2021-10-25',
+  },
+  {
+    id: '20210703',
+    title: '关于征集国家电投集团保险经纪有限公司2021—2022年度合格保险技术服务供应商的公告',
+    summary:
+      '为进一步完善保险经纪公司风险管理及保险管理体系，国家电投集团保险经纪有限公司面向社会征集2021—2022年度合格保险技术服务供应商，欢迎符合条件的机构报名参与。',
+    date: '2021-07-03',
+  },
+  {
+    id: '20211027',
+    title: '实现碳达峰、碳中和目标不能立刻弃煤',
+    summary:
+      '在实现碳达峰、碳中和的过程中，依然需要保障能源安全稳定供应。业内专家表示，科学有序推进能源转型，统筹煤炭清洁高效利用与新能源发展，是实现双碳目标的关键。',
+    date: '2021-10-27',
+  },
+  {
+    id: '20211025',
+    title: '国内在建纬度最高抽水蓄能电站全面进入蓄水阶段',
+    summary:
+      '黑龙江牡丹江荒沟抽水蓄能电站上水库工程投入运行，标志着这一国内在建纬度最高的抽水蓄能电站全面进入蓄水阶段，为后续发电调试奠定基础。',
+    date: '2021-10-25',
+  },
+  {
+    id: '20210703',
+    title: '关于征集国家电投集团保险经纪有限公司2021—2022年度合格保险技术服务供应商的公告',
+    summary:
+      '为进一步完善保险经纪公司风险管理及保险管理体系，国家电投集团保险经纪有限公司面向社会征集2021—2022年度合格保险技术服务供应商，欢迎符合条件的机构报名参与。',
+    date: '2021-07-03',
+  },
+];
+
+const industryNewsItems = ref(industryNewsEntries);
+const currentPage = ref(1);
+
+const handlePageChange = (page) => {
+  currentPage.value = page;
+};
+
+useHead({
+  title: '行业资讯 - 国家电投集团保险经纪有限公司',
+});
+</script>
+
+<style lang="scss">
+.announcement-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+</style>

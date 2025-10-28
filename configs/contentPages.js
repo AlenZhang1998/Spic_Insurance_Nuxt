@@ -44,9 +44,9 @@ export const contentPageLayouts = {
     sidebar: {
       title: '新闻中心',
       menu: [
-        { label: '公司要闻', to: '/news/company' },
-        { label: '党建园地', to: '/news/party' },
-        { label: '行业观察', to: '/news/industry' },
+        { label: '公司要闻', to: '/news/companyNews' },
+        { label: '行业资讯', to: '/news/industryNews' },
+        { label: '年度新闻', to: '/news/annualNews' },
       ],
       contact: contactInfo,
     },
