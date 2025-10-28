@@ -78,10 +78,10 @@ export const contentPageLayouts = {
     sidebar: {
       title: '业务概览',
       menu: [
-        { label: '集团统保', to: '/business-overview/group' },
-        { label: '重大专项', to: '/business-overview/projects' },
-        { label: '创新业务', to: '/business-overview/innovation' },
-        { label: '综合金融', to: '/business-overview/finance' },
+        { label: '集团公司统保业务', to: '/business-overview/groupBusiness' },
+        { label: '重大专项及境外资产保险', to: '/business-overview/assetInsurance' },
+        { label: '创新业务', to: '/business-overview/innovativeBusiness' },
+        { label: '产权经纪业务', to: '/business-overview/propertyBrokerage' },
       ],
       contact: contactInfo,
     },
