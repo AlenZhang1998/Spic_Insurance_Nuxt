@@ -39,6 +39,7 @@ const loading = ref(false);
 const errorMessage = ref('');
 
 const handleSelect = async (item) => {
+  console.log(42222222);
   if (!item || !item.slug) {
     return;
   }
