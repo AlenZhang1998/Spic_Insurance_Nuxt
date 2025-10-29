@@ -11,6 +11,7 @@
         v-for="(crumb, index) in computedBreadcrumb"
         :key="`${crumb.to}-${index}`"
         :to="crumb.to"
+        @click="handleBreadcrumbClick(crumb, $event)"
       >
         {{ crumb.label }}
       </NuxtLink>
@@ -64,6 +65,7 @@
 
 <script setup>
 import { resolveAssetPath } from '@/utils/assets';
+import { reloadNuxtApp } from '#app';
 
 const props = defineProps({
   title: {
@@ -89,6 +91,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
+const router = useRouter();
 
 const bannerSrc = computed(() => {
   const override = activeMenuItem.value?.bannerImage;
@@ -134,6 +137,48 @@ const computedBreadcrumb = computed(() => {
 
 const headerTitle = computed(() => activeMenuItem.value?.label || baseTitle.value);
 const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
+
+const resolveRoutePath = (target) => {
+  if (!target) {
+    return '';
+  }
+
+  if (typeof target === 'string') {
+    return target;
+  }
+
+  try {
+    const resolved = router.resolve(target);
+    return resolved.fullPath || resolved.href || '';
+  } catch {
+    return '';
+  }
+};
+
+const isBreadcrumbCurrent = (target) => {
+  if (!target) {
+    return false;
+  }
+
+  const normalizedTarget = resolveRoutePath(target);
+
+  if (!normalizedTarget) {
+    return false;
+  }
+
+  return normalizedTarget === route.fullPath || normalizedTarget === route.path;
+};
+
+const handleBreadcrumbClick = (crumb, event) => {
+  if (!crumb?.to) {
+    return;
+  }
+
+  if (isBreadcrumbCurrent(crumb.to)) {
+    event?.preventDefault();
+    reloadNuxtApp({ path: route.fullPath });
+  }
+};
 </script>
 
 <style scoped lang="scss">
