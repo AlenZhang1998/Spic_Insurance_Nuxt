@@ -43,6 +43,33 @@
 - `pages/announcements`、`pages/party-building`：各业务页面，按模块拆分。
 - `server/api/navigation.get.js`：示例接口，返回导航菜单数据。
 
+## 目录及文件说明
+
+项目根目录关键文件夹、文件说明如下：
+
+- `app.vue`：Nuxt 应用根组件，包裹默认布局。
+- `assets/`
+  - `images/`：全站静态图片资源（如业务概览封面、党建图等）。
+  - `files/`：可下载的文档资源。
+- `components/`
+  - `common/`：通用组件（如 `DynamicPage`、`ArticleList`、`FeatureGrid`、`SiteFooter` 等）。
+  - `home/`：首页专用模块组件（轮播、企业影像展示等）。
+- `configs/`
+  - `contentPages.js`：内容页布局、侧边栏菜单、banner 配置。
+- `layouts/`
+  - `default.vue`：站点默认骨架（头部导航、页脚、搜索等）。
+- `pages/`
+  - `index.vue`：首页入口。
+  - `announcements/`：公示公告相关页面。
+  - `news/`：新闻中心（公司要闻、年度新闻、行业资讯等）。
+  - `party-building/`：党建园地（二级页面：党建动态、党风廉政、企业影像等）。
+  - `business-overview/`：业务概览与子业务介绍页面。
+  - `disclosure/`：信息披露页面。
+- `server/api/navigation.get.js`：导航菜单接口示例（供头部菜单调用）。
+- `store/`：Pinia 全局状态管理（如语言、主题等）。
+- `nuxt.config.ts`：Nuxt 配置文件，包含模块、插件、Vite 配置等。
+- `README.md`：项目说明文档（当前文件）。
+
 ## 特色功能
 
 - 页面布局全部通过 `contentPageLayouts` 可配置化维护。
