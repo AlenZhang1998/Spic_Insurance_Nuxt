@@ -52,7 +52,7 @@
   - `images/`：全站静态图片资源（如业务概览封面、党建图等）。
   - `files/`：可下载的文档资源。
 - `components/`
-  - `common/`：通用组件（如 `DynamicPage`、`ArticleList`、`FeatureGrid`、`SiteFooter` 等）。
+  - `common/`：通用组件（如 `DynamicPage`、`ArticleList`、`DetailView`、`FeatureGrid`、`SiteFooter` 等）。
   - `home/`：首页专用模块组件（轮播、企业影像展示等）。
 - `configs/`
   - `contentPages.js`：内容页布局、侧边栏菜单、banner 配置。
@@ -66,6 +66,7 @@
   - `business-overview/`：业务概览与子业务介绍页面。
   - `disclosure/`：信息披露页面。
 - `server/api/navigation.get.js`：导航菜单接口示例（供头部菜单调用）。
+- `server/api/announcements/`、`server/api/news/`、`server/api/party-building/` 等：模拟文章详情接口（待与后端对接时替换）。
 - `store/`：Pinia 全局状态管理（如语言、主题等）。
 - `nuxt.config.ts`：Nuxt 配置文件，包含模块、插件、Vite 配置等。
 - `README.md`：项目说明文档（当前文件）。
@@ -74,7 +75,16 @@
 
 - 页面布局全部通过 `contentPageLayouts` 可配置化维护。
 - 党建相关子页面（党风廉政、企业影像等）共用 `ArticleList`，保持风格统一。
+- `ArticleList` + `DetailView` 形成的“列表 + 富文本详情”模式，可在同一路由内切换展示。
+- 所有详情数据临时通过 Nuxt `server/api` 下的 mock 接口提供，方便前后端分离调试。
 - Banner 可根据当前激活的侧边栏菜单覆盖，例如“企业影像”自动使用 `contactdBanner`。
+
+## 内容数据与接口
+
+- 每个列表项需提供唯一的 `slug`，`ArticleList` 在触发 `@select` 时会使用该 `slug` 调用对应的详情接口。
+- 详情展示统一由 `components/common/DetailView.vue` 渲染，支持加载中、错误态、返回列表等交互。
+- Mock 接口位于 `server/api/.../[slug].get.ts`，返回富文本 HTML 字符串。实际接入后可直接替换为真实后端接口调用。
+- 若新增列表项，请同步更新对应目录下的 mock 数据，以确保本地调试时能展示详情内容。
 
 ## 发布
 
