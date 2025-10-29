@@ -6,7 +6,7 @@
           <h2 class="home-enterprise__title">企业影像</h2>
           <span class="home-enterprise__subtitle">ENTERPRISE IMAGE</span>
         </div>
-        <NuxtLink to="/media" class="home-enterprise__more">更多</NuxtLink>
+        <NuxtLink to="/party-building/enterpriseImage" class="home-enterprise__more">更多</NuxtLink>
       </header>
     </div>
 

@@ -55,28 +55,28 @@ interface BusinessCard {
 
 const businessCards: BusinessCard[] = [
   {
-    title: '集团公司统保业务',
-    href: '/business-overview',
+    title: '',
+    href: '',
     image: businessImage1,
   },
   {
-    title: '重大专项及境外资产保险',
-    href: '/business-overview/projects',
+    title: '集团公司统保业务',
+    href: '/business-overview/groupBusiness',
     image: businessImage2,
   },
   {
-    title: '创新业务',
-    href: '/business-overview/employees',
+    title: '重大专项及境外资产保险',
+    href: '/business-overview/assetInsurance',
     image: businessImage3,
   },
   {
-    title: '产权经纪业务',
-    href: '/business-overview/global',
+    title: '创新业务',
+    href: '/business-overview/innovativeBusiness',
     image: businessImage4,
   },
   {
-    title: '综合金融解决方案',
-    href: '/integrated-services',
+    title: '产权经纪业务',
+    href: '/integrated-services/propertyBrokerage',
     image: businessImage5,
   },
 ];
