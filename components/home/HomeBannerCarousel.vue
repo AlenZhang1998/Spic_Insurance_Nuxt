@@ -236,33 +236,40 @@ onBeforeUnmount(() => {
       background-color: #b00a16;
     }
   }
-}
 
-:deep(.el-carousel__container) {
-  border-radius: 0;
-}
-
-:deep(.el-carousel__arrow) {
-  width: 64px;
-  height: 64px;
-  border-radius: 0;
-  background-color: rgba(0, 0, 0, 0.25);
-  color: #fff;
-  transition: background-color 0.2s ease;
-  font-size: 20px;
-  backdrop-filter: blur(2px);
-
-  &:hover {
-    background-color: rgba(198, 12, 26, 0.8);
+  .el-carousel__container {
+    border-radius: 0;
   }
-}
 
-:deep(.el-carousel__arrow--left) {
-  left: 0px;
-}
+  .el-carousel__arrow {
+    width: 82px;
+    height: 82px;
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-:deep(.el-carousel__arrow--right) {
-  right: 0px;
+    &:hover,
+    &:focus-visible {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      // transform: translateY(0);
+      // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  .el-carousel__arrow--left {
+    left: 0px;
+  }
+
+  .el-carousel__arrow--right {
+    right: 0px;
+  }
 }
 
 @media (max-width: 1024px) {
