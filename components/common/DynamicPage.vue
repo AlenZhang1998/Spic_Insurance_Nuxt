@@ -203,6 +203,10 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
       color: inherit;
       cursor: pointer;
       outline: none;
+      &:hover {
+        color: #ff7f32;
+        cursor: pointer;
+      }
     }
 
     a::after {
@@ -211,7 +215,11 @@ const bannerAlt = computed(() => props.bannerAlt || headerTitle.value || '');
       right: 4px;
       top: 50%;
       transform: translateY(-50%);
+      color: #2f2f2f;
       // color: #aaa;
+      &:hover {
+        color: #2f2f2f;
+      }
     }
 
     a:last-child {
