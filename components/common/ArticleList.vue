@@ -1,9 +1,16 @@
 <template>
   <section class="announcement-board">
     <ul class="announcement-board__list">
-      <li v-for="item in paginatedItems" :key="item.id || item.title" class="announcement-item">
+      <li
+        v-for="item in paginatedItems"
+        :key="item.id || item.title"
+        class="announcement-item"
+        :class="{ 'announcement-item--clickable': !!item.slug }"
+        :role="item.slug ? 'button' : undefined"
+        :tabindex="item.slug ? 0 : undefined"
+      >
         <div class="announcement-item__headline">
-          <h3 class="announcement-item__title">
+          <h3 class="announcement-item__title" @click="handleSelect(item)">
             {{ item.title }}
           </h3>
           <time v-if="item.date" class="announcement-item__date" :datetime="item.date">
@@ -81,7 +88,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['page-change']);
+const emit = defineEmits(['page-change', 'select']);
 
 const currentPage = ref(Math.max(1, props.initialPage));
 
@@ -164,6 +171,13 @@ watch(
     }
   },
 );
+
+const handleSelect = (item) => {
+  if (!item || !item.slug) {
+    return;
+  }
+  emit('select', item);
+};
 </script>
 
 <style lang="scss">
