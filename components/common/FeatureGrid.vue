@@ -5,7 +5,11 @@
       v-for="(item, index) in normalizedItems"
       :key="item.title || index"
       :to="item.to"
+      :role="!item.to ? 'button' : undefined"
+      :tabindex="!item.to ? 0 : undefined"
       class="feature-grid__item"
+      :class="{ 'feature-grid__item--clickable': !item.to }"
+      @click="handleClick(item, $event)"
     >
       <div class="feature-grid__image-wrapper">
         <img
@@ -28,6 +32,8 @@
 
 <script setup>
 import { resolveAssetPath } from '@/utils/assets';
+
+const emit = defineEmits(['select']);
 
 const props = defineProps({
   items: {
@@ -63,6 +69,20 @@ const itemComponent = (item) => {
   }
   return 'div';
 };
+
+const handleClick = (item, event) => {
+  if (!item || item.to) {
+    return;
+  }
+  emit('select', item, event);
+};
+
+// const handleKeydown = (item, event) => {
+//   if (!item || item.to) {
+//     return;
+//   }
+//   emit('select', item, event);
+// };
 </script>
 
 <style scoped lang="scss">
@@ -93,6 +113,10 @@ const itemComponent = (item) => {
   //   transform: translateY(-6px);
   //   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
   // }
+}
+
+.feature-grid__item--clickable {
+  cursor: pointer;
 }
 
 .feature-grid__image-wrapper {
