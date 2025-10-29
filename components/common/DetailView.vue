@@ -53,7 +53,7 @@ const props = defineProps({
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 16px auto;
+    // margin: 16px auto;
   }
 
   .detail-view__content :global(p) {
