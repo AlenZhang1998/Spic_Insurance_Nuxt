@@ -6,6 +6,15 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   //...
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    },
+  },
+
   build: {
     // transpile: ['vuetify'],
   },
