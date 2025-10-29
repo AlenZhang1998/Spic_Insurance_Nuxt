@@ -166,7 +166,7 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .home-banner {
-  // background: pink !important;
+  background: #fff !important;
   color: #fff;
   position: relative;
 

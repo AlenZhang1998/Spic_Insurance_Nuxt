@@ -273,14 +273,14 @@ const onSearch = () => {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
-    margin-top: 12px;
+    margin-top: 8px;
     outline: none;
   }
   .label2 {
     color: #fff;
     font-size: 18px;
     text-decoration: none;
-    margin-top: 15px;
+    margin-top: 10px;
     outline: none;
   }
 
