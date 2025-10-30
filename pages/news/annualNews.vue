@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import DynamicPage from '@/components/common/DynamicPage.vue';
 import ArticleList from '@/components/common/ArticleList.vue';
 import DetailView from '@/components/common/DetailView.vue';
@@ -35,18 +35,21 @@ const layout = contentPageLayouts.news;
 const pageSize = 5;
 const { $axios } = useNuxtApp();
 
-const annualNewsEntries = [
-  {
-    id: '20220309-1',
-    slug: 'annual-20220309-1',
-    title: '2020年度保险经纪大事记',
-    summary:
-      '2020年，是保险经纪“442”三步走转型发展“开启年”。保险经纪围绕转型发展总体目标任务，着力开拓市场、实施稳健经营、深化体制机制、加强党的领导、抓好疫情防控，实现了公司“十三五”时期的圆满收官。公司编制发布《2020年度保险经纪大事记》，系统回顾年度关键举措与亮点成果。',
-    date: '2021-03-20',
-  },
-];
+const {
+  data: annualNewsData,
+  error: annualNewsError,
+} = await useAsyncData('annual-news-list', async () => {
+  const { data } = await $axios.get('/api/news/annual');
+  return data?.items ?? [];
+});
 
-const annualNewsItems = ref(annualNewsEntries);
+watchEffect(() => {
+  if (annualNewsError.value) {
+    console.error('加载年度新闻列表失败：', annualNewsError.value);
+  }
+});
+
+const annualNewsItems = computed(() => annualNewsData.value ?? []);
 const currentPage = ref(1);
 const selectedArticle = ref(null);
 const articleDetail = ref(null);
