@@ -18,6 +18,7 @@ import { resolveAssetPath } from '@/utils/assets';
 const layout = contentPageLayouts.integratedServices;
 const qrImage = resolveAssetPath('images/integratedServices/qr.jpg');
 const spicImage = resolveAssetPath('images/integratedServices/spic.png');
+const { $axios } = useNuxtApp();
 
 const fileModules = import.meta.glob('@/assets/files/*', { eager: true, import: 'default' });
 const guideDoc =
@@ -25,7 +26,7 @@ const guideDoc =
 const guideDocHref = guideDoc || '#';
 
 const { data, pending, error } = await useAsyncData('integrated-services-detail', async () => {
-  const response = await $fetch('/api/integrated-services');
+  const { data: response } = await $axios.get('/api/integrated-services');
   if (!response) {
     return null;
   }

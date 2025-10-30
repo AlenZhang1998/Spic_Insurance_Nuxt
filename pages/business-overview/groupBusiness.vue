@@ -53,7 +53,8 @@ const fetchDetail = async (slug) => {
   detail.value = null;
 
   try {
-    // detail.value = await $fetch(`/api/business/group/${slug}`);
+    // const { data } = await useNuxtApp().$axios.get(`/api/business/group/${slug}`);
+    // detail.value = data;
     detail.value = {
       content: `
         <h2 style="color:#2b6cb0;">这些都是 富文本 测试数据</h2>

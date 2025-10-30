@@ -80,10 +80,12 @@ import SiteFooter from '@/components/common/SiteFooter.vue';
 
 const route = useRoute();
 const router = useRouter();
+const { $axios } = useNuxtApp();
 
-const { data: navData, pending: navPending } = await useAsyncData('navigation', () =>
-  $fetch('/api/navigation'),
-);
+const { data: navData, pending: navPending } = await useAsyncData('navigation', async () => {
+  const { data } = await $axios.get('/api/navigation');
+  return data;
+});
 
 const navItems = computed(() => navData.value ?? []);
 

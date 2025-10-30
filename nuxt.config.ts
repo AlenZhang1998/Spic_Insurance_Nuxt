@@ -5,6 +5,12 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 export default defineNuxtConfig({
   devtools: { enabled: false },
 
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || '',
+    },
+  },
+
   //...
   app: {
     head: {

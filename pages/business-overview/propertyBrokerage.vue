@@ -28,6 +28,7 @@ import DetailView from '@/components/common/DetailView.vue';
 import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.businessOverview;
+const { $axios } = useNuxtApp();
 
 const businessHighlights = [
   {
@@ -63,7 +64,8 @@ const fetchDetail = async (slug) => {
   detail.value = null;
 
   try {
-    detail.value = await $fetch(`/api/business/fakeData/${slug}`);
+    const { data } = await $axios.get(`/api/business/fakeData/${slug}`);
+    detail.value = data;
   } catch (err) {
     console.error('加载业务详情失败：', err);
     errorMessage.value = '暂时无法获取业务详情，请稍后重试。';

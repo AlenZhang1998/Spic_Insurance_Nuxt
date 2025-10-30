@@ -15,9 +15,10 @@ import DynamicPage from '@/components/common/DynamicPage.vue';
 import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.contact;
+const { $axios } = useNuxtApp();
 
 const { data, pending, error } = await useAsyncData('contact-detail', async () => {
-  const response = await $fetch('/api/contact');
+  const { data: response } = await $axios.get('/api/contact');
   return response || null;
 });
 

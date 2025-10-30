@@ -33,6 +33,7 @@ import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.announcements;
 const pageSize = 10;
+const { $axios } = useNuxtApp();
 
 const announcementEntries = [
   {
@@ -213,7 +214,8 @@ const fetchDetail = async (slug) => {
   announcementDetail.value = null;
 
   try {
-    announcementDetail.value = await $fetch(`/api/announcements/${'overview'}`);
+    const { data } = await $axios.get(`/api/announcements/${'overview'}`);
+    announcementDetail.value = data;
   } catch (err) {
     console.error('加载公告详情失败：', err);
     errorMessage.value = '暂时无法获取公告详情，请稍后重试。';

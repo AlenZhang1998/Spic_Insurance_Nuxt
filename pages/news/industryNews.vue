@@ -33,6 +33,7 @@ import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.news;
 const pageSize = 5;
+const { $axios } = useNuxtApp();
 
 const industryNewsEntries = [
   {
@@ -133,7 +134,8 @@ const fetchDetail = async (slug) => {
   articleDetail.value = null;
 
   try {
-    articleDetail.value = await $fetch(`/api/news/industry/${slug}`);
+    const { data } = await $axios.get(`/api/news/industry/${slug}`);
+    articleDetail.value = data;
   } catch (err) {
     console.error('加载行业资讯失败：', err);
     errorMessage.value = '暂时无法获取详情，请稍后重试。';

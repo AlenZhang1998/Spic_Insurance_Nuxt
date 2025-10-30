@@ -17,9 +17,10 @@ import { resolveAssetPath } from '@/utils/assets';
 
 const layout = contentPageLayouts.about;
 const overviewImage = resolveAssetPath('images/about/overview.jpg');
+const { $axios } = useNuxtApp();
 
 const { data, pending, error } = await useAsyncData('about-detail', async () => {
-  const response = await $fetch('/api/about');
+  const { data: response } = await $axios.get('/api/about');
   if (!response) {
     return null;
   }

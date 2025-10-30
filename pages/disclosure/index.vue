@@ -33,6 +33,7 @@ import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.disclosure;
 const pageSize = 10;
+const { $axios } = useNuxtApp();
 
 const disclosureEntries = [
   {
@@ -77,7 +78,8 @@ const fetchDetail = async (slug) => {
   disclosureDetail.value = null;
 
   try {
-    disclosureDetail.value = await $fetch(`/api/disclosure/${slug}`);
+    const { data } = await $axios.get(`/api/disclosure/${slug}`);
+    disclosureDetail.value = data;
   } catch (err) {
     console.error('加载信息披露详情失败：', err);
     errorMessage.value = '暂时无法获取详情，请稍后重试。';

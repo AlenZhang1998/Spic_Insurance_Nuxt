@@ -33,6 +33,7 @@ import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.news;
 const pageSize = 5;
+const { $axios } = useNuxtApp();
 
 const annualNewsEntries = [
   {
@@ -77,7 +78,8 @@ const fetchDetail = async (slug) => {
   articleDetail.value = null;
 
   try {
-    articleDetail.value = await $fetch(`/api/news/annual/${slug}`);
+    const { data } = await $axios.get(`/api/news/annual/${slug}`);
+    articleDetail.value = data;
   } catch (err) {
     console.error('加载年度新闻失败：', err);
     errorMessage.value = '暂时无法获取详情，请稍后重试。';

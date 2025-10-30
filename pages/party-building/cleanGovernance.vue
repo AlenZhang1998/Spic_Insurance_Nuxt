@@ -33,6 +33,7 @@ import { contentPageLayouts } from '@/configs/contentPages';
 
 const layout = contentPageLayouts.partyBuilding;
 const pageSize = 10;
+const { $axios } = useNuxtApp();
 
 const cleanGovernanceEntries = [
   {
@@ -125,7 +126,8 @@ const fetchDetail = async (slug) => {
   articleDetail.value = null;
 
   try {
-    articleDetail.value = await $fetch(`/api/party-building/clean/${slug}`);
+    const { data } = await $axios.get(`/api/party-building/clean/${slug}`);
+    articleDetail.value = data;
   } catch (err) {
     console.error('加载党风廉政详情失败：', err);
     errorMessage.value = '暂时无法获取详情，请稍后重试。';
