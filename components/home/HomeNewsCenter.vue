@@ -58,7 +58,7 @@
 interface NewsHighlight {
   image: string;
   title: string;
-  link: string;
+  // link: string;
 }
 
 interface NewsItem {
@@ -79,6 +79,7 @@ interface NewsCategory {
 import highlight1 from '@/assets/images/home/2_160935322406.png';
 import highlight2 from '@/assets/images/home/2_201438518443.png';
 import highlight3 from '@/assets/images/home/2_201437221155.jpg';
+import highlight4 from '@/assets/images/home/2_201436168516.jpg';
 
 const categories: NewsCategory[] = [
   {
@@ -88,17 +89,22 @@ const categories: NewsCategory[] = [
       {
         image: highlight1,
         title: '公司重要活动现场',
-        link: 'https://www.spicib.com/html/view_160.html',
+        // link: 'https://www.spicib.com/html/view_160.html',
       },
       {
         image: highlight2,
         title: '党建活动与专题培训',
-        link: 'https://www.spicib.com/html/view_152.html',
+        // link: 'https://www.spicib.com/html/view_152.html',
       },
       {
         image: highlight3,
         title: '合作伙伴签约仪式',
-        link: 'https://www.spicib.com/html/view_159.html',
+        // link: 'https://www.spicib.com/html/view_159.html',
+      },
+      {
+        image: highlight4,
+        title: '大巴车',
+        // link: 'https://www.spicib.com/html/view_159.html',
       },
     ],
     items: [
