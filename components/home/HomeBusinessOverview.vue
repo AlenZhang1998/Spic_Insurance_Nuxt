@@ -111,10 +111,10 @@ const secondaryCards = computed(() => businessCards.slice(1));
 
   &__title {
     margin: 0;
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 700;
-    color: #333;
-    letter-spacing: 0.08em;
+    // letter-spacing: 0.1em;
+    color: #1a1a1a;
   }
 
   &__subtitle {
@@ -125,6 +125,7 @@ const secondaryCards = computed(() => businessCards.slice(1));
     height: 40px;
     line-height: 50px;
     font-weight: bold;
+    margin-left: -2px;
   }
 
   &__more {
@@ -148,7 +149,7 @@ const secondaryCards = computed(() => businessCards.slice(1));
 
   &__grid {
     display: flex;
-    gap: 32px;
+    gap: 12px;
     align-items: stretch;
   }
 
@@ -200,7 +201,7 @@ const secondaryCards = computed(() => businessCards.slice(1));
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
-    gap: 10px 30px;
+    gap: 10px 53px;
   }
 
   &__card--secondary {
@@ -211,6 +212,7 @@ const secondaryCards = computed(() => businessCards.slice(1));
     img {
       display: block;
       max-width: 88%;
+      float: right;
       // width: 100%;
       // height: 100%;
       // object-fit: cover;
