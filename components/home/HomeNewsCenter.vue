@@ -9,10 +9,23 @@
               <span class="home-news__subtitle">NEWS CENTER</span>
             </div>
           </header>
-          <ElCarousel :interval="5000" arrow="never" height="433px" autoplay>
+          <ElCarousel
+            ref="carouselRef"
+            :interval="5000"
+            arrow="never"
+            height="433px"
+            autoplay
+            @mousedown="handleMouseDown"
+            @mousemove="handleMouseMove"
+            @mouseup="handleMouseUp"
+            @mouseleave="handleMouseUp"
+            @touchstart.passive="handleTouchStart"
+            @touchmove.passive="handleTouchMove"
+            @touchend="handleTouchEnd"
+          >
             <ElCarouselItem v-for="highlight in activeCategory.highlights" :key="highlight.image">
               <div class="home-news__highlight-image">
-                <img :src="highlight.image" :alt="highlight.title" />
+                <img :src="highlight.image" :alt="highlight.title" draggable="false" />
               </div>
             </ElCarouselItem>
           </ElCarousel>
@@ -55,6 +68,8 @@
 </template>
 
 <script setup lang="ts">
+import type { CarouselInstance } from 'element-plus';
+
 interface NewsHighlight {
   image: string;
   title: string;
@@ -198,7 +213,82 @@ const activeCategory = computed(() =>
   categories.find((category) => category.key === activeKey.value),
 );
 
-// no additional logic required
+const carouselRef = ref<CarouselInstance | null>(null);
+const isDragging = ref(false);
+const dragStartX = ref(0);
+const dragDeltaX = ref(0);
+const DRAG_THRESHOLD = 40;
+
+const beginDrag = (pointX: number) => {
+  isDragging.value = true;
+  dragStartX.value = pointX;
+  dragDeltaX.value = 0;
+  carouselRef.value?.pause();
+};
+
+const updateDrag = (pointX: number) => {
+  if (!isDragging.value) {
+    return;
+  }
+  dragDeltaX.value = pointX - dragStartX.value;
+};
+
+const endDrag = () => {
+  if (!isDragging.value) {
+    return;
+  }
+
+  const distance = dragDeltaX.value;
+  isDragging.value = false;
+  dragStartX.value = 0;
+  dragDeltaX.value = 0;
+
+  if (Math.abs(distance) >= DRAG_THRESHOLD) {
+    if (distance > 0) {
+      carouselRef.value?.prev();
+    } else {
+      carouselRef.value?.next();
+    }
+  }
+
+  carouselRef.value?.play();
+};
+
+const handleMouseDown = (event: MouseEvent) => {
+  event.preventDefault();
+  beginDrag(event.clientX);
+};
+
+const handleMouseMove = (event: MouseEvent) => {
+  if (!isDragging.value) {
+    return;
+  }
+  updateDrag(event.clientX);
+};
+
+const handleMouseUp = () => {
+  endDrag();
+};
+
+const handleTouchStart = (event: TouchEvent) => {
+  if (!event.touches.length) {
+    return;
+  }
+
+  beginDrag(event.touches[0].clientX);
+};
+
+const handleTouchMove = (event: TouchEvent) => {
+  if (!event.touches.length) {
+    return;
+  }
+
+  updateDrag(event.touches[0].clientX);
+};
+
+const handleTouchEnd = () => {
+  endDrag();
+};
 </script>
 
 <style scoped lang="scss">
