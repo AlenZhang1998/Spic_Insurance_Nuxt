@@ -8,17 +8,6 @@
         <div class="site-footer__visual site-footer__visual--qr">
           <img :src="footerQr" alt="国家电投集团保险经纪有限公司" />
         </div>
-
-        <!-- <div class="site-footer__visual site-footer__visual--qr">
-          <div class="site-footer__qr">
-            <span class="site-footer__qr-image site-footer__qr-image--left" :style="qrSpriteStyle('left')" />
-            <span class="site-footer__qr-caption">融和e保</span>
-          </div>
-          <div class="site-footer__qr">
-            <span class="site-footer__qr-image site-footer__qr-image--right" :style="qrSpriteStyle('right')" />
-            <span class="site-footer__qr-caption">公司公众号</span>
-          </div>
-        </div> -->
       </div>
 
       <div class="site-footer__info">
@@ -46,12 +35,12 @@
   </footer>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import footerLogo from '@/assets/images/home/6_footlogo.jpg';
 import footerQr from '@/assets/images/home/6_footwx.png';
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .site-footer {
   background-color: #11a93b;
   color: #fff;
@@ -62,7 +51,7 @@ import footerQr from '@/assets/images/home/6_footwx.png';
     padding: 48px 0 26px;
 
     .site-footer__inner {
-      width: min(1100px, 100%);
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 24px;
       display: flex;
@@ -107,7 +96,7 @@ import footerQr from '@/assets/images/home/6_footwx.png';
     }
 
     .site-footer__divider {
-      width: 1000px;
+      width: 1250px;
       max-width: 100%;
       height: 3px;
       background-color: #fff;
