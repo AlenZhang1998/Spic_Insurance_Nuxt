@@ -228,7 +228,7 @@ const handleBreadcrumbClick = (crumb, event) => {
     // width: min(1200px, 100%);
     // // width: 100%;
     // margin: 0 auto;
-    background: #f3f3f3 url(@/assets/images/about/small_home.png) left center no-repeat;
+    background: url(@/assets/images/about/small_home.png) left center no-repeat;
     padding-left: 20px;
     box-sizing: border-box;
     width: 100%;

@@ -16,6 +16,7 @@ const disclosureBanner = 'images/disclosure/banner.jpg';
 const eBanner = 'images/integratedServices/banner.jpg';
 const announcementBanner = 'images/announcement/banner.jpg';
 const contactdBanner = 'images/contact/banner.jpg';
+const searchBanner = 'images/search/banner.jpg';
 
 export const contentPageLayouts = {
   about: {
@@ -152,6 +153,28 @@ export const contentPageLayouts = {
         // { label: '在线留言', to: '/contact/message' },
       ],
       // contact: contactInfo,
+    },
+  },
+  search: {
+    title: '搜索结果',
+    bannerImage: searchBanner,
+    breadcrumb: [
+      { label: '首页', to: '/' },
+      { label: '搜索结果', to: '/search' },
+    ],
+    sidebar: {
+      title: '网站搜索',
+      menu: [
+        { label: '关于我们', to: '/about/companyProfile' },
+        { label: '新闻中心', to: '/news' },
+        { label: '党的建设', to: '/party-building' },
+        { label: '业务概览', to: '/business-overview' },
+        { label: '信息披露', to: '/disclosure' },
+        { label: '融和e保', to: '/integrated-services' },
+        { label: '公示公告', to: '/announcements' },
+        { label: '联系我们', to: '/contact' },
+      ],
+      contact: contactInfo,
     },
   },
 };
