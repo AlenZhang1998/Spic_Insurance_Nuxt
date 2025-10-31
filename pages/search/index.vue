@@ -189,8 +189,8 @@ const goToPage = (targetPage) => {
 
 useHead(() => ({
   title: hasQuery.value
-    ? `“${searchQuery.value}”的搜索结果_国家电投集团保险经纪有限公司`
-    : '搜索_国家电投集团保险经纪有限公司',
+    ? `${searchQuery.value}_国家电投集团保险经纪有限公司`
+    : '_国家电投集团保险经纪有限公司',
 }));
 </script>
 
