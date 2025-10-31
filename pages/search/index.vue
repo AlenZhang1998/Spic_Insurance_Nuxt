@@ -1,5 +1,5 @@
 <template>
-  <DynamicPage v-bind="layout">
+  <DynamicPage v-bind="layout" :breadcrumb-tail="breadcrumbTail">
     <template #header>
       <div class="search-header">
         <h1 class="search-header__title">搜索结果</h1>
@@ -80,6 +80,7 @@ const { $axios } = useNuxtApp();
 
 const searchQuery = computed(() => (route.query.q ? String(route.query.q) : '').trim());
 const hasQuery = computed(() => Boolean(searchQuery.value));
+const breadcrumbTail = computed(() => (searchQuery.value ? `${searchQuery.value}` : ''));
 
 const currentPage = computed(() => {
   const value = Number(route.query.page ?? '1');
@@ -152,9 +153,7 @@ const paginationPages = computed(() => {
   return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 });
 
-const errorMessage = computed(() =>
-  error.value ? '搜索服务暂时不可用，请稍后再试。' : '',
-);
+const errorMessage = computed(() => (error.value ? '搜索服务暂时不可用，请稍后再试。' : ''));
 
 const highlightRegex = computed(() => {
   if (!searchQuery.value) {

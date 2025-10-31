@@ -7,14 +7,19 @@
 
     <!-- 面包屑 -->
     <nav v-if="computedBreadcrumb.length" class="content-page__breadcrumb">
-      <NuxtLink
-        v-for="(crumb, index) in computedBreadcrumb"
-        :key="`${crumb.to}-${index}`"
-        :to="crumb.to"
-        @click="handleBreadcrumbClick(crumb, $event)"
-      >
-        {{ crumb.label }}
-      </NuxtLink>
+      <template v-for="(crumb, index) in computedBreadcrumb" :key="`${crumb.label}-${index}`">
+        <NuxtLink
+          v-if="crumb.to"
+          :to="crumb.to"
+          class="content-page__breadcrumb-item"
+          @click="handleBreadcrumbClick(crumb, $event)"
+        >
+          {{ crumb.label }}
+        </NuxtLink>
+        <span v-else class="content-page__breadcrumb-item content-page__breadcrumb-item--static">
+          {{ crumb.label }}
+        </span>
+      </template>
     </nav>
 
     <!-- 主体 -->
@@ -76,6 +81,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  breadcrumbTail: {
+    type: String,
+    default: '',
+  },
   sidebar: {
     type: Object,
     default: null,
@@ -119,20 +128,23 @@ const activeMenuItem = computed(() => {
 });
 
 const computedBreadcrumb = computed(() => {
-  const crumbs = baseBreadcrumb.value || [];
-  if (!activeMenuItem.value || !activeMenuItem.value.to) {
-    return crumbs;
+  const crumbs = [...(baseBreadcrumb.value || [])];
+
+  if (activeMenuItem.value?.to) {
+    const exists = crumbs.some(
+      (crumb) => crumb.to === activeMenuItem.value.to || crumb.label === activeMenuItem.value.label,
+    );
+
+    if (!exists) {
+      crumbs.push({ label: activeMenuItem.value.label, to: activeMenuItem.value.to });
+    }
   }
 
-  const exists = crumbs.some(
-    (crumb) => crumb.to === activeMenuItem.value.to || crumb.label === activeMenuItem.value.label,
-  );
-
-  if (exists) {
-    return crumbs;
+  if (props.breadcrumbTail) {
+    crumbs.push({ label: props.breadcrumbTail });
   }
 
-  return [...crumbs, { label: activeMenuItem.value.label, to: activeMenuItem.value.to }];
+  return crumbs;
 });
 
 const headerTitle = computed(() => activeMenuItem.value?.label || baseTitle.value);
@@ -241,39 +253,42 @@ const handleBreadcrumbClick = (crumb, event) => {
     display: flex;
     align-items: center;
 
-    a {
+    .content-page__breadcrumb-item {
       text-decoration: none;
       position: relative;
-      padding: 0 16px 0 0px;
+      padding: 0 16px 0 0;
       color: inherit;
       cursor: pointer;
       outline: none;
+      display: inline-flex;
+      align-items: center;
+
       &:hover {
         color: #ff7f32;
         cursor: pointer;
       }
-    }
 
-    a::after {
-      content: '>';
-      position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #2f2f2f;
-      // color: #aaa;
-      &:hover {
+      &::after {
+        content: '>';
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
         color: #2f2f2f;
       }
-    }
 
-    a:last-child {
-      // color: #c60c1a;
-      // font-weight: 600;
-    }
+      &:last-child::after {
+        display: none;
+      }
 
-    a:last-child::after {
-      display: none;
+      &.content-page__breadcrumb-item--static {
+        cursor: default;
+        color: #2f2f2f;
+        font-weight: 600;
+        &:hover {
+          color: #2f2f2f;
+        }
+      }
     }
   }
 
