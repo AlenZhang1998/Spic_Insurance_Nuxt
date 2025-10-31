@@ -28,12 +28,12 @@ const dataset: SearchItem[] = [
   },
   {
     id: 'business-innovation',
-    slug: 'business-innovation',
-    title: '创新业务',
+    slug: 'pb-20220126',
+    title: '保险经纪召开党史学习教育专题民主生活会',
     summary:
       '1国家电投集团保险经纪有限公司依托集团能源产业优势，持续推进数字化、科技化创新业务，围绕客户需求打造风险解决方案。',
     date: '2021-12-13',
-    to: '/business-overview/innovativeBusiness',
+    to: '/party-building/partybuilding',
   },
   {
     id: 'business-property',
