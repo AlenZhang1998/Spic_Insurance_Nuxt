@@ -11,26 +11,29 @@
               </div>
             </header>
           </Transition>
-          <ElCarousel
-            ref="carouselRef"
-            :interval="5000"
-            arrow="never"
-            height="433px"
-            autoplay
-            @mousedown="handleMouseDown"
-            @mousemove="handleMouseMove"
-            @mouseup="handleMouseUp"
-            @mouseleave="handleMouseUp"
-            @touchstart.passive="handleTouchStart"
-            @touchmove.passive="handleTouchMove"
-            @touchend="handleTouchEnd"
-          >
-            <ElCarouselItem v-for="highlight in activeCategory.highlights" :key="highlight.image">
-              <div class="home-news__highlight-image">
-                <img :src="highlight.image" :alt="highlight.title" draggable="false" />
-              </div>
-            </ElCarouselItem>
-          </ElCarousel>
+          <Transition name="home-news-carousel-up">
+            <ElCarousel
+              v-if="showCarousel"
+              ref="carouselRef"
+              :interval="5000"
+              arrow="never"
+              height="433px"
+              autoplay
+              @mousedown="handleMouseDown"
+              @mousemove="handleMouseMove"
+              @mouseup="handleMouseUp"
+              @mouseleave="handleMouseUp"
+              @touchstart.passive="handleTouchStart"
+              @touchmove.passive="handleTouchMove"
+              @touchend="handleTouchEnd"
+            >
+              <ElCarouselItem v-for="highlight in activeCategory.highlights" :key="highlight.image">
+                <div class="home-news__highlight-image">
+                  <img :src="highlight.image" :alt="highlight.title" draggable="false" />
+                </div>
+              </ElCarouselItem>
+            </ElCarousel>
+          </Transition>
         </div>
 
         <div class="home-news__articles">
@@ -213,6 +216,7 @@ const categories: NewsCategory[] = [
 
 const showHeader = ref(false);
 const showTabs = ref(false);
+const showCarousel = ref(false);
 
 const activeKey = ref<NewsCategory['key']>(categories[0].key);
 
@@ -301,6 +305,7 @@ onMounted(() => {
   requestAnimationFrame(() => {
     showHeader.value = true;
     showTabs.value = true;
+    showCarousel.value = true;
   });
 });
 </script>
@@ -334,6 +339,20 @@ onMounted(() => {
   }
 
   .home-news-slide-up-enter-to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .home-news-carousel-up-enter-from {
+    transform: translateY(400px);
+    opacity: 0;
+  }
+
+  .home-news-carousel-up-enter-active {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+  }
+
+  .home-news-carousel-up-enter-to {
     transform: translateY(0);
     opacity: 1;
   }
