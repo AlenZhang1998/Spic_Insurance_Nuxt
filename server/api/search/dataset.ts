@@ -9,13 +9,13 @@
 
 const dataset: SearchItem[] = [
   {
-    legacyId: '1clean-20211230-1',
-    id: 'clean-20211230-1',
-    title: '中央纪委国家监委公开通报违规典型问题',
+    legacyId: '20211209-2',
+    id: 'cg-20211209-2',
+    title: '中国共产党纪律处分条例',
     summary:
-      '中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
+      '中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。11',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: 'news-company-20220309-1',
@@ -51,7 +51,7 @@ const dataset: SearchItem[] = [
     summary:
       '1国家电投集团保险经纪有限公司对下述项目进行公开询价。询价条件：询价人：国家电投集团保险经纪有限公司（简称“保险经纪”）立项情况：已立项 项目资金来源：公司自筹。',
     date: '2022-05-11',
-    to: '/announcements?id=a-20201130-1',
+    to: '/announcements',
   },
   {
     legacyId: '1party-building-20220321',
@@ -60,7 +60,7 @@ const dataset: SearchItem[] = [
     summary:
       '根据集团公司党委和资本控股党委的部署安排，前期充分学习讨论、广泛征求意见、深入谈心谈话，3月14日至17日，保险经纪党支部先后召开2021年度组织生活会。',
     date: '2022-03-21',
-    to: '/party-building?id=pb-20220321',
+    to: '/party-building',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -69,7 +69,7 @@ const dataset: SearchItem[] = [
     summary:
       '中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -78,7 +78,7 @@ const dataset: SearchItem[] = [
     summary:
       '1中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -87,7 +87,7 @@ const dataset: SearchItem[] = [
     summary:
       '1中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -96,7 +96,7 @@ const dataset: SearchItem[] = [
     summary:
       '1中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -105,7 +105,7 @@ const dataset: SearchItem[] = [
     summary:
       '1中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -114,7 +114,7 @@ const dataset: SearchItem[] = [
     summary:
       '1中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
   {
     legacyId: '1clean-20211230-1',
@@ -123,7 +123,7 @@ const dataset: SearchItem[] = [
     summary:
       '中央纪委国家监委公开通报十起违反中央八项规定精神典型问题，强调持续纠“四风”、树新风的重要性。',
     date: '2021-12-30',
-    to: '/party-building/cleanGovernance?id=cg-20211230-1',
+    to: '/party-building/cleanGovernance',
   },
 ];
 
