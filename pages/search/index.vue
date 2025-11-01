@@ -86,9 +86,40 @@ watch(
 
 const errorMessage = computed(() => (error.value ? '搜索服务暂时不可用，请稍后再试。' : ''));
 
+const pushWithSlug = (target, slug) => {
+  if (!target) {
+    return;
+  }
+  if (!slug) {
+    router.push(target);
+    return;
+  }
+
+  if (typeof target === 'string') {
+    const [pathPart, queryString = ''] = target.split('?');
+    const queryParams = Object.fromEntries(new URLSearchParams(queryString));
+    router.push({
+      path: pathPart,
+      query: {
+        ...queryParams,
+        slug,
+      },
+    });
+    return;
+  }
+
+  router.push({
+    ...target,
+    query: {
+      ...(target.query ?? {}),
+      slug,
+    },
+  });
+};
+
 const handleSelect = (item) => {
   if (item?.to) {
-    router.push(item.to);
+    pushWithSlug(item.to, item.slug);
   }
 };
 
