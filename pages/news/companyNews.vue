@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, computed, watch, watchEffect } from 'vue';
 import DynamicPage from '@/components/common/DynamicPage.vue';
 import ArticleList from '@/components/common/ArticleList.vue';
 import DetailView from '@/components/common/DetailView.vue';
@@ -49,6 +49,8 @@ watchEffect(() => {
   }
 });
 
+const route = useRoute();
+
 const companyNewsItems = computed(() => companyNewsData.value ?? []);
 const currentPage = ref(1);
 const selectedArticle = ref(null);
@@ -65,8 +67,7 @@ const handleSelect = async (item) => {
   if (!item || !item.id) {
     return;
   }
-  selectedArticle.value = item;
-  await fetchDetail(item.id);
+  await loadDetailById(item.id, item);
 };
 
 const resetDetail = () => {
@@ -90,6 +91,70 @@ const fetchDetail = async (id) => {
     loading.value = false;
   }
 };
+
+const extractRouteId = (value) => {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value ?? '';
+};
+
+const routeId = computed(() => extractRouteId(route.query.id));
+
+const loadDetailById = async (id, fallbackItem) => {
+  if (!id) {
+    return;
+  }
+
+  const existing =
+    fallbackItem ?? companyNewsItems.value.find((item) => item.id === id);
+
+  if (existing) {
+    selectedArticle.value = existing;
+  } else if (!selectedArticle.value || selectedArticle.value.id !== id) {
+    selectedArticle.value = { id };
+  }
+
+  if (selectedArticle.value?.id === id && articleDetail.value && !loading.value) {
+    return;
+  }
+
+  await fetchDetail(id);
+};
+
+watch(
+  routeId,
+  async (id, previousId) => {
+    if (!id) {
+      if (selectedArticle.value) {
+        resetDetail();
+      }
+      return;
+    }
+
+    if (
+      id === previousId &&
+      selectedArticle.value?.id === id &&
+      articleDetail.value
+    ) {
+      return;
+    }
+
+    await loadDetailById(id);
+  },
+  { immediate: true },
+);
+
+watch(companyNewsItems, (items) => {
+  if (!selectedArticle.value?.id || !items?.length) {
+    return;
+  }
+
+  const match = items.find((item) => item.id === selectedArticle.value.id);
+  if (match && match !== selectedArticle.value) {
+    selectedArticle.value = match;
+  }
+});
 
 const pageTitle = computed(() => {
   if (selectedArticle.value && articleDetail.value?.title) {
