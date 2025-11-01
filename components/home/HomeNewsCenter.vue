@@ -3,12 +3,14 @@
     <div class="home-news__container">
       <div class="home-news__content" v-if="activeCategory">
         <div class="home-news__highlight">
-          <header class="home-news__header">
-            <div class="home-news__heading">
-              <h2 class="home-news__title">新闻中心</h2>
-              <span class="home-news__subtitle">NEWS CENTER</span>
-            </div>
-          </header>
+          <Transition name="home-news-slide-down">
+            <header v-if="showHeader" class="home-news__header">
+              <div class="home-news__heading">
+                <h2 class="home-news__title">新闻中心</h2>
+                <span class="home-news__subtitle">NEWS CENTER</span>
+              </div>
+            </header>
+          </Transition>
           <ElCarousel
             ref="carouselRef"
             :interval="5000"
@@ -32,20 +34,22 @@
         </div>
 
         <div class="home-news__articles">
-          <nav class="home-news__tabs" role="tablist">
-            <button
-              v-for="category in categories"
-              :key="category.key"
-              class="home-news__tab"
-              :class="{ 'is-active': category.key === activeKey }"
-              role="tab"
-              type="button"
-              :aria-selected="category.key === activeKey"
-              @click="activeKey = category.key"
-            >
-              {{ category.label }}
-            </button>
-          </nav>
+          <Transition name="home-news-slide-up">
+            <nav v-if="showTabs" class="home-news__tabs" role="tablist">
+              <button
+                v-for="category in categories"
+                :key="category.key"
+                class="home-news__tab"
+                :class="{ 'is-active': category.key === activeKey }"
+                role="tab"
+                type="button"
+                :aria-selected="category.key === activeKey"
+                @click="activeKey = category.key"
+              >
+                {{ category.label }}
+              </button>
+            </nav>
+          </Transition>
 
           <ul class="home-news__list">
             <li v-for="item in activeCategory.items" :key="item.title" class="home-news__list-item">
@@ -207,6 +211,9 @@ const categories: NewsCategory[] = [
   },
 ];
 
+const showHeader = ref(false);
+const showTabs = ref(false);
+
 const activeKey = ref<NewsCategory['key']>(categories[0].key);
 
 const activeCategory = computed(() =>
@@ -289,12 +296,47 @@ const handleTouchMove = (event: TouchEvent) => {
 const handleTouchEnd = () => {
   endDrag();
 };
+
+onMounted(() => {
+  requestAnimationFrame(() => {
+    showHeader.value = true;
+    showTabs.value = true;
+  });
+});
 </script>
 
 <style lang="scss">
 .home-news {
   background-color: #fff;
   padding: 30px 0 50px;
+
+  .home-news-slide-down-enter-from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  .home-news-slide-down-enter-active {
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+
+  .home-news-slide-down-enter-to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .home-news-slide-up-enter-from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  .home-news-slide-up-enter-active {
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+
+  .home-news-slide-up-enter-to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
   .home-news__container {
     // width: min(1180px, 100%);
