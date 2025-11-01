@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, computed, watch, watchEffect } from 'vue';
 import DynamicPage from '@/components/common/DynamicPage.vue';
 import ArticleList from '@/components/common/ArticleList.vue';
 import DetailView from '@/components/common/DetailView.vue';
@@ -48,6 +48,8 @@ watchEffect(() => {
     console.error('加载党的建设列表失败：', partyBuildingError.value);
   }
 });
+
+const route = useRoute();
 
 const partyBuildingItems = computed(() => partyBuildingData.value ?? []);
 const currentPage = ref(1);
@@ -90,6 +92,37 @@ const fetchDetail = async (id) => {
     loading.value = false;
   }
 };
+
+const extractRouteId = (value) => {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value ?? '';
+};
+
+watch(
+  [partyBuildingItems, () => route.query.id],
+  async ([items, routeId]) => {
+    const id = extractRouteId(routeId);
+
+    if (!id) {
+      if (selectedArticle.value) {
+        resetDetail();
+      }
+      return;
+    }
+
+    if (!items?.length || selectedArticle.value?.id === id) {
+      return;
+    }
+
+    const found = items.find((item) => item.id === id);
+    if (found) {
+      await handleSelect(found);
+    }
+  },
+  { immediate: true },
+);
 
 const pageTitle = computed(() => {
   // if (selectedArticle.value && articleDetail.value?.title) {
