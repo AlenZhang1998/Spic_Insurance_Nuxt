@@ -17,8 +17,12 @@
             {{ item.date }}
           </time>
         </div>
-        <div v-if="item.summary" class="announcement-item__summary">
-          <p>{{ item.summary }}</p>
+        <div
+          v-if="item.summary || item.highlightedSummary"
+          class="announcement-item__summary"
+        >
+          <p v-if="item.highlightedSummary" v-html="item.highlightedSummary"></p>
+          <p v-else>{{ item.summary }}</p>
         </div>
       </li>
     </ul>

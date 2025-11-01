@@ -17,7 +17,7 @@
     </div>
     <div v-else class="search-list">
       <ArticleList
-        :items="items"
+        :items="highlightedItems"
         :page-size="pageSize"
         :initial-page="currentPage"
         @page-change="handlePageChange"
@@ -67,6 +67,26 @@ const { data, pending, error } = await useAsyncData(
 );
 
 const items = computed(() => data.value?.items ?? []);
+
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const highlightedItems = computed(() => {
+  const keyword = searchQuery.value;
+  if (!keyword) {
+    return items.value;
+  }
+  const escapedKeyword = escapeRegExp(keyword);
+  const regex = new RegExp(`(${escapedKeyword})`, 'gi');
+  return items.value.map((item) => {
+    if (!item?.summary) {
+      return item;
+    }
+    return {
+      ...item,
+      highlightedSummary: item.summary.replace(regex, '<span class="search-highlight">$1</span>'),
+    };
+  });
+});
 
 watch(searchQuery, (newValue, oldValue) => {
   if (newValue !== oldValue) {
@@ -181,8 +201,7 @@ useHead(() => ({
   }
 }
 
-.search-highlight {
-  color: #c60c1a;
-  font-weight: 600;
+:deep(.search-highlight) {
+  color: red;
 }
 </style>
