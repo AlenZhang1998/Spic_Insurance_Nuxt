@@ -54,20 +54,26 @@
             </nav>
           </Transition>
 
-          <ul class="home-news__list">
-            <li v-for="item in activeCategory.items" :key="item.title" class="home-news__list-item">
-              <a :href="item.link" target="_blank" rel="noopener">
-                <div class="home-news__date">
-                  <span class="home-news__day">{{ item.day }}</span>
-                  <em class="home-news__year-month">{{ item.yearMonth }}</em>
-                </div>
-                <div class="home-news__info">
-                  <div class="title">{{ item.title }}</div>
-                  <p>{{ item.summary }}</p>
-                </div>
-              </a>
-            </li>
-          </ul>
+          <Transition name="home-news-list-reveal">
+            <ul v-if="showList" class="home-news__list">
+              <li
+                v-for="item in activeCategory.items"
+                :key="item.title"
+                class="home-news__list-item"
+              >
+                <a :href="item.link" target="_blank" rel="noopener">
+                  <div class="home-news__date">
+                    <span class="home-news__day">{{ item.day }}</span>
+                    <em class="home-news__year-month">{{ item.yearMonth }}</em>
+                  </div>
+                  <div class="home-news__info">
+                    <div class="title">{{ item.title }}</div>
+                    <p>{{ item.summary }}</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </Transition>
         </div>
       </div>
     </div>
@@ -217,6 +223,7 @@ const categories: NewsCategory[] = [
 const showHeader = ref(false);
 const showTabs = ref(false);
 const showCarousel = ref(false);
+const showList = ref(false);
 
 const activeKey = ref<NewsCategory['key']>(categories[0].key);
 
@@ -306,6 +313,7 @@ onMounted(() => {
     showHeader.value = true;
     showTabs.value = true;
     showCarousel.value = true;
+    showList.value = true;
   });
 });
 </script>
@@ -353,6 +361,20 @@ onMounted(() => {
   }
 
   .home-news-carousel-up-enter-to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .home-news-list-reveal-enter-from {
+    transform: translateY(400px);
+    opacity: 0;
+  }
+
+  .home-news-list-reveal-enter-active {
+    transition: transform 0.8s ease, opacity 0.8s ease;
+  }
+
+  .home-news-list-reveal-enter-to {
     transform: translateY(0);
     opacity: 1;
   }
