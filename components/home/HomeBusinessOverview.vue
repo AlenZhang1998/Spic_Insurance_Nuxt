@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="home-business">
     <div class="home-business__container">
       <header class="home-business__header">
@@ -81,7 +81,15 @@ const businessCards: BusinessCard[] = [
   },
 ];
 
+const showHeading = ref(false);
+
 const leadCard = computed(() => businessCards[0]);
+onMounted(() => {
+  requestAnimationFrame(() => {
+    showHeading.value = true;
+  });
+});
+
 const secondaryCards = computed(() => businessCards.slice(1));
 </script>
 
@@ -107,6 +115,7 @@ const secondaryCards = computed(() => businessCards.slice(1));
     display: flex;
     align-items: baseline;
     gap: 16px;
+    animation: home-business-heading-drop 0.45s ease both;
   }
 
   &__title {
@@ -256,6 +265,18 @@ const secondaryCards = computed(() => businessCards.slice(1));
       font-size: 18px;
       line-height: 1.2;
     }
+  }
+}
+
+@keyframes home-business-heading-drop {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
