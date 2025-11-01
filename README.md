@@ -1,4 +1,4 @@
-# 国家电投集团保险经纪有限公司官网（Nuxt 3）
+﻿# 国家电投集团保险经纪有限公司官网（Nuxt 3）
 
 本项目基于 Nuxt 3 构建，用于展示公司新闻、公示公告、党建园地、党风廉政、企业影像等内容模块。
 
@@ -75,7 +75,7 @@
   - `business-overview/`：业务概览与子业务介绍页面。
   - `disclosure/`：信息披露页面。
 - `server/api/navigation.get.js`：导航菜单接口示例（供头部菜单调用）。
-- `server/api/announcements/`、`server/api/news/`、`server/api/party-building/` 等：列表 (`index.get.ts`) 与详情 (`[slug].get.ts`) 的模拟接口（待与后端对接时替换）。
+- `server/api/announcements/`、`server/api/news/`、`server/api/party-building/` 等：列表 (`index.get.ts`) 与详情 (`[id].get.ts`) 的模拟接口（待与后端对接时替换）。
 - `store/`：Pinia 全局状态管理（如语言、主题等）。
 - `nuxt.config.ts`：Nuxt 配置文件，包含模块、插件、Vite 配置等。
 - `README.md`：项目说明文档（当前文件）。
@@ -90,9 +90,9 @@
 
 ## 内容数据与接口
 
-- 每个列表项需提供唯一的 `slug`，`ArticleList` 在触发 `@select` 时会使用该 `slug` 调用对应的详情接口。
+- 每个列表项需提供唯一的 `id`，`ArticleList` 在触发 `@select` 时会使用该 `id` 调用对应的详情接口。
 - 详情展示统一由 `components/common/DetailView.vue` 渲染，支持加载中、错误态、返回列表等交互。
-- 列表接口统一位于 `server/api/**/index.get.ts`，详情接口位于 `server/api/**/[slug].get.ts`，均返回富文本 HTML 或结构化数据，可一键替换为真实后端。
+- 列表接口统一位于 `server/api/**/index.get.ts`，详情接口位于 `server/api/**/[id].get.ts`，均返回富文本 HTML 或结构化数据，可一键替换为真实后端。
 - 前端通过 `useNuxtApp().$axios` 或 `const { data } = await $axios.get(...)` 访问接口，默认指向同域 `/api/*`，如需对接远端请设置 `NUXT_PUBLIC_API_BASE` 环境变量。
 - 若新增列表项或模块，请同步维护对应的 mock 列表与详情数据，确保本地调试时可以正常预览。
 

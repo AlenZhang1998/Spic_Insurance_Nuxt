@@ -1,4 +1,4 @@
-import type { H3Event } from 'h3';
+﻿import type { H3Event } from 'h3';
 
 const mockDatabase: Record<
   string,
@@ -44,17 +44,17 @@ const mockDatabase: Record<
 };
 
 export default defineEventHandler((event: H3Event) => {
-  const slug = event.context.params?.slug;
+  const id = event.context.params?.id;
 
-  if (slug && mockDatabase[slug]) {
-    return mockDatabase[slug];
+  if (id && mockDatabase[id]) {
+    return mockDatabase[id];
   }
 
   const fallback = {
     title: '信息披露详情',
     author: '国家电投集团保险经纪有限公司',
     publishedAt: new Date().toISOString().slice(0, 10),
-    content: `<p>暂无该披露详情内容，标识：${slug ?? '未知'}</p>`,
+    content: `<p>暂无该披露详情内容，标识：${id ?? '未知'}</p>`,
   };
 
   return fallback;

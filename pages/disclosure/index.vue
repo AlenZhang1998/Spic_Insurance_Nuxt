@@ -35,13 +35,13 @@ const layout = contentPageLayouts.disclosure;
 const pageSize = 10;
 const { $axios } = useNuxtApp();
 
-const {
-  data: disclosureData,
-  error: disclosureError,
-} = await useAsyncData('disclosure-list', async () => {
-  const { data } = await $axios.get('/api/disclosure');
-  return data?.items ?? [];
-});
+const { data: disclosureData, error: disclosureError } = await useAsyncData(
+  'disclosure-list',
+  async () => {
+    const { data } = await $axios.get('/api/disclosure');
+    return data?.items ?? [];
+  },
+);
 
 watchEffect(() => {
   if (disclosureError.value) {
@@ -62,11 +62,11 @@ const handlePageChange = (page) => {
 };
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedDisclosure.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -75,13 +75,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   disclosureDetail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/disclosure/${slug}`);
+    const { data } = await $axios.get(`/api/disclosure/${id}`);
     disclosureDetail.value = data;
   } catch (err) {
     console.error('加载信息披露详情失败：', err);

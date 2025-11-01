@@ -1,4 +1,4 @@
-import type { H3Event } from 'h3';
+﻿import type { H3Event } from 'h3';
 
 const mockDatabase: Record<string, { title: string; author: string; publishedAt: string; content: string }> = {
   'pb-20220321': {
@@ -21,16 +21,16 @@ const mockDatabase: Record<string, { title: string; author: string; publishedAt:
 };
 
 export default defineEventHandler((event: H3Event) => {
-  const slug = event.context.params?.slug;
+  const id = event.context.params?.id;
 
-  if (slug && mockDatabase[slug]) {
-    return mockDatabase[slug];
+  if (id && mockDatabase[id]) {
+    return mockDatabase[id];
   }
 
   return {
     title: '党建信息详情',
     author: '国家电投集团保险经纪有限公司',
     publishedAt: new Date().toISOString().slice(0, 10),
-    content: `<p>暂未录入该党建信息详情，标识：${slug ?? '未知'}</p>`,
+    content: `<p>暂未录入该党建信息详情，标识：${id ?? '未知'}</p>`,
   };
 });

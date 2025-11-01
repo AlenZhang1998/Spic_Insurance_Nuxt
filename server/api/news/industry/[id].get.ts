@@ -1,4 +1,4 @@
-import type { H3Event } from 'h3';
+﻿import type { H3Event } from 'h3';
 
 // TODO: Replace mock content with real backend data once the API is available.
 const mockDatabase: Record<
@@ -80,9 +80,9 @@ const mockDatabase: Record<
 };
 
 export default defineEventHandler((event: H3Event) => {
-  const slug = event.context.params?.slug;
-  if (slug && mockDatabase[slug]) {
-    return mockDatabase[slug];
+  const id = event.context.params?.id;
+  if (id && mockDatabase[id]) {
+    return mockDatabase[id];
   }
 
   return {
@@ -91,6 +91,6 @@ export default defineEventHandler((event: H3Event) => {
     publishedAt: new Date().toISOString().slice(0, 10),
     content: `<h2 style="color:#2b6cb0;">这些都是 富文本 测试数据</h2>
         <p>欢迎使用 <strong>测试数据</strong> hello, 这里展示了一段测试富文本内容。</p>
-        <p>测试数据测试数据</p><p>暂无该行业资讯的详细内容，标识：${slug ?? '未知'}</p>`,
+        <p>测试数据测试数据</p><p>暂无该行业资讯的详细内容，标识：${id ?? '未知'}</p>`,
   };
 });

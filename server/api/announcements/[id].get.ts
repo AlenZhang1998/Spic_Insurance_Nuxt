@@ -1,4 +1,4 @@
-import type { H3Event } from 'h3';
+﻿import type { H3Event } from 'h3';
 
 const mockDatabase: Record<
   string,
@@ -44,9 +44,9 @@ const mockDatabase: Record<
 };
 
 export default defineEventHandler((event: H3Event) => {
-  const slug = event.context.params?.slug;
-  if (slug && mockDatabase[slug]) {
-    return mockDatabase[slug];
+  const id = event.context.params?.id;
+  if (id && mockDatabase[id]) {
+    return mockDatabase[id];
   }
 
   throw createError({

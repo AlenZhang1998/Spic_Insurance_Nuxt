@@ -3,11 +3,11 @@
     <ul class="announcement-board__list">
       <li
         v-for="item in paginatedItems"
-        :key="item.id || item.title"
+        :key="item.legacyId || item.id || item.title"
         class="announcement-item"
-        :class="{ 'announcement-item--clickable': !!item.slug }"
-        :role="item.slug ? 'button' : undefined"
-        :tabindex="item.slug ? 0 : undefined"
+        :class="{ 'announcement-item--clickable': !!item.id }"
+        :role="item.id ? 'button' : undefined"
+        :tabindex="item.id ? 0 : undefined"
       >
         <div class="announcement-item__headline">
           <h3 class="announcement-item__title" @click="handleSelect(item)">
@@ -173,7 +173,7 @@ watch(
 );
 
 const handleSelect = (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   emit('select', item);

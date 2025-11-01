@@ -35,13 +35,13 @@ const layout = contentPageLayouts.news;
 const pageSize = 5;
 const { $axios } = useNuxtApp();
 
-const {
-  data: annualNewsData,
-  error: annualNewsError,
-} = await useAsyncData('annual-news-list', async () => {
-  const { data } = await $axios.get('/api/news/annual');
-  return data?.items ?? [];
-});
+const { data: annualNewsData, error: annualNewsError } = await useAsyncData(
+  'annual-news-list',
+  async () => {
+    const { data } = await $axios.get('/api/news/annual');
+    return data?.items ?? [];
+  },
+);
 
 watchEffect(() => {
   if (annualNewsError.value) {
@@ -62,11 +62,11 @@ const handlePageChange = (page) => {
 };
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedArticle.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -75,13 +75,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   articleDetail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/news/annual/${slug}`);
+    const { data } = await $axios.get(`/api/news/annual/${id}`);
     articleDetail.value = data;
   } catch (err) {
     console.error('加载年度新闻失败：', err);

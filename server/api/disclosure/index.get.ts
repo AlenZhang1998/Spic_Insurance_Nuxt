@@ -1,9 +1,9 @@
-export default defineEventHandler(() => {
+﻿export default defineEventHandler(() => {
   return {
     items: [
       {
-        id: '20201204',
-        slug: 'd-20201204',
+        legacyId: '20201204',
+        id: 'd-20201204',
         title: '信息披露',
         summary:
           '公司基本信息 经营保险经纪业务许可证：营业执照：经营互联网保险业务的手机移动端信息 微信名称：融和e保 互联网保险产品信息（随产品的推出进行更新）客服热线：010-86625600。',

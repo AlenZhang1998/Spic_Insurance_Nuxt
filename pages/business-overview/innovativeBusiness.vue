@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <DynamicPage v-bind="layout">
     <template v-if="!selectedItem">
       <FeatureGrid
@@ -34,7 +34,7 @@ const businessHighlights = [
   {
     title: '创新业务概览',
     image: 'images/disclosure/list3.jpg',
-    slug: 'overview',
+    id: 'overview',
     description: '探索数字科技、绿色保险等新兴业务模式，打造保险经纪创新生态。',
   },
 ];
@@ -45,11 +45,11 @@ const loading = ref(false);
 const errorMessage = ref('');
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedItem.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -58,13 +58,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   detail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/business/fakeData/${slug}`);
+    const { data } = await $axios.get(`/api/business/fakeData/${id}`);
     detail.value = data;
   } catch (err) {
     console.error('加载业务详情失败：', err);

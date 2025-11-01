@@ -35,13 +35,13 @@ const layout = contentPageLayouts.partyBuilding;
 const pageSize = 10;
 const { $axios } = useNuxtApp();
 
-const {
-  data: cleanGovernanceData,
-  error: cleanGovernanceError,
-} = await useAsyncData('party-building-clean-list', async () => {
-  const { data } = await $axios.get('/api/party-building/clean');
-  return data?.items ?? [];
-});
+const { data: cleanGovernanceData, error: cleanGovernanceError } = await useAsyncData(
+  'party-building-clean-list',
+  async () => {
+    const { data } = await $axios.get('/api/party-building/clean');
+    return data?.items ?? [];
+  },
+);
 
 watchEffect(() => {
   if (cleanGovernanceError.value) {
@@ -62,11 +62,11 @@ const handlePageChange = (page) => {
 };
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedArticle.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -75,13 +75,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   articleDetail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/party-building/clean/${slug}`);
+    const { data } = await $axios.get(`/api/party-building/clean/${id}`);
     articleDetail.value = data;
   } catch (err) {
     console.error('加载党风廉政详情失败：', err);

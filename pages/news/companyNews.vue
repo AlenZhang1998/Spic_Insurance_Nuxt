@@ -35,13 +35,13 @@ const layout = contentPageLayouts.news;
 const pageSize = 5;
 const { $axios } = useNuxtApp();
 
-const {
-  data: companyNewsData,
-  error: companyNewsError,
-} = await useAsyncData('company-news-list', async () => {
-  const { data } = await $axios.get('/api/news/company');
-  return data?.items ?? [];
-});
+const { data: companyNewsData, error: companyNewsError } = await useAsyncData(
+  'company-news-list',
+  async () => {
+    const { data } = await $axios.get('/api/news/company');
+    return data?.items ?? [];
+  },
+);
 
 watchEffect(() => {
   if (companyNewsError.value) {
@@ -62,11 +62,11 @@ const handlePageChange = (page) => {
 };
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedArticle.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -75,13 +75,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   articleDetail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/news/company/${slug}`);
+    const { data } = await $axios.get(`/api/news/company/${id}`);
     articleDetail.value = data;
   } catch (err) {
     console.error('加载公司要闻失败：', err);

@@ -86,11 +86,11 @@ watch(
 
 const errorMessage = computed(() => (error.value ? '搜索服务暂时不可用，请稍后再试。' : ''));
 
-const pushWithSlug = (target, slug) => {
+const pushWithId = (target, id) => {
   if (!target) {
     return;
   }
-  if (!slug) {
+  if (!id) {
     router.push(target);
     return;
   }
@@ -102,7 +102,7 @@ const pushWithSlug = (target, slug) => {
       path: pathPart,
       query: {
         ...queryParams,
-        slug,
+        id,
       },
     });
     return;
@@ -112,14 +112,14 @@ const pushWithSlug = (target, slug) => {
     ...target,
     query: {
       ...(target.query ?? {}),
-      slug,
+      id,
     },
   });
 };
 
 const handleSelect = (item) => {
   if (item?.to) {
-    pushWithSlug(item.to, item.slug);
+    pushWithId(item.to, item.id);
   }
 };
 

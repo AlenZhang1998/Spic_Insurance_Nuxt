@@ -1,14 +1,14 @@
-import { getRouterParam } from 'h3';
+﻿import { getRouterParam } from 'h3';
 
 import dataset from './dataset';
 
 export default defineEventHandler((event) => {
-  const slug = getRouterParam(event, 'slug');
-  if (!slug) {
-    throw createError({ statusCode: 400, statusMessage: 'Missing search item slug' });
+  const id = getRouterParam(event, 'id');
+  if (!id) {
+    throw createError({ statusCode: 400, statusMessage: 'Missing search item id' });
   }
 
-  const item = dataset.find((entry) => entry.slug === slug);
+  const item = dataset.find((entry) => entry.id === id);
   if (!item) {
     throw createError({ statusCode: 404, statusMessage: 'Search item not found' });
   }

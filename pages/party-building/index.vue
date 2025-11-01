@@ -35,13 +35,13 @@ const layout = contentPageLayouts.partyBuilding;
 const pageSize = 10;
 const { $axios } = useNuxtApp();
 
-const {
-  data: partyBuildingData,
-  error: partyBuildingError,
-} = await useAsyncData('party-building-general-list', async () => {
-  const { data } = await $axios.get('/api/party-building/general');
-  return data?.items ?? [];
-});
+const { data: partyBuildingData, error: partyBuildingError } = await useAsyncData(
+  'party-building-general-list',
+  async () => {
+    const { data } = await $axios.get('/api/party-building/general');
+    return data?.items ?? [];
+  },
+);
 
 watchEffect(() => {
   if (partyBuildingError.value) {
@@ -62,11 +62,11 @@ const handlePageChange = (page) => {
 };
 
 const handleSelect = async (item) => {
-  if (!item || !item.slug) {
+  if (!item || !item.id) {
     return;
   }
   selectedArticle.value = item;
-  await fetchDetail(item.slug);
+  await fetchDetail(item.id);
 };
 
 const resetDetail = () => {
@@ -75,13 +75,13 @@ const resetDetail = () => {
   errorMessage.value = '';
 };
 
-const fetchDetail = async (slug) => {
+const fetchDetail = async (id) => {
   loading.value = true;
   errorMessage.value = '';
   articleDetail.value = null;
 
   try {
-    const { data } = await $axios.get(`/api/party-building/general/${slug}`);
+    const { data } = await $axios.get(`/api/party-building/general/${id}`);
     articleDetail.value = data;
   } catch (err) {
     console.error('加载党建信息失败：', err);
