@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, computed, watch, watchEffect } from 'vue';
 import DynamicPage from '@/components/common/DynamicPage.vue';
 import ArticleList from '@/components/common/ArticleList.vue';
 import DetailView from '@/components/common/DetailView.vue';
@@ -49,6 +49,8 @@ watchEffect(() => {
   }
 });
 
+const route = useRoute();
+
 const disclosureItems = computed(() => disclosureData.value ?? []);
 const currentPage = ref(1);
 const selectedDisclosure = ref(null);
@@ -65,8 +67,7 @@ const handleSelect = async (item) => {
   if (!item || !item.id) {
     return;
   }
-  selectedDisclosure.value = item;
-  await fetchDetail(item.id);
+  await loadDetailById(item.id, item);
 };
 
 const resetDetail = () => {
@@ -90,6 +91,70 @@ const fetchDetail = async (id) => {
     loading.value = false;
   }
 };
+
+const extractRouteId = (value) => {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value ?? '';
+};
+
+const routeId = computed(() => extractRouteId(route.query.id));
+
+const loadDetailById = async (id, fallbackItem) => {
+  if (!id) {
+    return;
+  }
+
+  const existing =
+    fallbackItem ?? disclosureItems.value.find((item) => item.id === id);
+
+  if (existing) {
+    selectedDisclosure.value = existing;
+  } else if (!selectedDisclosure.value || selectedDisclosure.value.id !== id) {
+    selectedDisclosure.value = { id };
+  }
+
+  if (selectedDisclosure.value?.id === id && disclosureDetail.value && !loading.value) {
+    return;
+  }
+
+  await fetchDetail(id);
+};
+
+watch(
+  routeId,
+  async (id, previousId) => {
+    if (!id) {
+      if (selectedDisclosure.value) {
+        resetDetail();
+      }
+      return;
+    }
+
+    if (
+      id === previousId &&
+      selectedDisclosure.value?.id === id &&
+      disclosureDetail.value
+    ) {
+      return;
+    }
+
+    await loadDetailById(id);
+  },
+  { immediate: true },
+);
+
+watch(disclosureItems, (items) => {
+  if (!selectedDisclosure.value?.id || !items?.length) {
+    return;
+  }
+
+  const match = items.find((item) => item.id === selectedDisclosure.value.id);
+  if (match && match !== selectedDisclosure.value) {
+    selectedDisclosure.value = match;
+  }
+});
 
 const pageTitle = computed(() => {
   // if (selectedDisclosure.value && disclosureDetail.value?.title) {

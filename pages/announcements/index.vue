@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import DynamicPage from '@/components/common/DynamicPage.vue';
 import ArticleList from '@/components/common/ArticleList.vue';
 import DetailView from '@/components/common/DetailView.vue';
@@ -182,6 +182,8 @@ const announcementEntries = [
   },
 ];
 
+const route = useRoute();
+
 const announcements = ref(announcementEntries);
 const currentPage = ref(1);
 const selectedAnnouncement = ref(null);
@@ -198,8 +200,7 @@ const handleSelect = async (item) => {
   if (!item || !item.id) {
     return;
   }
-  selectedAnnouncement.value = item;
-  await fetchDetail(item.id);
+  await loadDetailById(item.id, item);
 };
 
 const resetDetail = () => {
@@ -223,6 +224,73 @@ const fetchDetail = async (id) => {
     loading.value = false;
   }
 };
+
+const extractRouteId = (value) => {
+  if (Array.isArray(value)) {
+    return value[0];
+  }
+  return value ?? '';
+};
+
+const routeId = computed(() => extractRouteId(route.query.id));
+
+const loadDetailById = async (id, fallbackItem) => {
+  if (!id) {
+    return;
+  }
+
+  const existing = fallbackItem ?? announcements.value.find((item) => item.id === id);
+
+  if (existing) {
+    selectedAnnouncement.value = existing;
+  } else if (!selectedAnnouncement.value || selectedAnnouncement.value.id !== id) {
+    selectedAnnouncement.value = { id };
+  }
+
+  if (
+    selectedAnnouncement.value?.id === id &&
+    announcementDetail.value &&
+    !loading.value
+  ) {
+    return;
+  }
+
+  await fetchDetail(id);
+};
+
+watch(
+  routeId,
+  async (id, previousId) => {
+    if (!id) {
+      if (selectedAnnouncement.value) {
+        resetDetail();
+      }
+      return;
+    }
+
+    if (
+      id === previousId &&
+      selectedAnnouncement.value?.id === id &&
+      announcementDetail.value
+    ) {
+      return;
+    }
+
+    await loadDetailById(id);
+  },
+  { immediate: true },
+);
+
+watch(announcements, (items) => {
+  if (!selectedAnnouncement.value?.id || !items?.length) {
+    return;
+  }
+
+  const match = items.find((item) => item.id === selectedAnnouncement.value.id);
+  if (match && match !== selectedAnnouncement.value) {
+    selectedAnnouncement.value = match;
+  }
+});
 
 const pageTitle = computed(() => {
   // if (selectedAnnouncement.value && announcementDetail.value?.title) {
