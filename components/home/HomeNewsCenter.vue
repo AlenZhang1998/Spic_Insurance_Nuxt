@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="home-news">
     <div class="home-news__container">
       <div class="home-news__content" v-if="activeCategory">
@@ -104,131 +104,149 @@ interface NewsCategory {
   items: NewsItem[];
 }
 
+interface RawNewsItem {
+  id?: string;
+  title?: string;
+  summary?: string;
+  date?: string;
+}
+
+interface RawNewsResponse {
+  items?: RawNewsItem[];
+}
+
 import highlight1 from '@/assets/images/home/2_160935322406.png';
 import highlight2 from '@/assets/images/home/2_201438518443.png';
 import highlight3 from '@/assets/images/home/2_201437221155.jpg';
 import highlight4 from '@/assets/images/home/2_201436168516.jpg';
 
-const categories: NewsCategory[] = [
-  {
-    key: 'company',
-    label: '公司要闻',
-    highlights: [
+const highlightPresets: Record<string, NewsHighlight[]> = {
+  company: [
+    {
+      image: highlight1,
+      title: '公司重要活动现场',
+    },
+    {
+      image: highlight2,
+      title: '党建活动专题',
+    },
+    {
+      image: highlight3,
+      title: '合作伙伴签约仪式',
+    },
+    {
+      image: highlight4,
+      title: '团队建设与培训瞬间',
+    },
+  ],
+  industry: [
+    {
+      image: highlight1,
+      title: '能源行业专题论坛',
+    },
+    {
+      image: highlight2,
+      title: '双碳政策研讨',
+    },
+    {
+      image: highlight3,
+      title: '科技创新成果展示',
+    },
+  ],
+};
+
+const extractDateParts = (dateString?: string) => {
+  if (!dateString) {
+    return { day: '--', yearMonth: '' };
+  }
+
+  const [year, month, day] = dateString.split('-');
+
+  return {
+    day: day ? day.padStart(2, '0') : '--',
+    yearMonth: year && month ? `${year}-${month}` : dateString,
+  };
+};
+
+const { $axios } = useNuxtApp();
+
+const { data: fetchedCategories, error: categoriesError } = await useAsyncData(
+  'home-news-categories',
+  async () => {
+    const [{ data: companyData }, { data: industryData }] = await Promise.all([
+      $axios.get<RawNewsResponse>('/api/news/company'),
+      $axios.get<RawNewsResponse>('/api/news/industry'),
+    ]);
+
+    const buildItems = (items: RawNewsItem[] | undefined, route: string): NewsItem[] => {
+      if (!items?.length) {
+        return [];
+      }
+
+      return items.slice(0, 4).map((item) => {
+        const { day, yearMonth } = extractDateParts(item.date);
+        const itemId = item.id ?? '';
+        return {
+          day,
+          yearMonth,
+          title: item.title ?? '',
+          summary: item.summary ?? '',
+          link: itemId ? `${route}?id=${itemId}` : route,
+        };
+      });
+    };
+
+    const categories: NewsCategory[] = [
       {
-        image: highlight1,
-        title: '公司重要活动现场',
-        // link: 'https://www.spicib.com/html/view_160.html',
+        key: 'company',
+        label: '公司要闻',
+        highlights: highlightPresets.company ?? [],
+        items: buildItems(companyData?.items, '/news/companyNews'),
       },
       {
-        image: highlight2,
-        title: '党建活动与专题培训',
-        // link: 'https://www.spicib.com/html/view_152.html',
+        key: 'industry',
+        label: '行业资讯',
+        highlights: highlightPresets.industry ?? [],
+        items: buildItems(industryData?.items, '/news/industryNews'),
       },
-      {
-        image: highlight3,
-        title: '合作伙伴签约仪式',
-        // link: 'https://www.spicib.com/html/view_159.html',
-      },
-      {
-        image: highlight4,
-        title: '大巴车',
-        // link: 'https://www.spicib.com/html/view_159.html',
-      },
-    ],
-    items: [
-      {
-        day: '09',
-        yearMonth: '2022-03',
-        title: '保险经纪积极拓展市场化业务',
-        summary:
-          '保险经纪业务拓展团队赴郑州拜访明喆建投、郑州市建设投资集团，围绕创新合作模式推进市场化业务落地。',
-        link: 'https://www.spicib.com/html/view_160.html',
-      },
-      {
-        day: '09',
-        yearMonth: '2022-03',
-        title: '保险经纪举办“健康向上”主题“三八”妇女节活动',
-        summary: '公司工会组织开展健康关怀与主题沙龙活动，营造向上向善的企业文化氛围。',
-        link: 'https://www.spicib.com/html/view_152.html',
-      },
-      {
-        day: '24',
-        yearMonth: '2022-02',
-        title: '保险经纪召开2022年工作会议',
-        summary: '会议总结2021年重点成果，部署风险管理、业务拓展、党建与信息化建设等年度任务。',
-        link: 'https://www.spicib.com/html/view_159.html',
-      },
-      {
-        day: '18',
-        yearMonth: '2022-02',
-        title: '张伟冬、田志国会见明喆集团高管一行',
-        summary: '双方就保险业务协同开展深入交流，推进能源与城市服务领域的战略合作。',
-        link: 'https://www.spicib.com/html/view_155.html',
-      },
-    ],
+    ];
+
+    return categories.filter((category) => category.items.length);
   },
-  {
-    key: 'industry',
-    label: '行业资讯',
-    highlights: [
-      {
-        image: highlight1,
-        title: '能源行业专题论坛',
-        link: 'https://www.spicib.com/html/view_47.html',
-      },
-      {
-        image: highlight2,
-        title: '双碳政策研讨',
-        link: 'https://www.spicib.com/html/view_39.html',
-      },
-      {
-        image: highlight3,
-        title: '科技创新成果展示',
-        link: 'https://www.spicib.com/html/view_38.html',
-      },
-    ],
-    items: [
-      {
-        day: '03',
-        yearMonth: '2021-11',
-        title: '今年10月疆电外送电量突破千亿大关',
-        summary: '1-10月疆电外送电量达到1024亿千瓦时，同比增长23%，能源配置持续优化。',
-        link: 'https://www.spicib.com/html/view_47.html',
-      },
-      {
-        day: '01',
-        yearMonth: '2021-11',
-        title: '“能跌能涨”市场化电价机制初步形成',
-        summary: '河南省完成电力直接交易合同改签，全国电力市场化改革迈出坚实步伐。',
-        link: 'https://www.spicib.com/html/view_39.html',
-      },
-      {
-        day: '27',
-        yearMonth: '2021-10',
-        title: '实现碳达峰、碳中和目标不能立刻弃煤',
-        summary: '专家指出实现双碳目标需循序渐进，坚持安全可控与系统协同。',
-        link: 'https://www.spicib.com/html/view_38.html',
-      },
-      {
-        day: '25',
-        yearMonth: '2021-10',
-        title: '国内在建纬度最高抽水蓄能电站进入蓄水阶段',
-        summary: '黑龙江荒沟抽水蓄能电站投入运行前蓄水，标志着项目即将实现发电目标。',
-        link: 'https://www.spicib.com/html/view_37.html',
-      },
-    ],
-  },
-];
+);
+
+watchEffect(() => {
+  if (categoriesError.value) {
+    console.error('Failed to load home news categories', categoriesError.value);
+  }
+});
+
+const categories = computed(() => fetchedCategories.value ?? []);
 
 const showHeader = ref(false);
 const showTabs = ref(false);
 const showCarousel = ref(false);
 const showList = ref(false);
 
-const activeKey = ref<NewsCategory['key']>(categories[0].key);
+const activeKey = ref<NewsCategory['key'] | ''>('');
+
+watch(
+  categories,
+  (list) => {
+    if (!list.length) {
+      activeKey.value = '';
+      return;
+    }
+
+    if (!list.some((item) => item.key === activeKey.value)) {
+      activeKey.value = list[0].key;
+    }
+  },
+  { immediate: true },
+);
 
 const activeCategory = computed(() =>
-  categories.find((category) => category.key === activeKey.value),
+  categories.value.find((category) => category.key === activeKey.value),
 );
 
 const carouselRef = ref<CarouselInstance | null>(null);
