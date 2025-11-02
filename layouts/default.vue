@@ -388,9 +388,10 @@ const onSearch = () => {
   .el-dropdown-menu__item {
     color: #000;
     &:hover {
+      font-size: 16px;
       background-color: #fff;
-      color: #000;
-      font-weight: bold;
+      color: #e41b1b;
+      font-weight: 600;
     }
   }
 }
