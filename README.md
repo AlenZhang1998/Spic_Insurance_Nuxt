@@ -88,7 +88,14 @@
 
 ```bash
 npm run build
+npm run start    # 生产/服务器运行（包含 server/api mock）
 npm run preview  # 本地预览构建结果
 ```
 
-静态资源可托管至任意支持 Node.js 的环境，详见官方文档：[Nuxt 部署指南](https://nuxt.com/docs/getting-started/deployment)。
+注意：
+
+- 本项目依赖 `server/api/*` 内置 mock，所以线上不能只部署静态文件（例如只上传 `.output/public` 或使用 `npm run generate` 的产物），否则 `/api/*` 会 404。
+- 需要在服务器上运行 Nuxt 的 Node 服务：先 `npm run build`，再 `npm run start`（等价于 `node .output/server/index.mjs`）。
+- 如果你用 Nginx，确保把站点请求转发到 Nuxt 进程（`/api` 和前端路由都走同一个端口）。
+
+详见官方文档：[Nuxt 部署指南](https://nuxt.com/docs/getting-started/deployment)。
